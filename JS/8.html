@@ -1,0 +1,156 @@
+<!-- 
+    Занятие 26.11
+    Формы и JS
+ -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Форма с lable, placeholder, метод get, input type text, password, checkbox с переадресацией после отравки данных на /sanks-->
+    <!-- http://127.0.0.1:5500/sanks?login=rtetet&password=ertet&remember=on -->
+    <!-- <form action="/sanks" method="get">
+        <label for="login">Login</label>
+        <input type="text" name="login" id="login" placeholder="Enter login" class="form-control">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter password" class="form-control">
+        <input type="checkbox" name="remember" id="remember" class="form-check-input">
+        <label for="remember">Remember me</label>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form> -->
+
+    <!-- Форма для загрузки файлов рекомендуемых расширений .jpg, .png, jpeg, .heic -->
+    <!-- method=post - для отправки файлов, т.к. мы не можем передать файлы через get -->
+    <!-- enctype="multipart/form-data" - означает что мы будем передавать файлы -->
+    <!-- <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" accept=".jpg, .png, jpeg, .heic">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> -->
+
+    <!-- Возьмем классическую BS5 форму)) -->
+    <form>
+        <input type="hidden" name="csrf_token" value="xyz123!@#">
+        <div class="mb-3">
+            <label for="inputEmail" class="form-label">Адрес электронной почты</label>
+            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" required
+                minlength="10">
+            <div id="formMessage" class="form-text">Мы никогда никому не передадим вашу электронную почту.</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="inputPassword" required minlength="12" pattern="[а-я]{8,}" title="От а до я не менее 8 букв">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMy">
+            <label class="form-check-label" for="rememberMy">Запомнить меня</label>
+
+        </div>
+        <div class=" form-check">
+            <label class="form-check-label" for="rememberMy">Посмотреть пароль</label>
+            <input type="checkbox" class="form-check-input" id="seePassword">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" disabled>Отправить</button>
+        </div>
+
+    </form>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+
+
+        </script>
+
+    <script>
+        // Событие submit - срабатывает при отправке формы
+        // Событие change - срабатывает при изменении значения элемента
+        // Событие input - срабатывает при вводе символа в поле
+        // Событие focus - срабатывает при фокусе на элементе
+        // Событие blur - срабатывает при потере фокуса на элементе
+        // Событие keydown - срабатывает при нажатии на клавишу
+        // Событие keyup - срабатывает при отпускании клавиши
+        // Событие keypress - срабатывает при нажатии на клавишу
+
+        // Добудем элементы формы
+        let emailInput = document.querySelector('#inputEmail');
+        let passwordInput = document.querySelector('#inputPassword');
+        let rememberInput = document.querySelector('#rememberMy');
+        let formMessage = document.querySelector('#formMessage');
+
+        let inputArray = [emailInput, passwordInput, rememberInput];
+
+        // Функция которая принимает строку и заполняет ею элемент formMessage
+        function setMessage(message) {
+            formMessage.textContent = message;
+        }
+        // Повесим обработчик события на форму по фокусу с выводом сообщения "Форма в фокусе"
+        // Копия массива 
+        let inputArrayCopy = inputArray.slice();
+        while (inputArrayCopy.length) {
+            // К
+            inputArrayCopy.pop().addEventListener('focus', function () {
+                setMessage('Форма в фокусе');
+            });
+        }
+
+        // Повесим обработчик события на форму по потере фокуса с выводом сообщения "Форма не в фокусе"
+        let inputArrayCopy2 = inputArray.slice();
+        while (inputArrayCopy2.length) {
+            inputArrayCopy2.pop().addEventListener('blur', function () {
+                setMessage('Форма не в фокусе');
+            });
+        }
+
+        // Функция которая принимает строку и число, и возвращает true если длина строки больше числа
+        function checkLength(string, number) {
+            return string.length > number;
+        }
+
+        // Функция которая которая обрабатывает 2 поля ввода
+        // И при условии ввода в них больше 4 символов, активирует кнопку отправки формы
+        function checkInputs() {
+            let button = document.querySelector('button');
+            if (checkLength(emailInput.value, 4) && checkLength(passwordInput.value, 8)) {
+                setMessage('Форма заполнена корректно');
+                button.removeAttribute('disabled');
+            } else {
+                button.setAttribute('disabled', 'disabled');
+                setMessage('Форма заполнена некорректно');
+            }
+        }
+
+        // Повесим обработчик на оба поля ввода и будем вызывать функцию checkInputs
+        emailInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+
+        // Функция которая переключает атрибут type у поля ввода пароля с password на text и обратно
+        function seePassword() {
+            let passwordInput = document.querySelector('#inputPassword');
+            if (passwordInput.getAttribute('type') == 'password') {
+                passwordInput.setAttribute('type', 'text');
+            } else {
+                passwordInput.setAttribute('type', 'password');
+            }
+        }
+
+        // Повесим обработчик на чекбокс с id seePassword и будем вызывать функцию seePassword
+        let seePasswordCheckbox = document.querySelector('#seePassword');
+
+        // Добавляем листнер
+        seePasswordCheckbox.addEventListener('change', seePassword);
+
+
+    </script>
+</body>
+
+</html>

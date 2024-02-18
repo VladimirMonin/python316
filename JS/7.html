@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <h1>Работа с <code>DOM</code> структурой</h1>
+        <nav class="nav">
+
+        </nav>
+    </header>
+    <main>
+        <h2 id="h2-0">Сегодня на уроке</h2>
+        <ul>
+
+            <li>Методы поиска элеметов <code>DOM</code></li>
+            <li><code>Inner HTML</code> - свойство, позволяющее изменять <code>HTML</code> содержимое элемента</li>
+            <li><code>outerHTML</code> - свойство для изменения <code>HTML</code> вместе с элементом</li>
+            <li><code>hidden</code> - атрибут для скрытия элемента</li>
+            <li>Атрибуты элемента и их управление (<code>getAttribute</code>, <code>setAttribute</code>,
+                <code>hasAttribute</code>, <code>removeAttribute</code>, <code>.attributes</code>)
+            </li>
+            <li>Создание и управление расположением элементов (<code>CreateElement</code>, <code>append</code>,
+                <code>prepend</code>, <code>before</code>, <code>after</code>, <code>replaceWith</code>)
+            </li>
+            <li>Работа с классами элемента (<code>classList</code>, <code>add</code>, <code>remove</code>,
+                <code>toggle</code>, <code>contains</code>, <code>list</code>)
+            </li>
+        </ul>
+
+
+        <h2 id="h2-1">Определение модели DOM</h2>
+        <p> <strong>Document Object Model </strong> - это программный интерфейс для HTML и XML документов. Он
+            представляет структуру документа в виде дерева объектов, которое легко манипулировать с и изменить с
+            помощью языков программирования, таких как JavaScript. Цель DOM - предоставить платформонезависимый и
+            языконезависимый интерфейс для работы с документами, облегчая манипуляции с содержимым, атрибутами и
+            структурой документа.</p>
+
+
+        <h2 id="h2-2">Поиск элементов DOM</h2>
+        <p> DOM состоит из иерархии объектов, состоящего из объектов различных типов, таких как элементы, атрибуты, и
+            текстовые узлы. У каждого объекта есть набор методов и свойств, которые позволяют манипулировать ими. На
+            вершине DOM-иерархии находится объект документа (<code>document</code>), содержащий остальные объекты и
+            являющийся точкой входа для доступа к содержимому страницы.</p>
+
+        <h2 id="h2-3">Сводная таблица методов взаимодействия <code>DOM</code></h2>
+
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Метод/Свойство</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>getElementById()</code></td>
+                    <td>Возвращает ссылку на элемент, который имеет идентификатор, соответствующий указанному строковому
+                        ID.</td>
+                </tr>
+                <tr>
+                    <td><code>getElementsByTagName()</code></td>
+                    <td>Возвращает HTMLCollection элементов с заданным именем тега.</td>
+                </tr>
+                <tr>
+                    <td><code>getElementsByClassName()</code></td>
+                    <td>Возвращает HTMLCollection элементов, которые имеют указанный класс.</td>
+                </tr>
+                <tr>
+                    <td><code>querySelector()</code></td>
+                    <td>Возвращает первый элемент, который соответствует указанному CSS селектору.</td>
+                </tr>
+                <tr>
+                    <td><code>querySelectorAll()</code></td>
+                    <td>Возвращает статический (не живой) NodeList, представляющий список элементов документа,
+                        соответствующих указанному селектору.</td>
+                </tr>
+                <tr>
+                    <td><code>createElement()</code></td>
+                    <td>Создает новый элемент с указанным тегом.</td>
+                </tr>
+                <tr>
+                    <td><code>createTextNode()</code></td>
+                    <td>Создает новый текстовый узел с заданным текстом.</td>
+                </tr>
+                <tr>
+                    <td><code>appendChild()</code></td>
+                    <td>Добавляет узел в конец списка дочерних узлов родительского элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>removeChild()</code></td>
+                    <td>Удаляет дочерний узел из DOM.</td>
+                </tr>
+                <tr>
+                    <td><code>replaceChild()</code></td>
+                    <td>Заменяет один дочерний узел на другой в списке дочерних узлов родительского элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>parentNode</code></td>
+                    <td>Свойство, которое возвращает родительский узел указанного узла в дереве DOM.</td>
+                </tr>
+                <tr>
+                    <td><code>nextSibling</code></td>
+                    <td>Свойство, возвращающее следующий узел на том же уровне дерева или null, если такого узла нет.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>previousSibling</code></td>
+                    <td>Свойство, возвращающее предыдущий узел на том же уровне дерева или null, если такого узла нет.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>firstChild</code></td>
+                    <td>Свойство, возвращающее первый дочерний узел элемента или null, если узла нет.</td>
+                </tr>
+                <tr>
+                    <td><code>lastChild</code></td>
+                    <td>Свойство, возвращающее последний дочерний узел элемента или null, если узла нет.</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2 id="h2-4">Примеры поиска элементов DOM</h2>
+        <!-- Про ключевое отличие между getElementById и querySelector -->
+        <p>Все методы поиска элементов DOM возвращают коллекцию элементов, которые соответствуют заданному селектору.
+            Коллекция элементов - это объект, похожий на массив, который содержит ссылки на все найденные элементы.
+            Коллекция элементов может быть пустой, если ни один элемент не соответствует заданному селектору.</p>
+
+        <p>Методы поиска элементов DOM:</p>
+        <ul>
+            <li><code>getElementById()</code> - возвращает ссылку на элемент, который имеет идентификатор,
+                соответствующий
+                указанному строковому ID.</li>
+            <li><code>getElementsByTagName()</code> - возвращает HTMLCollection элементов с заданным именем тега.</li>
+            <li><code>getElementsByClassName()</code> - возвращает HTMLCollection элементов, которые имеют указанный
+                класс.</li>
+            <li><code>querySelector()</code> - возвращает первый элемент, который соответствует указанному CSS
+                селектору.</li>
+            <li><code>querySelectorAll()</code> - возвращает статический (не живой) NodeList, представляющий список
+                элементов документа, соответствующих указанному селектору.</li>
+        </ul>
+
+        <h2 id="h2-5">Разница между <code>getElementById</code> и <code>querySelector</code></h2>
+
+        <p> Живые коллекции (Live Collections) <code>getElement</code>: Эти методы возвращают "живые" коллекции
+            элементов. Это значит, что
+            коллекция автоматически обновляется при изменении DOM. Например, если элемент добавляется или удаляется
+            из
+            DOM, он также добавляется или удаляется из коллекции.</p>
+
+        <p>Статические коллекции (Static Collections): <code>querySelector</code> возвращает статическую коллекцию,
+            то есть она не
+            обновляется при изменениях DOM. После создания коллекции, она остается неизменной, независимо от
+            последующих изменений в DOM.</p>
+
+        <h2 id="h2-6">Взаимодействие с элементами <code>DOM</code></h2>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Свойство/Метод</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>innerHTML</code></td>
+                    <td>Получает или устанавливает HTML-содержимое элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>outerHTML</code></td>
+                    <td>Получает или устанавливает HTML-представление элемента, включая открывающий и закрывающий теги.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>textContent</code></td>
+                    <td>Получает или устанавливает текстовое содержимое элемента, без HTML-тегов.</td>
+                </tr>
+                <tr>
+                    <td><code>tagName</code></td>
+                    <td>Возвращает имя тега элемента в верхнем регистре (например, 'DIV' или 'P').</td>
+                </tr>
+                <tr>
+                    <td><code>classList</code></td>
+                    <td>Предоставляет доступ к списку классов элемента, позволяя добавлять, удалять и проверять наличие
+                        классов.</td>
+                </tr>
+                <tr>
+                    <td><code>getAttribute(attributeName)</code></td>
+                    <td>Возвращает значение указанного атрибута элемента или `null`, если атрибут отсутствует.</td>
+                </tr>
+                <tr>
+                    <td><code>setAttribute(attributeName, value)</code></td>
+                    <td>Устанавливает или изменяет значение указанного атрибута.</td>
+                </tr>
+                <tr>
+                    <td><code>removeAttribute(attributeName)</code></td>
+                    <td>Удаляет указанный атрибут у элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>appendChild(childElement)</code></td>
+                    <td>Добавляет элемент в качестве последнего дочернего узла к текущему элементу.</td>
+                </tr>
+                <tr>
+                    <td><code>removeChild(childElement)</code></td>
+                    <td>Удаляет дочерний элемент из текущего элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>replaceChild(newChild, oldChild)</code></td>
+                    <td>Заменяет один дочерний элемент на другой.</td>
+                </tr>
+                <tr>
+                    <td><code>firstChild</code></td>
+                    <td>Возвращает первый дочерний узел элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>lastChild</code></td>
+                    <td>Возвращает последний дочерний узел элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>nextSibling</code></td>
+                    <td>Возвращает следующий узел-сосед относительно текущего элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>previousSibling</code></td>
+                    <td>Возвращает предыдущий узел-сосед относительно текущего элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>parentNode</code></td>
+                    <td>Возвращает родительский узел текущего элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>style</code></td>
+                    <td>Позволяет получать или устанавливать стили элемента через объект CSSStyleDeclaration.</td>
+                </tr>
+                <tr>
+                    <td><code>addEventListener(event, handler)</code></td>
+                    <td>Добавляет обработчик события к элементу.</td>
+                </tr>
+                <tr>
+                    <td><code>removeEventListener(event, handler)</code></td>
+                    <td>Удаляет обработчик события из элемента.</td>
+                </tr>
+                <tr>
+                    <td><code>click()</code></td>
+                    <td>Программно вызывает событие клика на элементе.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="h2-7">Разница между <code>innerHTML</code> и <code>textContent</code></h2>
+
+        <!-- Поле ввода BS5 -->
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Введите текст или <code>HTML/JS</code></label>
+            <input type="text" class="form-control" id="Form1" placeholder="Введите текст">
+        </div>
+        <div id="resultForm1">
+            <p>Результат работы <code>innerHTML</code>: <span></span></p>
+            <p>Результат работы <code>textContent</code>: <span></span></p>
+        </div>
+
+
+    </main>
+    <script>
+        // Поиск элементов DOM
+        let allH2Headers = document.querySelectorAll('main h2');
+        console.log(allH2Headers);
+
+        // querySelectorAll возвращает статический (не живой) NodeList, представляющий список элементов документа, соответствующих указанному селектору.
+        // let allH2Headers2 = document.querySelectorAll('h2');
+        // console.log(allH2Headers2);
+
+        // Ищем элемент header - nav - ul
+        let nav = document.querySelector('header nav');
+
+        // Создаем ему наследника h2 - Автоматически наполняемое меню
+        // let newH2 = document.createElement('h2');
+
+        // Добавляем текст в h2
+        // newH2.textContent = 'Автоматически наполняемое меню';
+
+        // Добавляем h2 в nav наследником
+        // nav.append(newH2);
+
+        // Делаем цикл, в котором создаем a - ссылки с текстом заголовков h2 и ссылками на них, с классом nav-link
+        for (let i = 0; i < allH2Headers.length; i++) {
+            // Создаем ссылку
+            let newA = document.createElement('a');
+
+            // Помещаем элемент h2 в переменную
+            let h2 = allH2Headers[i];
+
+            // Добываем атрибут id из h2
+            let h2Id = h2.getAttribute('id');
+
+            // Добавляем текст заголовка в ссылку
+            newA.textContent = h2.textContent;
+
+            // Добавляем атрибут href в ссылку
+            newA.setAttribute(`href`, `#${h2Id}`);
+
+            // Добавляем класс в ссылку
+            newA.classList.add('nav-link');
+
+            // Добавляем ссылку в nav
+            nav.append(newA);
+        }
+
+        // ДЕЛАЛИ ЭТОТ ВАРИАНТ ДО 2ч 25м на записи лекции
+        // ПОТОМ ПЕРЕШЛИ НА BS5 меню
+        // // Создаем элемент ul - меню
+        // let newUl = document.createElement('ul');
+
+        // // Добавляем класс в ul
+        // newUl.classList.add('menu');
+
+        // // Добавляем ul в конец nav
+        // nav.append(newUl);
+
+        // // Выводим на консоль список меню
+        // console.log(newUl);
+
+        // // Проходим циклом по массиву с заголовками и создаем li - внутренние ссылки
+        // for (let i = 0; i < allH2Headers.length; i++) {
+        //     // Создаем li
+        //     let newLi = document.createElement('li');
+
+        //     // Создаем ссылку
+        //     let newA = document.createElement('a');
+
+        //     // Помещаем элемент h2 в переменную
+        //     let h2 = allH2Headers[i];
+
+        //     // Добываем атрибут id из h2
+        //     let h2Id = h2.getAttribute('id');
+
+        //     // Добавляем текст заголовка в ссылку
+        //     newA.textContent = h2.textContent;
+
+        //     // Добавляем атрибут href в ссылку
+        //     newA.setAttribute(`href`, `#${h2Id}`);
+
+        //     // Добавляем ссылку в li
+        //     newLi.append(newA);
+
+        //     // Добавляем li в ul
+        //     newUl.append(newLi);
+        // }
+
+        // Разница между textContent и innerHTML
+        // Получаем элементы
+        let divResultForm1 = document.querySelector('#resultForm1');
+        
+        // Ищем span первый ребенок в divResultForm1
+        let span1 = divResultForm1.firstElementChild.lastChild
+        
+        // Ищем второй спан через querySelector - второй наследник, span
+        let span2 = divResultForm1.querySelector('p:nth-child(2) span');
+        console.log(span1, span2);
+
+        // Функция которая принимает текст и выводит в span1 innerHTML и в span2 textContent
+        function showText(text) {
+            span1.innerHTML = text;
+            span2.textContent = text;
+        }
+
+        // Получаем поле ввода
+        let inputForm1 = document.querySelector('#Form1');
+
+        // Вешаем обработчик события на поле ввода
+        inputForm1.addEventListener('input', function () {
+            // Получаем значение поля ввода
+            let inputValue = inputForm1.value;
+
+            // Вызываем функцию showText и передаем в нее значение поля ввода
+            showText(inputValue);
+        });
+
+    // add remove toggle contains
+    // add - добавляет класс
+    // remove - удаляет класс
+    // toggle - добавляет класс если его нет, удаляет если есть
+    // contains - проверяет наличие класса, возвращает true или false
+
+        
+    </script>
+</body>
+
+</html>
+
+

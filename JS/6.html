@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .formShadow {
+            box-shadow: 0 0 10px rgba(0, 0, 50);
+            padding: 20px;
+            border-radius: 10px;
+            /* Анимация  */
+            transition: all 0.8s;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: blue;
+            /* Анимация  */
+            transition: all 0.8s;
+        }
+
+        .square {
+            width: 120px;
+            height: 120px;
+            background-color: red;
+            border-radius: 5%;
+
+            /* Анимация  */
+            transition: all 0.8s;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Повторение материала</li>
+                <li><code>Bootstrap 5 - колонки</code></li>
+                <li>Формы. Событие <code>focus</code> и <code>blur</code></li>
+                <li>Событие <code>mouseover</code> и <code>mouseout</code></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Система колонок BS5 с 2 колонками. На компьютере они 
+            отображаются в 2 колонки, (6 из 12) на телефоне схлапываются в одну (12 из 12) -->
+        <div class="container">
+            <div class="row">
+                <!-- Схлопнется при ширине экрана меньше брейкпоинта lg -->
+                <div class="col-lg-4">
+                    <h2>Форма для опытов</h2>
+                    <form id="loginForm">
+                        <!-- mb-3 - margin bottom 3 -->
+                        <div class="mb-3">
+                            <label for="emailForm" class="form-label">Адрес электронной почты</label>
+                            <input type="email" class="form-control" id="emailForm" aria-describedby="emailHelp">
+                            <div id="infoMessage" class="form-text">Мы никогда никому не передадим вашу электронную
+                                почту.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordForm" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="passwordForm">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMyCheckBox">
+                            <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+                        </div>
+                        <button class="btn btn-primary">Войти</button>
+                    </form>
+                    <h2 id="practic1">Практика №1</h2>
+                    <p>Наведи указатель мыши на заголовок, чтобы увидеть работу кода</p>
+                    <p>Тут будет результат: <span id="pPractic1"></span></p>
+
+                    <h2>Практика №2</h2>
+                    <p>Наведи указатель мыши на круг, чтобы увидеть работу кода</p>
+                    <div class="circle"></div>
+                </div>
+                <!-- Схлопнется при ширине экрана меньше брейкпоинта lg -->
+                <div class="col">
+                    <h2>События <code>focus</code> и <code>blur</code></h2>
+                    <p>Событие <code>focus</code> срабатывает, когда элемент получает фокус</p>
+                    <p>Событие <code>blur</code> срабатывает, когда элемент теряет фокус</p>
+                    <p>Это могут быть кнопки, поля ввода, ссылки и другие элементы</p>
+                    <p>В данном примере мы добавляем событие <code>focus</code> на каждый элемент формы </p>
+
+                    <h2> События <code>mouseover</code> и <code>mouseout</code></h2>
+                    <p>Событие <code>mouseover</code> срабатывает, когда указатель мыши наводится на элемент</p>
+                    <p>Событие <code>mouseout</code> срабатывает, когда указатель мыши покидает элемент</p>
+                    <p>Добавим событие <code>mouseover</code> на всю форму, и при наведении мыши на форму, будет
+                        выводится сообщение в
+                        <code>id="infoMessage"</code> а так же у формы появится тень
+                    </p>
+                    <h2>Практика №1. Событие <code>mouseover</code> и <code>mouseout</code></h2>
+                    <h3>Часть 1. <code>mouseover</code></h3>
+                    <ul>
+                        <li>Создайте <code>html документ</code></li>
+                        <li>Добавьте в документе заголовок</li>
+                        <li>Добавьте в документе тег <code>p</code></li>
+                        <li>Добудьте тег в переменную</li>
+                        <li>Добавьте событие <code>mouseover</code> на заголовок <code>p</code></li>
+                        <li>При наведении мыши на тег <code>p</code> добавьте ему класс (опционально)
+                            <code>text-danger</code> и текст <code>Сработало событие mouseover</code>
+                        </li>
+                    </ul>
+                    <p>Добавляем Listener через <code>addEventListener</code>. Класс можно добавить через
+                        <code>classList.add</code> а текст, через <code>textContent</code>
+                    </p>
+                    <p>При наведении мыши на тег <code>p</code> добавьте ему класс (опционально, должен быть подключен
+                        <code>BS5</code>)
+                        <code>text-danger</code> и текст <code>Сработало событие mouseover</code>
+
+                    <h3>Часть 2. <code>mouseout</code></h3>
+                    <ul>
+                        <li>Добавьте событие <code>mouseout</code> на заголовок</li>
+                        <li>При отведении мыши от тега удалите у него класс (опционально)
+                            <code>text-danger</code> и текст <code>Сработало событие mouseout</code>
+                        </li>
+
+                    </ul>
+                    <p>При отведении мыши от тега удалите у него класс (опционально, должен быть подключен
+                        <code>BS5</code>)
+                        <code>text-danger</code> и текст <code>Сработало событие mouseout</code>
+
+                    <h3>Практика синий круг - красный квадрат</h3>
+                    <p>У нас есть <code>div</code> c классом <code>circle</code> и описан класс <code>square</code>. Нам
+                        нужно через <code>toggle</code> добавить класс <code>square</code> к <code>div</code> при
+                        наведении мыши на него, и убрать при отведении</p>
+
+                    <p> Сделать это можно через <code>classList.toggle</code> и <code>mouseover</code> и
+                        <code>mouseout</code>
+                    </p>
+                    <h3>План на завтра</h3>
+                    <!-- - Методы поиска элементов DOM
+- Inner HTML - свойство, позволяющее изменять HTML содержимое элемента
+- outerHTML - свойство для изменения HTML вместе с элементом
+- hidden - атрибут для скрытия элемента
+- Атрибуты элемента и их управление (getAttribute, setAttribute, hasAttribute, removeAttribute, .attributes)
+- Создание и управление расположением элементов (CreateElement, append, prepend, before, after, replaceWith)
+- Работа с классами элемента (classList, add, remove, toggle, contains, list) -->
+                        <ul>
+                            <li>Методы поиска элементов в <code>Dom</code></li>
+                            <li><code>innerHTML</code> - свойство, позволяющее изменять HTML содержимое элемента</li>
+                            <li><code>outerHTML</code> - свойство для изменения HTML вместе с элементом</li>
+                            <li><code>hidden</code> - атрибут для скрытия элемента</li>
+                            <li>Атрибуты элемента и их управление (<code>getAttribute</code>, <code>setAttribute</code>,
+                                <code>hasAttribute</code>, <code>removeAttribute</code>, <code>.attributes</code>)
+                            </li>
+                            <li>Создание и управление расположением элементов (<code>CreateElement</code>, <code>append</code>,
+                                <code>prepend</code>, <code>before</code>, <code>after</code>, <code>replaceWith</code>)
+                            </li>
+                            <li>Работа с классами элемента (<code>classList</code>, <code>add</code>, <code>remove</code>,
+                                <code>toggle</code>, <code>contains</code>, <code>list</code>)
+                            </li>
+
+                        </ul>
+                </div>
+            </div>
+
+            <script>
+                // Focus - событие, которое срабатывает, когда элемент получает фокус
+
+                // Добываем ВСЕ input из формы с id="loginForm" (Результат - массив)
+                let inputs = document.querySelectorAll('#loginForm input');
+
+                // Функция которая принимает id активного элемента поля ввода
+                // И добавляет сообщение в id="infoMessage" о том, что активно поле с id (переданным в функцию)
+                function addInfoMessage(id) {
+                    document.querySelector('#infoMessage').textContent = `Активно поле с id="${id}"`;
+                }
+
+
+                // Функция добавления листнера на событие focus для одной формы, которая добывает id активного элемента и передает его в функцию addInfoMessage
+                function addFocusListener(form) {
+
+                    // Добавление события focus (когда элемент получает фокус)
+                    form.addEventListener('focus', function (event) {
+                        addInfoMessage(event.target.id);
+                    });
+
+                    // Добавление функции для события blur (когда элемент теряет фокус)
+                    form.addEventListener('blur', function (event) {
+                        addBlurMessage('Не забудьте авторизоваться');
+                    });
+                }
+
+                // Blur - событие, которое срабатывает, когда элемент теряет фокус
+
+                // Функция которая принимает сообщение и добавляет его в id="infoMessage"
+
+                function addBlurMessage(message) {
+                    document.querySelector('#infoMessage').textContent = message;
+                }
+
+                // Для каждого элемента массива inputs (каждого input из формы с id="loginForm") добавляем листнер на событие focus
+                inputs.forEach(input => {
+                    addFocusListener(input);
+                });
+
+                // - Наведение и снятие указателя мыши с элемента (события mouseover и mouseout)
+
+                // Добываем форму с id="loginForm"
+                let form = document.querySelector('#loginForm');
+
+                // Описываем функцию, которая добавляет class formShadow и использовать функцию addBlurMessage
+                // для добавления сообщения "Форма активна / "ничего" " работает через toggle
+
+                function toggleFormShadow() {
+                    form.classList.toggle('formShadow');
+                    // При наличии класса - добавляет сообщение "Форма активна"
+                    if (form.classList.contains('formShadow')) {
+                        addBlurMessage('Форма активна');
+                        // При отсутствии класса - добавляет сообщение "ничего"
+                    } else {
+                        addBlurMessage('');
+                    }
+                }
+
+                // Вешаем 2 листенера на форму, на события mouseover и mouseout.
+                // По обоим событиям вызываем функцию toggleFormShadow
+                form.addEventListener('mouseover', toggleFormShadow);
+                form.addEventListener('mouseout', toggleFormShadow);
+
+                // Практика №1. Событие mouseover
+
+                // Добываем тег p
+                let span = document.querySelector('#pPractic1');
+
+                // Добавляем Заголовок id practic1
+                let practic1 = document.querySelector('#practic1');
+
+                // Добавляем листенер на событие mouseover на заголовок
+                practic1.addEventListener('mouseover', function () {
+                    // Добавляем класс text-danger
+                    span.classList.add('text-danger');
+                    // Добавляем текст
+                    span.textContent = 'Сработало событие mouseover. Указатель мыши на заголовке';
+                });
+
+                // Добавляем листенер на событие mouseout на заголовок
+                practic1.addEventListener('mouseout', function () {
+                    // Удаляем класс text-danger
+                    span.classList.remove('text-danger');
+                    // Удаляем текст
+                    span.textContent = 'Сработало событие mouseout. Указатель мыши покинул заголовок';
+                });
+
+
+                // - Нажатие и отпускание кнопки мыши на элементе (события mousedown и mouseup)
+                // - Нажатие клавиши на клавиатуре (событие keydown)
+
+                // Добываем круг
+                let circle = document.querySelector('.circle');
+
+                // Описываем функцию, которая принимает элемент и делает toggle класса square
+                function toggleSquare(element) {
+                    element.classList.toggle('square');
+                }
+
+                // Добавляем листенер на событие mouseover и mouseout на круг
+                circle.addEventListener('mouseover', function () {
+                    toggleSquare(circle);
+                });
+                circle.addEventListener('mouseout', function () {
+                    toggleSquare(circle);
+                });
+            </script>
+
+  
+            
+</body>
+
+</html>

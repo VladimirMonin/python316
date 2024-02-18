@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta:description{Работа с текстом в HTML. Семантические теги} -->
+    <meta name="description" content="Работа с текстом в HTML. Семантические теги">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <!-- Подключение шрифта - font-family: 'Comfortaa', cursive; -->
+    <style>
+        /* Подключаем шрифты по ссылке из папки проекта FiraMono-Regular */
+        @font-face {
+            font-family: "NotCourierSans";
+            src: url("./fonts/NotCourierSans.otf") format("opentype");
+            src: url("./fonts/NotCourierSans-webfont.woff") format("woff");
+        }
+
+        html {
+            font-size: 20px;
+            background-image: linear-gradient(to right, #ffffff, #dfe1f5);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        h1 {
+            font-size: 3rem;
+            /* Подключаем font-family: 'Comfortaa', cursive; взятый из Гугл шрифтов */
+
+        }
+
+        h1:hover {
+            color: rgb(255, 0, 0);
+            /* Тень */
+            text-shadow: 5px 0px 5px rgb(2, 243, 170);
+            /* Изменение курсора */
+            cursor: pointer;
+
+        }
+
+        h2 {
+            font-size: 2rem;
+
+        }
+
+        h3 {
+            font-size: 1.7rem;
+
+        }
+
+        span {
+            border: 1px solid rgb(0, 0, 0);
+        }
+
+        /* Стили упорядоченного списка */
+        ol {
+            /* Убираем маркеры */
+            /* list-style-type: none; */
+            /* Убираем отступы */
+            /* padding-left: 0; */
+            /* Изменим нумерацию */
+            list-style-type: upper-roman;
+            list-style-type: lower-alpha;
+            list-style-type: upper-alpha;
+            list-style-type: lower-roman;
+            list-style-type: decimal;
+            list-style-type: decimal-leading-zero;
+            /* Грузинский */
+            list-style-type: georgian;
+            /* Армянский */
+            list-style-type: armenian;
+        }
+
+        /* Стили неупорядоченного списка */
+        ul {
+            /* Диски */
+            /* list-style-type: disc; */
+            /* Кругляшки */
+            /* list-style-type: circle; */
+            /* Квадратики */
+            /* list-style-type: square; */
+            /* Передаем стрелку в качестве маркера из файла arrow.png и уменьшим размер стрелки до 10px */
+            /* list-style-image: url(arrow.jpg); */
+            /* Убираем маркеры */
+            /* list-style-type: none; */
+            /* Убираем отступы */
+            /* padding-left: 40%; */
+        }
+
+        .red-card {
+            color: red;
+            /* Размер */
+            font-size: 10rem;
+            margin-left: 1rem;
+            /* Ширина */
+            display: inline-block;
+            width: 7rem;
+            /* Центруем элементы внутри */
+            /* text-align: center; */
+        }
+
+        .black-card {
+            color: black;
+            /* Размер */
+            font-size: 10rem;
+            margin-left: 1rem;
+            display: inline-block;
+            width: 7rem;
+            /* Центруем элементы внутри */
+            /* text-align: center; */
+        }
+
+        .cards-block {
+            /* Центруем элементы внутри */
+            text-align: center;
+        }
+
+        kbd {
+            background-color: #eee;
+            border-radius: 3px;
+            border: 1px solid #b4b4b4;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+                0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+            color: #333;
+            display: inline-block;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            padding: 2px 4px;
+            vertical-align: middle;
+            white-space: nowrap;
+
+        }
+
+        address a {
+            display: block;
+        }
+
+
+        nav a:visited {
+            color: rgb(30, 30, 48);
+        }
+
+        nav a:hover {
+            color: rgb(255, 0, 0);
+            /* Тень */
+            text-shadow: 5px 0px 5px rgb(2, 243, 170);
+        }
+
+        nav a:link {
+            color: rgb(142, 9, 9);
+        }
+
+        /* Pre style для тега code */
+
+        .code {
+            background-color: rgb(213, 196, 172);
+            border: 1px solid rgb(150, 92, 16);
+            padding: 1rem;
+            color: rgb(54, 32, 3);
+            white-space: pre;
+            /* Подключаем FiraMono-Regular */
+            font-family: "NotCourierSans";
+            width: 65%;
+            /* Выравнивание по центру */
+            margin: 0 auto;
+
+
+        }
+
+        .code code {
+            /* Подключаем FiraMono-Regular */
+            font-family: "NotCourierSans";
+            /* Меняем семейство шрифтов */
+        }
+
+        .poligon .shadow {
+            text-shadow: 5px 0px 5px rgb(2, 243, 170);
+
+        }
+
+        .poligon .text-decorator {
+            text-decoration: underline;
+            text-decoration: overline;
+            text-decoration: line-through;
+        }
+
+        .poligon .text-transform {
+            /* text-transform: uppercase; */
+            /* text-transform: lowercase; */
+            text-transform: capitalize;
+
+        }
+        .nht li:nth-child(5n){
+            background-color: rgb(255, 0, 0);
+            /* Задаем шрифт */
+            font-family: NotCourierSans;
+            max-width: 10em;
+        }
+
+        .photo {
+            /* Размеры div 500 x 1000 */
+            width: 800px;
+            height: 500px;
+            /* Задаем back-ground image заполняем полностью элемент */
+            background-size: cover;
+            /* Позиционируем изображение по центру */
+            background-position: center;
+            /* Задаем изображение */
+            background-image: url('/images/i.webp');
+            /* background-attachment: fixed; */
+        }
+
+    </style>
+    <title>Текст в HTML</title>
+
+</head>
+
+<body>
+    <header>
+        <h1>Текст в HTML</h1>
+        <address>
+            <a href="mailto:example@email.com">Отправить письмо на example@email.com</a>
+            <a href="tel:+1234567890">+1 (234) 567-890</a>
+        </address>
+    </header>
+    <h2>Содержание</h2>
+    <nav>
+        <ul>
+            <li><a href="#h2-1">Строчные и блочные элементы</a></li>
+            <li><a href="#h2-2">Тег abbr - сокращение</a></li>
+            <li><a href="#h2-3">Работа с текстом</a></li>
+        </ul>
+    </nav>
+    <div class="photo">
+        <!-- <img src="/images/i.webp" alt="Фото сотрудников"> -->
+    </div>
+    <h2 id="h2-1">Строчные и блочные элементы</h2>
+    <!-- Пример div и span -->
+    <div>div - Это блочный элемент</div>
+    <span>span - Это строчный элемент</span>
+    <span>Их может быть несколько в строке</span>
+    <h2>Списки в HTML</h2>
+    <h3>Упорядоченные списки</h3>
+    <!-- OL - упорядоченный список -->
+    <ol>
+        <li>Элемент списка 1</li>
+        <li>Элемент списка 2</li>
+        <li>Элемент списка 3</li>
+    </ol>
+    <h3>Неупорядоченные списки</h3>
+    <!-- UL - неупорядоченный список -->
+<ul class="nht">
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+    <li>lorem10</li>
+</ul>
+
+    <h2 id="h2-2">Тег abbr - сокращение</h2>
+    <p><abbr title="HyperText Markup Language">HTML</abbr> - это язык разметки гипертекста</p>
+    <h2>Спецзнаки</h2>
+    <p>Спецзнаки есть смысл использовать тогда, когда мы можем заменить ими картинку. Т.к. это текст,</p>
+    <div class="cards-block">
+        <span class="red-card">&hearts;</span>
+        <span class="black-card">&spades;</span>
+        <span class="red-card">&diams;</span>
+        <span class="black-card">&clubs;</span>
+    </div>
+    <h2 id="h2-3">Работа с текстом</h2>
+    <h3>Тег br</h3>
+    <p><abbr title="Brake Row">BR</abbr> - перенос строки</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo impedit aperiam blanditiis similique, quos, fugiat,
+        at fuga assumenda alias quisquam unde nesciunt quam ad. <br><br> Consectetur, eius hic. Nam alias ab sunt
+        maxime.
+        Expedita perspiciatis blanditiis consectetur quisquam quam quibusdam ipsa vero voluptate amet, minus ullam,
+        explicabo culpa rem voluptas commodi.</p>
+    <h3>word-break</h3>
+    <p>word-break: break-all; - разбивает слова, если они не влезают в блок</p>
+    <p>word-break: normal; - по умолчанию</p>
+    <p>word-break: keep-all; - не разбивает слова</p>
+    <h4>Тестируем break-all</h4>
+    <p style="word-break: break-all;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo impedit aperiam
+        blanditiis similique, quos, fugiat,
+        at fuga assumenda alias quisquam unde nesciunt quam ad. <br><br> Consectetur, eius hic. Nam alias ab sunt
+        maxime.
+        Expedita perspiciatis blanditiis consectetur quisquam quam quibusdam ipsa vero voluptate amet, minus ullam,
+        explicabo culpa rem voluptas commodi.</p>
+    <h4>Тестируем keep-all</h4>
+    <p style="word-break: keep-all;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo impedit aperiam
+        blanditiis similique, quos, fugiat,
+        at fuga assumenda alias quisquam unde nesciunt quam ad. <br><br> Consectetur, eius hic. Nam alias ab sunt
+        maxime.
+        Expedita perspiciatis blanditiis consectetur quisquam quam quibusdam ipsa vero voluptate amet, minus ullam,
+        explicabo culpa rem voluptas commodi.</p>
+    <h3>word-wrap</h3>
+    <p>word-wrap: break-word; - разбивает слова, если они не влезают в блок</p>
+    <p>word-wrap: normal; - по умолчанию</p>
+    <h4>Тестируем break-word</h4>
+    <p style="word-wrap: break-word;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo impedit aperiam
+        blanditiis similique, quos, fugiat,
+        at fuga assumenda alias quisquam unde nesciunt quam ad. <br><br> Consectetur, eius hic. Nam alias ab sunt
+        maxime.
+        Expedita perspiciatis blanditiis consectetur quisquam quam quibusdam ipsa vero voluptate amet, minus ullam,
+        explicabo culpa rem voluptas commodi.</p>
+    <h4>Тестируем normal</h4>
+    <p style="word-wrap: normal;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo impedit aperiam
+        blanditiis similique, quos, fugiat,
+        at fuga assumenda alias quisquam unde nesciunt quam ad. <br><br> Consectetur, eius hic. Nam alias ab sunt
+        maxime.
+        Expedita perspiciatis blanditiis consectetur quisquam quam quibusdam ipsa vero voluptate amet, minus ullam,
+        explicabo culpa rem voluptas commodi.</p>
+    <h3>Тег Mark</h3>
+    <p>Этот тег используется для <mark>выделения</mark> текста</p>
+    <h3>Тег small</h3>
+    <p>Этот тег используется для <small>уменьшения</small> текста</p>
+    <h3>Тег <kbd>kbd</kbd></h3>
+    <p>Этот тег используется для <kbd>выделения</kbd> текста</p>
+    <h3>Тег <code>code</code></h3>
+    <p>Этот тег используется для <code>выделения</code> текста</p>
+    <h3>Тег code</h3>
+    <p>Этот тег используется вставок кода
+    <div class="code"><code>
+def hello():
+    print("Hello, world!")
+    </code></div>
+    </p>
+    <p>Часто используется вместе с pre - который сохраняет исходное форматирование</p>
+    <h3>Популярные параметры стилей для текст</h3>
+    <h4>Font size</h4>
+    <p>Размер шрифта в пикселях, процентах, em, rem</p>
+    <H4>Font weight</H4>
+    <p>Толщина шрифта условно, жирность, от 100 до 900</p>
+    <h4>Text-decorator</h4>
+    <p>Декорация текста. Подчеркивание, зачеркивание, линия сверху, линия снизу</p>
+    <h4>Text-transform</h4>
+    <p>Преобразование текста. К верхнему регистру, к нижнему регистру, первая буква слова к верхнему регистру</p>
+    <h4>Text shadow</h4>
+    <p>Тень текста. Параметры: смещение по горизонтали, смещение по вертикали, размытие, цвет</p>
+    <h4>White space</h4>
+    <p>Разрывы строк. nowrap - не переносить строки</p>
+    <p>pre - сохраняет исходное форматирование</p>
+    <h4>Text align</h4>
+    <p>Выравнивание текста. left, right, center, justify</p>
+    <p>justify - выравнивание по ширине с добавлением пробелов</p>
+    <h3>Полигон</h3>
+    <div class="poligon">
+        <p class="shadow">Тестируем тень</p>
+        <p class="text-decorator">Тестируем Text-decorator</p>
+        <p class="text-transform">Тестируем Text-transform</p>
+    </div>
+</body>
+
+</html>

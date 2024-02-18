@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Вставка аудио, видео. HTML5 теги. Работа со старыми и новыми форматами
+    (source)">
+    <title>Lesson 5</title>
+    <style>
+        html {
+            font-size: 10px;
+        }
+
+        h2,
+        h3,
+        h4 {
+            font-size: 4rem;
+        }
+
+        p {
+            font-size: 2rem;
+        }
+
+        li {
+            font-size: 2rem;
+        }
+
+        video {
+            width: 30%;
+        }
+
+        mark {
+            background-color: yellow;
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+
+        td {
+            font-size: 2.5rem;
+            /* Добавляет "сетку". В таблицах по умолчанию нет рамок */
+            padding: 20px;
+            /* Мы можем задать ширину и высоту ячеек */
+            /* width: 100px;
+            height: 100px; */
+            /* Выравниевание контента по центру */
+            text-align: center;
+            /* Вертикальное выравнивание */
+            vertical-align: middle;
+        }
+
+        table {
+            /* Убирает промежутки между ячейками в таблице */
+            border-collapse: collapse;
+            /* Ширина для всей таблицы */
+            width: 100%;
+            background-color: rgb(227, 234, 220);
+            border: 3px solid black;
+            box-shadow: 0 0 10px black;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        th {
+            font-size: 3rem;
+            background-color: rgb(182, 190, 173);
+
+            /* border: 3px solid black; */
+
+        }
+
+        caption {
+            font-size: 3rem;
+            font-weight: bold;
+            /* background-color: rgb(182, 190, 173); */
+            padding: 10px;
+            text-align: right;
+        }
+
+        tfoot {
+            background-color: rgb(128, 134, 121);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #8c0c0c;
+        }
+
+        tr:hover {
+            background-color: rgb(165, 174, 155);
+            box-shadow: 0 0 20px rgb(24, 42, 20);
+        }
+
+        /* Красим только первый столбец таблицы в розовый цвет через селектор "ребенок номер 2" */
+        tr td:nth-child(2) {
+            background-color: rgb(255, 192, 203);
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2>Для чего указывать разные форматы аудио и видео?</h2>
+        <p>Все браузеры не поддерживают все форматы. Поэтому, чтобы наш сайт работал во всех браузерах, нужно указывать
+            несколько форматов.</p>
+        <h2>Видео</h2>
+        <video controls>
+            <source src="./media/video.mp4" type="video/mp4">
+            <source src="./media/video.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+        <p>Аттрибут controls добавляет панель управления видео</p>
+        <p>Аттрибут autoplay автоматически запускает видео</p>
+        <p>Аттрибут loop зацикливает видео</p>
+        <p>Аттрибут muted отключает звук</p>
+        <p>Аттрибут weight - задает ширину</p>
+        <h2>Аудио</h2>
+        <audio controls>
+            <source src="./media/Работа за компьютером - как не отвлекаться.mp3" type="audio/mp3">
+            <source src="./media/Работа за компьютером - как не отвлекаться.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        <p>Аттрибут controls добавляет панель управления аудио</p>
+        <p>Аттрибут autoplay автоматически запускает аудио</p>
+        <p>Аттрибут loop зацикливает аудио</p>
+        <p>Аттрибут muted отключает звук</p>
+        <p>Аттрибут weight - задает ширину</p>
+        <h2>Вставка видео с Ютуба</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/uPX7VnZLKy8?si=bToC8Oi6-1cKkuyg"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+        <p>allowfullscreen - разрешает развернуть видео на весь экран</p>
+        <p> Запретить развернуть видео на весь экран - убрать аттрибут allowfullscreen полностью</p>
+        <h2>Canvas</h2>
+        <canvas id="myCanvas" width="200" height="100" style="border:1px solid;">
+            Ваш браузер не поддерживает тег canvas.
+        </canvas>
+        <script>
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.font = "30px Arial";
+            ctx.strokeText("Hello World", 10, 50);
+        </script>
+        <p> Canvas - это элемент, который позволяет рисовать на странице. На самом деле, с помощью него можно делать
+            анимацию, игры и многое другое. Но это уже выходит за рамки данного курса.</p>
+    </section>
+    <section>
+        <h2>Таблицы в HTML</h2>
+        <p>Посмотрим на <mark>простую</mark> таблицу состоящую из 3 столбцов и 3 строк и только на TD тегах (без TH)</p>
+        <table>
+            <tr>
+                <td>Lorem ipsum dolor sit amet.</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+
+            <tr>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, delectus.</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+
+            <tr>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, quisquam officiis? Amet ad omnis
+                    sint!</td>
+                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+                <td>9</td>
+            </tr>
+        </table>
+
+        <p>Теперь сделаем таблицу с большим количеством контента для изучения <mark>горизонтального</mark> выравнивания
+        </p>
+        <table>
+            <tr>
+                <td>Lorem ipsum dolor sit amet.</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+
+            <tr>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, delectus.</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+
+            <tr>
+                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi quam cum soluta odio voluptatum?
+                    Recusandae eius nam repudiandae est quam rerum, laborum ducimus voluptatum? Minus qui eaque iste
+                    nostrum doloribus illum deserunt <br>voluptatibus labore perferendis harum unde, beatae eius optio
+                    accusamus quod assumenda minima, saepe reiciendis, odio sapiente itaque adipisci vitae numquam!
+                    Debitis, dolores enim commodi, quos<br> repudiandae sed qui<br><br> neque quibusdam pariatur at vel
+                    beatae
+                    laboriosam aperiam laudantium repellendus distinctio, consectetur libero mollitia sit ullam
+                    blanditiis sapiente tempora vitae reiciendis? Ut aliquid alias dolorem qui sequi, voluptas rerum
+                    itaque praesentium, quisquam odio quas neque magnam cum eum magni consequatur!</td>
+                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi quam cum soluta odio voluptatum?
+                    Recusandae eius nam repudiandae est quam rerum, laborum ducimus voluptatum? Minus qui eaque iste
+                    nostrum doloribus illum deserunt<br> voluptatibus labore perferendis harum unde, beatae eius optio
+                    consectetur libero mollitia sit ullam
+                    blanditiis sapiente <br><br>tempora vitae reiciendis? Ut aliquid alias dolorem qui sequi, voluptas
+                    rerum
+                    itaque praesentium, quisquam odio quas neque magnam cum eum magni consequatur!</td>
+
+        </table>
+
+        <td>9</td>
+        </tr>
+        <h2>TH - тег для заголовков столбцов</h2>
+        <p>Попробуем добавить к таблице заголовки столбцов через тег <mark>th</mark></p>
+        <table>
+            <tr>
+                <th>Заголовок 1</th>
+                <th>Заголовок 2</th>
+                <th>Заголовок 3</th>
+            </tr>
+            <tr>
+                <td>Lorem ipsum dolor sit amet.</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+
+            <tr>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, delectus.</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+        </table>
+        <h2>Объединение строк и столбцов в таблице</h2>
+        <p>Объединение строк и столбцов в таблице происходит с помощью аттрибута <mark>rowspan</mark> и
+            <mark>colspan</mark> соответственно
+        </p>
+
+        <table>
+            <tr>
+                <td>1</td>
+                <td colspan="2">2</td>
+                <td>3</td>
+                <!-- <td>Мы его выдавили</td> -->
+            </tr>
+            <tr>
+                <td rowspan="3">5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <!-- <td>9</td> -->
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <!-- <td>13</td> -->
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+            </tr>
+        </table>
+        <h2>Caption. Thead, Tbody, Tfoot</h2>
+        <p>Тег <mark>caption</mark> позволяет добавить заголовок к таблице</p>
+        <p>Тег <mark>thead</mark> позволяет выделить заголовок таблицы</p>
+        <p>Тег <mark>tbody</mark> позволяет выделить тело таблицы</p>
+        <p>Тег <mark>tfoot</mark> позволяет выделить подвал таблицы</p>
+        <table>
+            <caption>Заголовок таблицы</caption>
+            <thead>
+                <tr>
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+
+                <tr>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, delectus.</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Подвал 1</td>
+                    <td>Подвал 2</td>
+                    <td>Подвал 3</td>
+                </tr>
+            </tfoot>
+            <h2>Colgroup и col</h2>
+            <p>Тег <mark>colgroup</mark> позволяет задать стили для столбцов таблицы</p>
+            <p>Тег <mark>col</mark> позволяет задать стили для столбца таблицы</p>
+            <p>Аттрибут <mark>span</mark> позволяет задать количество столбцов, которые будут объединены</p>
+
+            <table>
+                <colgroup>
+                    <col span="1" style="background-color: #ff0000;">
+                    <col style="background-color: #00ff00;">
+                </colgroup>
+                <tr>
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                </tr>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+
+                <tr>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, delectus.</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+    </section>
+    <section>
+        <h2>Сегодня прошли</h2>
+        <ul>
+            <li>Вставка видео в код</li>
+            <li>Вставка аудио в код</li>
+            <li>Указание разных форматов медиа</li>
+            <li>Таблицы в HTML</li>
+            <li>Теги таблиц (tr, td, th, table, thead, tbody, tfoot, colgroup, col)</li>
+            <li>Объединение ячеек, как строк так и столбцов</li>
+            <li>CSS для таблиц</li>
+        </ul>
+    </section>
+
+</body>
+
+</html>

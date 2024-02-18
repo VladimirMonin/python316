@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .blue-circle {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            border-radius: 50%;
+        }
+
+        .redSquear {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /* Приколачиваем гвоздями элемент к верхнему левому углу экрана */
+            /* position: absolute; */
+            /* Top и left - это свойства, которые позволяют задать позицию элемента */
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>11.11 - lesson 4</h1>
+    <nav>
+        <ul>
+            <li><code>while</code> - цикл с условием</li>
+            <li>Обработчик событий встраеваемый прямо в тег HTML</li>
+            <li>Обработчик событий через свойство элемента</li>
+            <li>Обработчик событий через addEventListener</li>
+            <li>Удаление обработчика событий через removeEventListener</li>
+            <li>Обработчик событий onclick для body и вывод тега на который был клик</li>
+            <li>Обработчик событий onclick для body и перемещение Div по экрану</li>
+            <li>Обработчик событий keydown (нажатие пробела) и изменение цвета Div</li>
+            <li>Обработчик отправки формы (с отменой стандартного действия браузера)</li>
+
+        </ul>
+
+
+    </nav>
+    <main>
+        <h2>Таблица событий</h2>
+        <!-- Открывающий тег таблицы BS5 полосатая с ховером -->
+        <!--table-dark - делает таблицу в dark стиле-->
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Название события</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>click</td>
+                    <td>Происходит при клике левой кнопкой мыши.</td>
+                </tr>
+                <tr>
+                    <td>dblclick</td>
+                    <td>Происходит при двойном клике левой кнопкой мыши.</td>
+                </tr>
+                <tr>
+                    <td>mousedown</td>
+                    <td>Срабатывает в момент нажатия кнопки мыши.</td>
+                </tr>
+                <tr>
+                    <td>mouseup</td>
+                    <td>Срабатывает в момент отпускания кнопки мыши.</td>
+                </tr>
+                <tr>
+                    <td>mousemove</td>
+                    <td>Происходит при движении курсора мыши.</td>
+                </tr>
+                <tr>
+                    <td>mouseover</td>
+                    <td>Срабатывает при наведении курсора на элемент.</td>
+                </tr>
+                <tr>
+                    <td>mouseout</td>
+                    <td>Срабатывает при уходе курсора с элемента.</td>
+                </tr>
+                <tr>
+                    <td>keydown</td>
+                    <td>Срабатывает при нажатии клавиши.</td>
+                </tr>
+                <tr>
+                    <td>keyup</td>
+                    <td>Происходит, когда пользователь отпускает клавишу.</td>
+                </tr>
+                <tr>
+                    <td>keypress</td>
+                    <td>Срабатывает при нажатии клавиши, если она обозначает символ (например, буква или цифра).</td>
+                </tr>
+                <tr>
+                    <td>focus</td>
+                    <td>Происходит при получении элементом фокуса.</td>
+                </tr>
+                <tr>
+                    <td>blur</td>
+                    <td>Происходит при потере элементом фокуса.</td>
+                </tr>
+                <tr>
+                    <td>change</td>
+                    <td>Происходит при изменении значения элемента формы (например, input, textarea).</td>
+                </tr>
+                <tr>
+                    <td>submit</td>
+                    <td>Срабатывает при отправке формы.</td>
+                </tr>
+                <tr>
+                    <td>load</td>
+                    <td>Происходит при полной загрузке элемента (например, изображение или весь документ).</td>
+                </tr>
+                <tr>
+                    <td>unload</td>
+                    <td>Срабатывает при закрытии страницы или переходе на другую страницу.</td>
+                </tr>
+                <tr>
+                    <td>resize</td>
+                    <td>Происходит при изменении размеров окна браузера.</td>
+                </tr>
+                <tr>
+                    <td>scroll</td>
+                    <td>Срабатывает при прокрутке элемента или всей страницы.</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <h2>Обработчик событий встраеваемый прямо в тег HTML</h2>
+        <div class="blue-circle" id="blue-circle" onclick="alert('Привет, я синий круг!')"></div>
+
+        <h2>Обработчик событий через свойство элемента</h2>
+        <p>Для этого нам надо получить элемент через <code>document.getElementById('blue-circle')</code> и
+            присвоить ему свойство <code>onclick</code> в которое передать функцию</p>
+        <div class="blue-circle" id="blue-circle-2">
+
+        </div>
+
+        <h2>Обработчик событий через addEventListener</h2>
+        <p><code>Lisener</code> - это функция, которая срабатывает при наступлении события</p>
+        <p>Для этого нам надо получить элемент через <code>document.getElementById('blue-circle')</code> и
+            присвоить ему свойство <code>addEventListener</code> в которое передать событие и функцию</p>
+        <p>Мы можем как добавлять события, так и удалять их, используя методы <code>addEventListener</code> и
+            <code>removeEventListener</code>
+        </p>
+        <h3>Добавляем и удаляем <code>Lisener</code> по нажатию кнопок</h3>
+        <div class="blue-circle" id="blue-circle-3"></div>
+        <button class="btn btn-dark" id="addListner">Добавить Listner</button>
+        <button class="btn btn-dark" id="removeListner">Удалить Listner</button>
+        <h2>Обработчик события <code>onclick</code> для <code>body</code> и вывод тега на который был клик</h2>
+        <p id="onBodyClick"></p>
+        <h2>Обработчик события <code>onclick</code> для <code>body</code> и перемещение <code>Div</code> по экрану</h2>
+        <p>Для этого нам необходимо добывать из события <code>event</code> координаты курсора мыши и присваивать их
+            <code>Div</code>
+        </p>
+
+        <h3>Встречайте, подопытный <code>Div</code></h3>
+        <div class="redSquear" id="stranger"></div>
+
+        <h2>Обработчик события <code>keydown</code> (нажатие пробела) и изменение стиля таблицы <code>table-dark</code>
+        </h2>
+        <p>Просто нажмите пробел</p>
+        <h2>Обработчик отправки формы (с отменой стандартного действия браузера)</h2>
+        <form id="form1">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">Мы никогда никому не передадим вашу электронную почту.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        <p id="form1Data"></p>
+
+        <h2>Просто форма и кнопка</h2>
+        <form>
+            <input type="text" class="form-control" id="form2">
+
+        </form>
+        <button id="form2" class="btn btn-primary" onclick="getFormData()">Получить данные!</button>
+        <p id="form2Data"></p>
+        <script>
+            // Массив объектов "Студент" 2 ключа в кавычках имя и фамилия
+            let students = [
+                {
+                    "name": "Иван",
+                    "surname": "Иванов"
+                },
+                {
+                    "name": "Петр",
+                    "surname": "Петров"
+                },
+                {
+                    "name": "Сидор",
+                    "surname": "Сидоров"
+                }
+            ]
+
+            // While - цикл с условием. Он выполняется ПОКА условие истинно
+
+            // Синтаксис while
+            // while (условие) { }
+            // Пока условие истинно, выполняется код внутри фигурных скобок
+            // Continue - пропускает итерацию цикла
+            // Break - прерывает цикл
+
+            // Бесконечный цикл - цикл, который не прерывается
+            // while (true) {
+            // let counter = 0;
+            // while (true) {
+            //     counter++;
+            //     console.log(`Привет в ${counter} раз!`);
+            // }
+
+            // Цикл с условием
+            let counter = 0;
+            while (counter < 10) {
+                counter++;
+                // Пропуск итерации на 5
+                if (counter == 5) {
+                    continue;
+                }
+                console.log(`Привет в ${counter} раз!`);
+            }
+
+            // Этот же цикл с for 
+            for (let counter = 0; counter < 10; counter++) {
+                // Пропуск итерации на 5
+                if (counter == 5) {
+                    continue;
+                }
+                console.log(`Привет в ${counter} раз!`);
+            }
+
+
+            // СОБЫТИЯ 
+            // Событие onclick через свойство элемента
+            // div - blue-circle-3  button addListner   button removeListner
+            // Добавляем и удаляем Listner на круг по нажатию кнопок
+
+            // Получаем элементы
+            let blueCircle3 = document.getElementById('blue-circle-3');
+            console.log(blueCircle3);
+
+            let addListner = document.getElementById('addListner');
+            console.log(addListner);
+
+            let removeListner = document.getElementById('removeListner');
+            console.log(removeListner);
+
+            // Создаем функцию, которая будет срабатывать при нажатии на круг
+            function circleClick() {
+                alert('Привет, я синий круг!');
+            }
+
+            // Добавляем Listner на круг по загрузке страницы
+            // window - это объект, который представляет собой окно браузера
+            // load - это событие, которое срабатывает при загрузке страницы
+            window.addEventListener('load', function () {
+                blueCircle3.addEventListener('click', circleClick);
+            });
+
+            // Добавляем Listner на круг
+            addListner.addEventListener('click', function () {
+                blueCircle3.addEventListener('click', circleClick);
+            });
+
+            // Удаляем Listner с круга
+            removeListner.addEventListener('click', function () {
+                blueCircle3.removeEventListener('click', circleClick);
+            });
+
+            // Функция, которая принимает event и выводит имя тега на который был клик
+            // В тег id onBodyClick
+            function bodyClick(event) {
+                // event - это объект, который содержит информацию о событии
+                // event.target - это элемент, на который был клик
+                // event.target.tagName - это имя тега на который был клик
+                tagName = event.target.tagName;
+                console.log(event);
+                console.log(`Event.target: ${event.target}`);
+                console.log(`Event.target.tagName: ${event.target.tagName}`);
+
+                document.getElementById('onBodyClick').innerHTML = tagName;
+            }
+
+            // Добавляем Listner на body
+            window.addEventListener('load', function () {
+                document.body.addEventListener('click', bodyClick);
+            });
+
+            // Перемещение Div по экрану
+            // Получаем элемент
+            let stranger = document.getElementById('stranger');
+
+            // Создаем функцию, которая будет перемещать 
+            // Div по экрану, к координатам курсора мыши при клике
+
+            function moveDiv(event) {
+                // Получаем координаты курсора мыши
+                let x = event.clientX;
+                let y = event.clientY;
+                // Задаем absolute
+                stranger.style.position = 'absolute';
+                // Присваиваем координаты курсора мыши
+                // Div
+                stranger.style.left = x + 'px';
+                stranger.style.top = y + 'px';
+            }
+
+            // Добавляем Listener на body
+
+            window.addEventListener('load', function () {
+                document.body.addEventListener('click', moveDiv);
+            });
+
+            // Функция, которая будет переключать наличие стиля table-dark в таблице
+            function changeTableStyle(event) {
+                // Получаем таблицу
+                let table = document.querySelector('table');
+                // Проверяем, есть ли у таблицы класс table-dark
+                // Если есть, то удаляем его
+                console.log(table.classList);
+                // Если нет класса table-dark, то добавляем его
+                // Иначе удаляем
+                if (!table.classList.contains('table-dark')) {
+                    table.classList.add('table-dark');
+                } else {
+                    table.classList.remove('table-dark');
+                }
+            }
+
+            // Функция которая переключает стиль фона body с bg-light на bg-dark
+
+            function changeBgStyle(event) {
+                // Получаем body
+                let body = document.body;
+                // Проверяем, есть ли у body класс bg-light
+                // Если есть, то удаляем его
+                console.log(body.classList);
+                if (body.classList.contains('bg-light')) {
+                    body.classList.remove('bg-light');
+                    body.classList.add('bg-dark');
+                } else {
+                    // Если нет, то добавляем
+                    body.classList.remove('bg-dark');
+                    body.classList.add('bg-light');
+                }
+            }
+
+            // Функция переключает цвет шрифта с text-dark на text-light
+            function changeFontStyle(event) {
+                // Получаем body
+                let body = document.body;
+                // Проверяем, есть ли у body класс bg-light
+                // Если есть, то удаляем его
+                console.log(body.classList);
+                if (body.classList.contains('text-dark')) {
+                    body.classList.remove('text-dark');
+                    body.classList.add('text-light');
+                } else {
+                    // Если нет, то добавляем
+                    body.classList.remove('text-light');
+                    body.classList.add('text-dark');
+                }
+            }
+
+
+
+
+            // Добавляем Listener на body по нажатию клавиши пробел
+            window.addEventListener('keydown', function (event) {
+                // Проверяем, нажата ли клавиша пробел
+                console.log(event);
+                if (event.code == 'Space') {
+                    changeTableStyle();
+                    changeBgStyle();
+                    changeFontStyle();
+                }
+            });
+
+            // Объект, который содержит в себе поля querySelector, дневные и ночные стили
+            // Переключение тем можно было бы сделать в цикле for
+            let theme = [
+                {
+                    'querySelector': 'table',
+                    'dayStyle': 'table-dark',
+                    'nightStyle': 'table-light'
+                }
+            ];
+
+            // Получаем данные из формы id form1
+            // Выводим их в консоль и в тег с id form1Data
+            // Отменяем стандартное действие браузера
+
+            // Получаем форму
+            let form1 = document.getElementById('form1');
+            // Добавляем Listener на форму
+            form1.addEventListener('submit', function (event) {
+                // Отменяем стандартное действие браузера
+                event.preventDefault();
+                // Получаем данные из формы exampleInputEmail1 exampleInputPassword1
+                let email = document.getElementById('exampleInputEmail1').value;
+                let password = document.getElementById('exampleInputPassword1').value;
+                // Выводим данные в консоль
+                console.log(`Email: ${email}`, `Password: ${password}`);
+                // Выводим данные в тег с id form1Data
+                document.getElementById('form1Data').innerHTML = `Email: ${email}, Password: ${password}`;
+            });
+
+            // Функция которая будет висеть в HTML onclick на кнопке
+            // Добывает по клику данные из формы и выводит их в консоль и в тег с id form2Data
+
+            function getFormData() {
+                // Получаем данные из формы form2
+                let form2 = document.querySelector('#form2').value;
+                // Выводим данные в консоль
+                console.log(`Form2: ${form2}`);
+                // Выводим данные в тег с id form2Data
+                document.getElementById('form2Data').innerHTML = `Form2: ${form2}`;
+            }
+        </script>
+</body>
+
+</html>

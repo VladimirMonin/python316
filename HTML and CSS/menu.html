@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 100%;
+            background-color: #808080;
+            overflow: hidden;
+            /* Скрываем содержимое, выходящее за границы */
+            transition: width 1s;
+        }
+
+        nav:hover {
+            width: 200px;
+            /* Увеличенная ширина при наведении, чтобы поместился текст */
+        }
+
+        h4,
+        main {
+            padding: 32px;
+            
+        }
+
+
+        #nav-menu a {
+            display: flex;
+            align-items: center;
+            padding: 8px 8px 8px 23px;
+            /* Увеличенный padding слева, чтобы создать пространство для иконки */
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            /* Предотвращаем перенос текста на новую строку */
+            text-indent: -9999px;
+            /* "Скрываем" текст ссылки */
+            transition: background-color 0.5s, text-indent 0.5s;
+            /* Добавляем анимацию для text-indent */
+        }
+
+        #nav-menu a:hover {
+            background-color: #5e5e5e;
+        }
+
+        nav:hover #nav-menu a {
+            text-indent: 20px;
+            /* При наведении на меню возвращаем отступ тексту, делая его видимым */
+        }
+
+        #edit,
+        #favorites,
+        #history,
+        #security,
+        #settings {
+            background-size: 15px 13px;
+            background-repeat: no-repeat;
+            background-position: 5px;
+        }
+
+        #edit {
+            background-image: url('icons/edit.png');
+        }
+
+        #favorites {
+            background-image: url('icons/favorites.png');
+        }
+
+        #history {
+            background-image: url('icons/history.png');
+        }
+
+        #security {
+            background-image: url('icons/security.png');
+        }
+
+        #settings {
+            background-image: url('icons/settings.png');
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h4>Menu</h4>
+        <ul id="nav-menu">
+            <li><a id="edit" href="#edit">Edit</a></li>
+            <li><a id="favorites" href="#favorites">Favorites</a></li>
+            <li><a id="history" href="#history">History</a></li>
+            <li><a id="security" href="#security">Security</a></li>
+            <li><a id="settings" href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+    <main>
+        <!-- Остальное содержимое страницы -->
+    </main>
+</body>
+
+</html>

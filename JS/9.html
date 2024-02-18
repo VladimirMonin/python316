@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Куки, локальное хранилище, сессионное хранилище. 02.12 ">
+    <title>Lesson 9</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+<!-- BS5 form with 1 input field -->
+<header>
+    <nav>
+        <li><code>Cookie</code> - пишем, читаем, удаляем</li>
+        <li>Срок годности <code>Cookie</code></li>
+        <li>Путь <code>Cookie</code></li>
+        <li><code>JSON</code> и <code>Cookie</code></li>
+        <li>Локальное хранилище <code>LocalStorage</code></li>
+        <li>Сессионное хранилище <code>SessionStorage</code></li>
+</header>
+
+
+<body>
+    <input type="text" class="form-control" id="inputField" placeholder="Введите что-нибудь">
+    
+    <p>Послденее что вы вводили: <span id="result"></span></p>
+    <h1>Установка Cookie в JavaScript</h1>
+    <p>Для установки cookie в браузере пользователя через JavaScript используется следующая строка:</p>
+    <code>document.cookie = "username=John Doe; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/";</code>
+    <h2>Разбор строки</h2>
+    <ul>
+        <li><strong>document.cookie =</strong> - JavaScript API для управления cookies. Присваивание значения
+            <code>document.cookie</code> устанавливает новую cookie.
+        </li>
+        <li><strong>"username=John Doe"</strong> - Содержимое cookie. <code>username</code> – имя cookie,
+            <code>John Doe</code> – её значение.
+        </li>
+        <li><strong>; expires=Thu, 18 Dec 2023 12:00:00 UTC</strong> - Дата истечения срока действия cookie. Cookie не
+            будет отправляться на сервер после этого времени.</li>
+        <li><strong>; path=/</strong> - Путь определяет, для какой части сайта cookie доступны. Здесь <code>'/'</code>
+            означает, что cookie доступна для всего сайта.</li>
+    </ul>
+    <p>Браузер автоматически включает cookies в заголовок запроса <code>Cookie</code> при обращении к серверу. Сервер
+        может использовать эту информацию для аутентификации пользователя или сохранения его предпочтений.</p>
+    <h2>Важные замечания</h2>
+    <p>Cookies представляют собой строковые данные и не поддерживают сложные структуры данных напрямую. Для сохранения
+        сложных данных используется сериализация в строку, например, в формате JSON.</p>
+    <p>Также важно помнить о безопасности cookies. Cookies, содержащие конфиденциальную информацию, следует защищать с
+        помощью флагов <code>Secure</code> и <code>HttpOnly</code>. <code>Secure</code> гарантирует, что cookie
+        отправляется только через HTTPS. <code>HttpOnly</code> делает cookie недоступной для JavaScript на клиенте, что
+        помогает предотвратить атаки XSS.</p>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Параметр</th>
+            <th>Описание</th>
+            <th>Сферы применения</th>
+        </tr>
+        <tr>
+            <td>Expires</td>
+            <td>Устанавливает дату и время истечения cookie. После этого времени cookie больше не будет отправляться.
+            </td>
+            <td>Управление жизненным циклом cookie, особенно для долгосрочных предпочтений, таких как тема оформления
+                сайта или языковые настройки.</td>
+        </tr>
+        <tr>
+            <td>Max-Age</td>
+            <td>Определяет время жизни cookie в секундах. По истечении этого времени cookie исчезнет.</td>
+            <td>Аналогично Expires, но более гибкий в управлении, так как позволяет задавать время жизни в секундах.
+            </td>
+        </tr>
+        <tr>
+            <td>Domain</td>
+            <td>Определяет домен, для которого будет доступна cookie.</td>
+            <td>Ограничение области видимости cookie на определенные домены, полезно для сайтов с поддоменами.</td>
+        </tr>
+        <tr>
+            <td>Path</td>
+            <td>Указывает путь, в рамках которого cookie будет доступна.</td>
+            <td>Ограничение области действия cookie на определенные пути сайта, например, /blog или /admin.</td>
+        </tr>
+        <tr>
+            <td>Secure</td>
+            <td>Указывает, что cookie должна передаваться только по защищенным соединениям (HTTPS).</td>
+            <td>Обеспечение безопасности передачи данных, особенно для аутентификации и сеансовых токенов.</td>
+        </tr>
+        <tr>
+            <td>HttpOnly</td>
+            <td>Запрещает доступ к cookie через JavaScript.</td>
+            <td>Повышение безопасности, защита от XSS-атак путем предотвращения доступа к cookie через клиентский
+                скрипт.</td>
+        </tr>
+        <tr>
+            <td>SameSite</td>
+            <td>Контролирует отправку cookie вместе с межсайтовыми запросами.</td>
+            <td>Защита от CSRF-атак. SameSite=Strict полностью запрещает отправку cookie с межсайтовыми запросами, в то
+                время как SameSite=Lax позволяет некоторые запросы.</td>
+        </tr>
+    </table>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+        </script>
+    <script>
+        // Куки - это небольшие текстовые файлы, которые хранятся в браузере. Они создаются, когда пользователь
+        // посещает веб-сайт, чтобы хранить информацию, которая может быть полезна для сайта в будущем, например,
+        // данные для входа.
+        // Куки отправляются на сервер каждый раз, когда пользователь загружает веб-сайт. Это позволяет серверу
+        // использовать информацию для отображения страниц, которые персонализированы для пользователя или страницы,
+        // которые должны содержать информацию о его аккаунте.
+        // Куки могут хранить только текстовую информацию, как правило, идентификатор сеанса, который используется для
+        // отслеживания пользователя, когда он перемещается по веб-сайту.
+        // Куки могут быть постоянными или временными. Постоянные куки хранятся в браузере пользователя до тех пор,
+        // пока он не истечет или не будет удален вручную. Временные куки хранятся только до тех пор, пока пользователь
+        // не закроет браузер.
+        // Куки могут быть установлены с помощью объекта document.cookie.
+
+        // Создайте куки с именем "username" и значением "John Doe". Куки будет храниться в течение 365 дней:
+        // document.cookie = "username=John Doe; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/";
+
+        // Обратите внимание, что все это строка. Разделитель - точка с запятой (;).
+        // Сервер может читать это и разделять информацию по разделителю.
+        // path=/ - это путь на сервере, куда отправляются куки. Если путь установлен на "/", куки будут доступны на всем сайте.
+        // Эти куки установились для всего сайта. Если вы хотите установить куки только для определенной страницы,
+        // установите путь в этой странице.
+
+        // Чтение куки с помощью JavaScript
+        // Куки можно прочитать с помощью свойства document.cookie.
+        // Куки хранятся в строке, разделенной точкой с запятой (;).
+        // Каждый куки хранится в виде пары ключ-значение.
+        // Куки могут быть доступны в JavaScript с помощью document.cookie.
+
+        document.cookie = "expires=Thu, 18 Dec 2023 12:00:00 UTC; username=John Doe; path=/main.html";
+
+        // Соберем объект с куками
+        // let cookies = {};
+        // document.cookie.split("; ").forEach(function (item) {
+        //     let keyValue = item.split("=");
+        //     cookies[keyValue[0]] = keyValue.slice(1).join("=");
+        // });
+
+
+        // console.log(cookies);
+        // let userName = cookies["username"];
+        // console.log(userName);
+
+        // Функция которая принимает ключ и значение и устанавливает куки
+        function setCookie(key, value) {
+            document.cookie = `${key}=${value}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
+        }
+
+        // Функция которая принимает ключ и возвращает значение куки
+        function getCookie(key) {
+            let cookies = {};
+            document.cookie.split("; ").forEach(function (item) {
+                let keyValue = item.split("=");
+                cookies[keyValue[0]] = keyValue.slice(1).join("=");
+            });
+            return cookies[key];
+        }
+
+        // Функция которая принимает ключ и удаляет куки
+        function deleteCookie(key) {
+            document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+
+        // Тестируем 
+        // setCookie("formData", "Тест куки для формы");
+        // console.log(getCookie("formData"));
+
+        // Листнер по загрузке документа, отображает эти куки
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     document.getElementById("result").innerHTML = getCookie("formData");
+        //     // Удаляем куки
+        //     deleteCookie("formData");
+        //     // Проверяем что куки удалены
+        //     console.log(getCookie("formData"));
+        // });
+
+        // JSON и куки
+        // Мы можем использовать JSON для хранения сложных данных в куки.
+        // При установке куки мы можем преобразовать объект в строку JSON и сохранить его в куки.
+        // При чтении куки мы можем преобразовать строку JSON обратно в объект.
+
+        // Создаем объект
+        // let user = {
+        //     name: "John",
+        //     age: 30,
+        //     isAdmin: true,
+        //     courses: ["html", "css", "js"],
+        //     wife: null
+        // };
+
+        // Преобразуем объект в строку JSON
+        // let json = JSON.stringify(user);
+
+        // Сохраняем в куки
+        // document.cookie = "user=" + json;
+
+        // Читаем куки  с помощью getcoockie и получаем все что находится по ключу юзер
+        // Превращаем это обратно в объект с помощью JSON.parse
+
+        // let stringCookie = getCookie("user");
+        // let userFromCookie = JSON.parse(stringCookie);
+        // console.log(stringCookie);
+        // console.log(userFromCookie);
+
+
+        // Локальное хранилище. Local Storage
+        // Локальное хранилище - это хранилище данных, доступное только для JavaScript на веб-сайте.
+        // В среднем это около 5 МБ данных, но может быть больше или меньше в зависимости от браузера, на один домен.
+
+        // Запись в локальное хранилище
+        // Для записи в локальное хранилище используется метод setItem.
+        // Он принимает два параметра: ключ и значение.
+        // Значение может быть строкой, числом, объектом или массивом.
+
+        // Записываем в локальное хранилище
+        // localStorage.setItem("name", "Имя из локального хранилища");
+
+        // Чтение из локального хранилища
+        // Для чтения из локального хранилища используется метод getItem.
+        // Он принимает один параметр - ключ, и возвращает значение.
+        // let name = localStorage.getItem("name");
+        // console.log(name);
+
+        // Удаление из локального хранилища
+        // Для удаления из локального хранилища используется метод removeItem.
+        // Он принимает один параметр - ключ, и удаляет значение.
+        // localStorage.removeItem("name");
+
+
+        // Очистка локального хранилища
+        // Для очистки локального хранилища используется метод clear.
+        // Он не принимает параметров и удаляет все значения.
+        // localStorage.clear();
+
+        // let fruits = ["Яблоко", "Апельсин", "Слива"];
+        // let jsonFruits = JSON.stringify(fruits);
+
+        // Записываем в локальное хранилище
+        // localStorage.setItem("fruits", jsonFruits);
+
+        // Читаем из локального хранилища
+        // let fruitsFromLocalStorage = localStorage.getItem("fruits");
+        // console.log(fruitsFromLocalStorage);
+        // console.log(typeof fruitsFromLocalStorage);
+        // let fruitsFromLocalStorageParse = JSON.parse(fruitsFromLocalStorage);
+        // console.log(fruitsFromLocalStorageParse);
+
+        // Практика
+        // Находим форму и sapn для вывода результата
+
+        let inputField = document.getElementById("inputField");
+        let result = document.getElementById("result");
+
+        // При изменении поля ввода записываем в локальное хранилище
+        inputField.addEventListener("input", function () {
+            localStorage.setItem("formData", inputField.value);
+            // Выводим в span
+            result.innerHTML = localStorage.getItem("formData");
+        });
+
+        // При загрузке страницы проверяем есть ли в локальном хранилище данные
+        // Если есть, то выводим в span
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem("formData")) {
+                // Выводим в span
+                result.innerHTML = localStorage.getItem("formData");
+                // Выводим в input
+                inputField.value = localStorage.getItem("formData");
+            }
+        });
+
+        // Session Storage
+        // Сессионное хранилище - это хранилище данных, доступное только для JavaScript на веб-сайте.
+        // В среднем это около 5 МБ данных, но может быть больше или меньше в зависимости от браузера, на один домен.
+        // Данные в сессионном хранилище хранятся до закрытия вкладки или браузера.
+        // Данные сохраняются пока открыта вкладка или браузер, в отличие от локального хранилища.
+        // Для записи в сессионное хранилище используется метод setItem.
+
+        // Записываем в сессионное хранилище
+        sessionStorage.setItem("name", "Имя из сессионного хранилища");
+
+        // Читаем из сессионного хранилища
+        let name = sessionStorage.getItem("name");
+        console.log(name);
+
+        // Удаляем из сессионного хранилища
+        sessionStorage.removeItem("name");
+        console.log(sessionStorage.getItem("name"));
+
+        // JSON строка.
+        // JSON - JavaScript Object Notation - это формат обмена данными. Он основан на JavaScript, но используется
+        // не только для JavaScript.
+        // JSON - это текстовый формат. Это необходимо для хранения и передачи данных.
+        // JSON - это "синтаксис объекта JavaScript", но он используется как альтернатива XML.
+        // JSON - это легкий формат для обмена данными.
+
+        let weather =
+
+
+
+
+
+    </script>
+</body>
+
+</html>

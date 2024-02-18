@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>11.11 - lesson 4</h1>
+    <nav>
+        <ul>
+            <li>Цикл <code>for</code></li>
+            <li>Операторы <code>break</code> и <code>continue</code></li>
+            <li>Аналог конструкции <code>for...else</code> на "флагах"</li>
+            <li>Объекты в JavaScript</li>
+        </ul>
+    </nav>
+    <main>
+        <!-- Таблица в стиле BS5 полосата с ховером -->
+        <table class="table table-striped table-hover">
+
+            <tr>
+                <th>Метод</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td><code>.hasOwnProperty(propName)</code></td>
+                <td>Проверяет, имеет ли объект собственное свойство с именем <code>propName</code></td>
+            </tr>
+            <tr>
+                <td><code>.toString()</code></td>
+                <td>Возвращает строковое представление объекта</td>
+            </tr>
+            <tr>
+                <td><code>.valueOf()</code></td>
+                <td>Возвращает примитивное значение указанного объекта</td>
+            </tr>
+            <tr>
+                <td><code>Object.keys(obj)</code></td>
+                <td>Возвращает массив, содержащий имена всех собственных перечисляемых свойств объекта
+                    <code>obj</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code>Object.values(obj)</code></td>
+                <td>Возвращает массив значений перечисляемых свойств объекта <code>obj</code></td>
+            </tr>
+            <tr>
+                <td><code>Object.entries(obj)</code></td>
+                <td>Возвращает массив собственных перечисляемых свойств объекта <code>obj</code> в форме [ключ,
+                    значение]</td>
+            </tr>
+            <tr>
+                <td><code>Object.assign(target, ...sources)</code></td>
+                <td>Копирует все перечисляемые собственные свойства из одного или нескольких исходных объектов в
+                    целевой объект</td>
+            </tr>
+            <tr>
+                <td><code>Object.freeze(obj)</code></td>
+                <td>Замораживает объект, делая его свойства неизменяемыми</td>
+            </tr>
+            <tr>
+                <td><code>Object.seal(obj)</code></td>
+                <td>Запечатывает объект, предотвращая добавление новых свойств и делая все существующие свойства
+                    ненастраиваемыми</td>
+            </tr>
+            <tr>
+                <td><code>Object.defineProperty(obj, prop, descriptor)</code></td>
+                <td>Определяет новое или изменяет существующее свойство непосредственно на объекте и возвращает этот
+                    объект</td>
+            </tr>
+            <tr>
+                <td><code>Object.defineProperties(obj, props)</code></td>
+                <td>Определяет новые или изменяет существующие свойства, непосредственно на объекте, возвращая этот
+                    объект</td>
+            </tr>
+            <tr>
+                <td><code>Object.getPrototypeOf(obj)</code></td>
+                <td>Возвращает прототип (то есть внутреннее свойство [[Prototype]]) указанного объекта</td>
+            </tr>
+            <tr>
+                <td><code>Object.setPrototypeOf(obj, prototype)</code></td>
+                <td>Устанавливает прототип (то есть внутреннее свойство [[Prototype]]) указанного объекта в другой
+                    объект или <code>null</code></td>
+            </tr>
+            <tr>
+                <td><code>Object.is(value1, value2)</code></td>
+                <td>Сравнивает два значения, определяя, являются ли они одинаковыми (это не тоже самое, что ===, так
+                    как <code>Object.is</code> отличает <code>+0</code> от <code>-0</code> и считает
+                    <code>NaN</code> равным <code>NaN</code>)
+                </td>
+            </tr>
+            <tr>
+                <td><code>Object.create(proto, [propertiesObject])</code></td>
+                <td>Создает новый объект с указанным прототипом и необязательно включает свойства, заданные в
+                    <code>propertiesObject</code>
+                </td>
+            </tr>
+        </table>
+
+    </main>
+
+    <script>
+        let films = [
+            [
+                "Год",
+                "Фильм",
+                "Рейтинг"
+            ],
+            [
+                "2012",
+                "Marvel's The Avengers",
+                "8"
+            ],
+            [
+                "2023",
+                "Avengers: Endgame",
+                "8.5"
+            ],
+            [
+                "2018",
+                "Black Panther",
+                "7.3"
+            ],
+            [
+                "2017",
+                "Thor: Ragnarok",
+                "7.9"
+            ],
+            [
+                "2016",
+                "Captain America: Civil War",
+                "7.8"
+            ]
+        ]
+
+        // Виды циклов for в JavaScript
+        //  for of - цикл по элементам итерируемого объекта
+        // for in - цикл по индексам итерируемого объекта
+        // for (let i = 0; i < films.length; i++) - цикл с условием
+        // continue - пропускает итерацию
+        // break - прерывает цикл
+        // for - else - если цикл завершился без break, то выполняется else
+
+        // Перебираем массив с помощью цикла for of
+        // for (let film of films) {
+        //     for (let item of film) {
+        //         console.log(item);
+        //     }
+        // }
+
+        // Картавая задачка
+        // TODO Практика 10 минут
+        // 1. Сделать промпт, получаем от пользователя массив слов (через запятую)
+        // 2. Проверяем каждое слово на букву "р"
+        // 3. Если слово содержит букву "р", то выводим его в консоль и делаем break
+
+        // Проверка на вхождение буквы "р" выглядит так
+        // let word = "привет";
+        // if (word.includes("р")) {
+        //     console.log("Слово содержит букву р");
+        // }
+
+        // // Получаем от пользователя массив слов
+        // let words = prompt("Введите слова через запятую").split(",");
+        // // Перебираем массив слов
+        // let isBreak = false;
+        // for (let word of words) {
+        //     // Проверяем каждое слово на вхождение буквы "р"
+        //     if (word.includes('р')) {
+        //         console.log(`Слово ${word} содрежит букву р`);
+        //         isBreak = true;
+        //         break;
+        //     }
+        // }
+
+        // if (!isBreak) {
+        //     console.log(`В полученном массиве ${words} нет слов с буквой р`);
+        // }
+
+        // Объекты в JavaScript
+        // Объект - это структура данных, которая позволяет хранить данные в формате ключ - значение
+
+        // Пример объекта с ключами в кавычках
+
+        // let student = {
+        //     "name": "Алексей",
+        //     "surname": "Петров",
+        //     "age": 25,
+        //     "isMarried": false,
+        //     "hobbies": ["плавание", "бег", "программирование"],
+        //     "address": {
+        //         "city": "Алматы",
+        //         "street": "Абая",
+        //         "house": 12
+        //     }
+        // }
+
+        // // Пример объекта с ключами без кавычек
+        // let student2 = {
+        //     name: "Алексей",
+        //     surname: "Петров",
+        //     age: 25,
+        //     isMarried: false,
+        //     hobbies: ["плавание", "бег", "программирование"],
+        //     address: {
+        //         city: "Алматы",
+        //         street: "Абая",
+        //         house: 12
+        //     }
+        // }
+
+        // // Создание объекта с помощью конструктора
+        // let student3 = new Object();
+
+        // // Создание объекта с помощью литерала
+        // let student4 = {};
+
+        // // Добавление свойств в объект
+        // student3.name = "Алексей"; // Вариант без кавычек
+        // student3["surname"] = "Петров"; // Вариант с кавычками
+
+        // Чтение свойств объекта
+        // console.log(student3.name);
+        // console.log(student3["surname"]);
+
+        // Удаление свойств объекта
+        // delete student3.name;
+        // console.log(student3);
+
+        // Список методов объектов
+        // Object.keys() - возвращает массив ключей объекта
+        // Object.values() - возвращает массив значений объекта
+        // Object.entries() - возвращает массив массивов [ключ, значение]
+        // Object.assign() - копирует свойства из одного объекта в другой
+
+        // Перебор объекта с помощью цикла for in
+        // Цикл for In перебирает ключи объекта
+        // for (let key in student) {
+        //     console.log(key);
+        //     console.log(student[key]);
+        // }
+
+        // // Перебор массива studend.keys() - возвращает массив ключей объекта
+        // for (let key of Object.keys(student)) {
+        //     console.log(key);
+        // }
+
+        // // Перебор массива studend.values() - возвращает массив значений объекта
+        // for (let value of Object.values(student)) {
+        //     console.log(value);
+        // }
+
+        // // Перебор массива studend.entries() - возвращает массив массивов [ключ, значение]
+        // // Раскладываем по отдельным переменным
+        // for (let [key, value] of Object.entries(student)) {
+        //     console.log(key);
+        //     console.log(value);
+        // }
+
+        // Данные от погодного API
+        // https://api.openweathermap.org/data/2.5/weather?q=%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3&appid=23496c2a58b99648af590ee8a29c5348&units=metric&lang=ru
+
+        let weatherSPB = {
+            "coord": { "lon": 30.2642, "lat": 59.8944 },
+            "weather": [{ "id": 803, "main": "Clouds", "description": "облачно с прояснениями", "icon": "04d" }],
+            "base": "stations",
+            "main": {
+                "temp": 6.09,
+                "feels_like": 4.64,
+                "temp_min": 5.65,
+                "temp_max": 6.72,
+                "pressure": 1006,
+                "humidity": 92
+            },
+            "visibility": 10000,
+            "wind": { "speed": 2, "deg": 160 },
+            "clouds": { "all": 75 },
+            "dt": 1699693828,
+            "sys": {
+                "type": 2, "id": 197864, "country": "RU",
+                "sunrise": 1699681493, "sunset": 1699710064
+            },
+            "timezone": 10800,
+            "id": 498817,
+            "name": "Санкт-Петербург",
+            "cod": 200
+        }
+
+        // Добываем скорость ветра ключ wind.speed
+
+        // console.log(weatherSPB.wind.speed);
+
+        // TODO Практика
+        // 1. Получаем данные о погоде в своём городе
+        //  https://api.openweathermap.org/data/2.5/weather?q=СВОЙ-ГОРОД&appid=23496c2a58b99648af590ee8a29c5348&units=metric&lang=ru
+        // Получить JSON строку и скопировать её в документ в переменную weatherMyCity
+        // Вывести в консоль шаблонную строку с температурой, температурой ощущается как и 
+        // скоростью ветра в своём городе
+
+        // Функция, которая принимает название города, и делает запрос на API
+        // Возвращает объект JS с данными о погоде
+
+        function getWeather(city) {
+            // URL Get запроса к API погоды
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=23496c2a58b99648af590ee8a29c5348&units=metric&lang=ru`;
+            // fetch - функция, которая делает запрос к API
+            let response = fetch(url);
+            // Возвращаем готовый объект JS для дальнейшей работы
+            return response;
+        }
+
+        // then - является методом объекта Promise
+        // promise - это объект, который содержит в себе результат асинхронной операции
+        // then - метод, который позволяет обработать результат асинхронной операции
+        // then - принимает функцию, которая будет вызвана после того, как асинхронная операция завершится
+        let city = prompt("Введите название города");
+        getWeather(city).then((response) => {
+            // response - объект JS с данными о погоде
+            // console.log(response);
+            // response.json() - метод, который преобразует JSON строку в объект JS
+            response.json().then((data) => {
+                // data - объект JS с данными о погоде
+                console.log(data);
+                // Выводим в консоль шаблонную строку с данными о погоде
+                console.log(`В городе ${data.name} температура ${data.main.temp} градусов, ощущается как ${data.main.feels_like} градусов, скорость ветра ${data.wind.speed} м/с`);
+            })
+        })
+
+
+    </script>
+</body>
+
+
+</html>

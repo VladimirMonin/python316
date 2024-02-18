@@ -1,0 +1,287 @@
+<!-- Шаг 1. Создание базового HTML -->
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Grid Example</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        /* Шаг 2. Создание стилей для task , done */
+        .task {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+            /* Flex для выравнивания содержимого */
+            display: flex;
+            /* Для создания flex-контейнера */
+            justify-content: space-between;
+            /* Выравнивание по горизонтали */
+            align-items: center;
+            /* Выравнивание по вертикали */
+        }
+
+
+
+        .done {
+            background-color: #ccc;
+            /* Перечеркнутый */
+            text-decoration: line-through;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        /* Шаг 2.1 Создание стилей для #completed-tasks */
+        #completed-tasks {
+            margin-top: 20px;
+        }
+
+        button {
+            /* Выравнивание по правому краю */
+            float: right;
+            margin-bottom: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Строка для двух колонок -->
+        <div class="row">
+            <!-- Колонка для больших экранов 6, для маленьких 12 -->
+            <div class="col-lg-7 col-12">
+                <div class="p-3 border bg-light">
+                    <section>
+                        <h1>Детальное задание для создания To-Do List</h1>
+                        <ol>
+                            <li>
+                                <strong>Создание базового HTML-документа:</strong>
+                                <ul>
+                                    <li>Объявите тип документа для HTML5.</li>
+                                    <li>Укажите язык содержимого страницы как русский.</li>
+                                    <li>В разделе head укажите, что страница должна использовать кодировку UTF-8.</li>
+                                    <li>Добавьте название вашего документа в теге title.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Добавление стилей CSS внутри документа:</strong>
+                                <ul>
+                                    <li>Создайте CSS правила для стилизации элементов страницы в теге style.</li>
+                                    <li>Опишите внешний вид элементов, которые будут отображать задачи.</li>
+                                    <li>Установите стиль <code>.done</code> для выполненных задач.</li>
+                                    <li>Установите стиль <code>.task</code> для задач.</li>
+                                    <li>Скройте раздел <code>#completed-tasks</code> с выполненными задачами, когда он
+                                        пуст используя <code>display: none;</code></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Разметка контента страницы:</strong>
+                                <ul>
+                                    <li>Поместите заголовок второго уровня <code>h2 - Активные задачи</code> перед
+                                        областью для задач.</li>
+
+                                    <li>Подготовьте контейнер для задач. <code>id - task-list</code> </li>
+                                    <li>Разместите поле для ввода задачи <code>input type="text" id="task-input"</code>
+                                        и кнопку <code>button id="add-task-btn"</code> для добавления задачи.</li>
+                                    <li>Поместите заголовок второго уровня <code>h2 - Выполненные задачи</code> перед
+                                        областью для выполненных задач.</li>
+                                    <li>Подготовьте контейнер для выполненных задач. <code>id - completed-tasks</code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Написание логики на JavaScript:</strong>
+                                <ul>
+                                    <li>Создайте функции для управления поведением to-do листа в блоке script.</li>
+                                    <li>Реализуйте функцию для добавления новой задачи.</li>
+                                    <li>Проверьте, что поле ввода не пустое, прежде чем добавлять задачу.</li>
+                                    <li>Добавьте функцию для кнопки "Удалить", которая будет перемещать задачу в список
+                                        выполненных.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Управление отображением выполненных задач:</strong>
+                                <ul>
+                                    <li>Реализуйте функцию, которая контролирует видимость раздела с выполненными
+                                        задачами.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Привязка событий:</strong>
+                                <ul>
+                                    <li>Настройте обработчик события на кнопку "Добавить".</li>
+                                    <li>Очистите поле ввода и обновите видимость выполненных задач после добавления
+                                        задачи.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Тестирование функциональности:</strong>
+                                <ul>
+                                    <li>Проверьте, что добавление, удаление задач и отображение раздела выполненных
+                                        задач работают корректно.</li>
+                                    <li>Убедитесь, что интерфейс корректно отображается на разных устройствах.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+
+                </div>
+            </div>
+            <!-- Колонка для больших экранов 6, для маленьких 12 -->
+            <!-- Работу выполняем внутри  div class="p-3 border bg-light-->
+            <div class="col-lg-5 col-12">
+                <!-- p-3 - отступы по краям, border - граница, bg-light - фоновый цвет, rounded - скругление углов -->
+                <div class="p-3 border bg-light">
+
+                    <!-- Шаг 3. Создание контейнера для задач
+                        Контейнер для задач -->
+                    <div id="task-list" class="display-none">
+                        <h2>Активные задачи</h2>
+                    </div>
+                    <!-- Добавляем див для выравнивания BS стилем поле ввода и кнопку -->
+                    <div class="d-flex justify-content-between">
+                        <!-- Шаг 3. Создание поля ввода и кнопки
+                            Поле ввода и кнопка -->
+                        <input type="text" id="task-input">
+                        <button id="add-task-btn" class="btn btn-dark">Добавить</button>
+                    </div>
+
+                    <!-- Шаг 3. Создание контейнера для выполненных задач
+                         -->
+                    <div id="completed-tasks" class="display-none text-bg-secondary p-3">
+                        <h2>Выполненные задачи</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap Bundle JS (включает Popper) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        //  Логика добавления задач
+        // 1. Находим кнопку
+        // 2. Находим поле ввода
+        // 3. Находим контейнер для задач
+        // 4. Добавляем обработчик события на кнопку
+        // 5. Получаем значение из поля ввода (проверяем, что оно не пустое)
+        // 6. Создаем элемент для задачи - div с классом task
+        // 7. Добавляем внутрь элемента текст из поля ввода, а также кнопку удаления
+        // 8. Добавляем элемент в контейнер для задач
+
+        // Нашли все нужные элементы
+        let addTaskBtn = document.querySelector('#add-task-btn');
+        let taskInput = document.querySelector('#task-input');
+        let taskList = document.querySelector('#task-list');
+        let completedTasks = document.querySelector('#completed-tasks');
+
+        // Функция которая принимает  элемент и проверяет есть ли у них дочерние элементы
+        // Добавляет или удаляет класс display-none
+        function toggleDisplayNone(element) {
+            // Если у элемента есть дочерние элементы
+            if (element.children.length > 0) {
+                // Удаляем класс display-none
+                element.classList.remove('display-none');
+            }
+            else {
+                // Добавляем класс display-none
+                element.classList.add('display-none');
+            }
+        }
+        // Функция для добычи текста из поля ввода + проверка на пустое поле (отдает текст или false)
+        function getTaskText() {
+            // trim() - удаляет пробелы в начале и конце строки
+            let text = taskInput.value.trim();
+            if (text == '') {
+                return false;
+            }
+            return text;
+        }
+
+        // Функция очистки поля ввода
+        function clearTaskInput() {
+            taskInput.value = '';
+        }
+
+        //4.4. Функция для перемещения задачи в выполненные (будет срабатывать при нажатии на кнопку удаления)
+        function moveTaskToCompleted(task) {
+            // Добавляем класс done
+            task.classList.add('done');
+            // Перемещаем в контейнер для выполненных задач
+            completedTasks.append(task);
+        }
+
+        // Функция принимает элемент кнопки и добавляет обработчик события на клик
+        // При клике на кнопку будет вызываться функция moveTaskToCompleted
+        function addDeleteBtnListener(btn) {
+            btn.addEventListener('click', function () {
+                moveTaskToCompleted(btn.parentElement);
+                // Изменяем видимость выполненных задач
+                toggleDisplayNone(completedTasks);
+                toggleDisplayNone(taskList);
+                // Удаление кнопки
+                btn.remove();
+            });
+        }
+
+
+
+        // 4.1 Функция добавления задачи в список задач
+        function createTask(text) {
+            // Создаем элемент для задачи
+            let task = document.createElement('div');
+            // Добавляем класс для стилизации
+            task.classList.add('task');
+            // Добавляем внутрь текст
+            task.textContent = text;
+            // Создаем кнопку удаления
+            let deleteBtn = document.createElement('button');
+            // Добавляем класс кнопки
+            deleteBtn.classList.add('btn', 'btn-danger');
+            // Добавляем текст в кнопку
+            deleteBtn.textContent = 'Удалить';
+            // Добавляем обработчик события на кнопку
+            addDeleteBtnListener(deleteBtn);
+            // Добавляем кнопку в элемент задачи
+            task.append(deleteBtn);
+
+            // Добавляем элемент в контейнер для задач
+            taskList.append(task);
+
+            // Очищаем поле ввода
+            clearTaskInput();
+        }
+
+
+        // 6.1 Добавляем обработчик события добавления новой задачи на кнопку
+        addTaskBtn.addEventListener('click', function () {
+            // Если в поле ввода что-то есть - выводим в консоль
+            if (getTaskText()) {
+                console.log(getTaskText());
+                // Создаем задачу
+                let task = createTask(getTaskText());
+                // Изменяем видимость выполненных задач
+                toggleDisplayNone(taskList);
+            }
+            else {
+                alert('Текст задачи не должен быть пустым!');
+            }
+
+
+        });
+
+
+    </script>
+</body>
+
+</html>

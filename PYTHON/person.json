@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Женя",
+    "age": 30,
+    "job": "разраб",
+    "salary": 1000.0,
+    "skills": [
+      "python",
+      "git",
+      "linux"
+    ],
+    "married": true,
+    "hobbies": null
+  },
+  {
+    "name": "Женя",
+    "age": 30,
+    "job": "разраб",
+    "salary": 1000.0,
+    "skills": [
+      "python",
+      "git",
+      "linux"
+    ],
+    "married": true,
+    "hobbies": null
+  },
+  {
+    "name": "Женя",
+    "age": 30,
+    "job": "разраб",
+    "salary": 1000.0,
+    "skills": [
+      "python",
+      "git",
+      "linux"
+    ],
+    "married": true,
+    "hobbies": null
+  }
+]

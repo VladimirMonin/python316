@@ -1,0 +1,126 @@
+body {
+    font-family: sans-serif;
+    width: 95%;
+    margin: 0 auto;
+    background-color: #f4f7f2;
+}
+
+code {
+    background-color: #f7e8e8;
+    padding: 2px;
+    border-radius: 3px;
+    margin-right: 5px;
+
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+td code {
+    padding: 0;
+}
+
+h1 code,
+h2 code,
+h2 code {
+    font-size: 1.3em;
+}
+
+.code-block,
+pre code {
+    background-color: #eee;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 3px;
+    display: block
+}
+
+button {
+    background-color: #72b475;
+    border: none;
+    color: white;
+    /* padding: 10px 20px; */
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 14px;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.col {
+    display: inline-block;
+    width: 45%;
+    min-width: 40vh;
+    float: left;
+    /* margin-right: 1%; */
+    padding: 5px;
+    border: 1px solid #000000;
+    margin: 5px;
+    box-shadow: 0 0 4px #2d2c2c;
+}
+
+mark {
+    background-color: #7cca76;
+    padding: 2px;
+    border-radius: 6px;
+    margin-right: 5px;
+}
+
+ul li {
+    list-style-type: disc;
+}
+
+/* У нас список вложенный в список. Задача у каждого первого li внешнего списка убрать буллеты
+Чтобы это свойство растпростанялось только на прямых наследников но не на вложенные списки */
+.external-list>li {
+    list-style-type: none;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #07ba28;
+    display: inline-block;
+    margin-right: 5px;
+    /* По центру родителя */
+    
+}
+
+.circles-wrap {
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #000000;
+    box-shadow: 0 0 4px #2d2c2c;
+    margin: 5px;
+}
+
+/* .circles-wrap h3 {
+    display:inline-block;
+} */
+
+/* flex-container
+flex-item item1 */
+
+.flex-container {
+    display: flex;
+    /* flex-direction: row-reverse; */
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #000000;
+    background-color: #2d2c2c;
+    height: 100px;
+}
+
+.flex-item {
+    /* display: inline-block; */
+    padding: 10px;
+    border: 1px solid #000000;
+    margin: 5px;
+    width: 30px;
+    background-color: #72b475;
+}

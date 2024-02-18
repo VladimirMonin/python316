@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="Формы в HTML">
+    <title>Формы в HTML</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            width: 90%;
+            margin: 0 auto;
+            background-color: #f4f7f2;
+        }
+
+        code {
+            background-color: #eee;
+            padding: 2px;
+            border-radius: 3px;
+        }
+
+        .code-block,
+        pre code {
+            background-color: #eee;
+            padding: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 5px #ccc;
+            border-radius: 3px;
+            display: block
+        }
+
+        button {
+            background-color: #72b475;
+            border: none;
+            color: white;
+            /* padding: 10px 20px; */
+            text-align: center;
+            text-decoration: none;
+            /* display: inline-block; */
+            font-size: 14px;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        .check-box-1 {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            display: inline-block;
+            box-shadow: 0 0 5px #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Формы в HTML</h1>
+
+    <h2>Для чего нам нужны формы?</h2>
+    <strong> </strong>
+    <ul>
+        <li><strong>Сбор данных</strong>: Формы собирают введенную пользователями информацию и
+            последовательна передают эту информацию для обработки.</li>
+        <li><strong>Валидация данных</strong>: Формы обеспечивают проверку
+            и валидацию введенных данным путем использования встроенных атрибутов валидации в HTML5 или с помощью
+            JavaScript.</li>
+        <li><strong>Отправка данных</strong>: Формы отправляют собранную
+            информацию на сервер с помощью метода HTTP. Это может быть <code>GET</code> или <code>POST</code>.</li>
+    </ul>
+    <h3>Пример <code>GET</code></h3>
+    <p><code class="code-block">https://yandex.kz/search/?text=html+guide&lr=10306&clid=1836587</code></p>
+
+    <h3>Пример формы</h3>
+    <pre><code>
+        &lt;form method="get"&gt;
+                &lt;label for="username"&gt;Имя пользователя &gt;&lt;/label&gt;
+                &lt;input type="text" id="username" name="username" placeholder="Введите username" required&gt;
+                &lt;label for="email"&gt;Эл. адрес &gt;&lt;/label&gt;
+                &lt;input type="email" id="email" name="email" placeholder="Введите email" required&gt;
+                &lt;label for="password"&gt;Пароль &gt;&lt;/label&gt;
+                &lt;input type="text" id="password" name="password" placeholder="Введите password" required&gt;
+                &lt;input type="submit" value="Отправить"&gt;
+                &lt;input type="reset" value="Очистить"&gt;
+        &lt;/form&gt;
+        </code></pre>
+
+    <!-- https://yandex.kz// action="/search"-->
+    <form method="get">
+        <label for="username">Имя пользователя ></label>
+        <input type="text" id="username" name="username" placeholder="Введите username" required>
+        <label for="email">Эл. адрес ></label>
+        <input type="email" id="email" name="email" placeholder="Введите email" required>
+        <label for="password">Пароль ></label>
+        <input type="text" id="password" name="password" placeholder="Введите password" pattern=".{8,}"
+            title="Ввведите пароль не менее 8 символов." required>
+        <!-- Неактивная форма -->
+        <input type="text" value="Отправить" disabled>
+        <button type="submit">Отправить</button>
+        <button type="reset">Очистить</button>
+
+    </form>
+    <h3>Пример чек-бокса</h3>
+    <p>Чекбоксы или флажки (checkboxes) позволяют пользователю многочисленно отмечать некоторые части форм, в отличие от
+        радио-кнопок.</p>
+    <form class="check-box-1">
+        <div>
+            <input type="checkbox" id="option1" name="is_study_sticks" value="true">
+            <label for="option1">Учебные палочки</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option2" name="is_buttle_sticks" value="true">
+            <label for="option2">Боевые палочки</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option3" name="is_drum_sticks" value="true">
+            <label for="option3">Палочки от барабана</label>
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <h3>Пример радио-кнопок</h3>
+    <p>Радио-кнопки (radio buttons) позволяют пользователю выбрать один вариант из нескольких.</p>
+
+    <form class="check-box-1">
+        <div>
+            <input type="radio" id="option1" name="sticks" value="study">
+            <label for="option1">Учебные палочки</label>
+        </div>
+        <div>
+            <input type="radio" id="option2" name="sticks" value="buttle">
+            <label for="option2">Боевые палочки</label>
+        </div>
+        <div>
+            <input type="radio" id="option3" name="sticks" value="drum">
+            <label for="option3">Палочки от барабана</label>
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <h3>Пример выпадающего списка</h3>
+    <p>Выпадающие списки (drop-down lists) позволяют пользователю выбрать один вариант из нескольких.</p>
+    <p>Куда я поеду в свой воображаемый отпуск?</p>
+
+    <form class="select-1">
+        <select name="city">
+            <optgroup label="Европа">
+                <option value="berlin">Берлин</option>
+                <option value="paris">Париж</option>
+                <option value="london">Лондон</option>
+                <option value="rome">Рим</option>
+                <option value="madrid">Мадрид</option>
+            </optgroup>
+            <optgroup label="Азия">
+                <option value="bangkok">Бангкок</option>
+                <option value="bangkok">Бангкок</option>
+                <option value="bangkok">Бангкок</option>
+            </optgroup>
+        </select>
+        <button type="submit">Выбрать город</button>
+    </form>
+    <h3>Пример многострочного текстового поля</h3>
+    <p>Многострочные текстовые поля (text areas) позволяют пользователю
+        вводить несколько строк текста.</p>
+
+    <form class="select-1" method="post">
+        <textarea name="message" rows="10" cols="40" placeholder="Введите сообщение"></textarea>
+        <button type="submit">Отправить</button>
+
+    </form>
+    <h3>Пример ползунка</h3>
+    <p>Ползунки (sliders) позволяют пользователю выбрать значение из некоторого диапазона.</p>
+
+    <form class="select-1" method="get">
+        <label for="volume">Громкость</label>
+        <input type="range" id="volume" name="volume" min="0" max="100" value="10">
+        <button type="submit">Отправить</button>
+
+    </form>
+    <h3>Пример формы для отправки файла</h3>
+    <p>Формы для отправки файлов (file upload forms) позволяют пользователю выбрать файлы на
+        своем компьютере и отправить их на сервер.</p>
+    <!-- Форма с указанием ожидаемого расширения -->
+    <form class="select-1" method="post" enctype="multipart/form-data">
+        <label for="file">Выберите файл</label>
+        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, tiff, .heic, .webp">
+        <button type="submit">Отправить</button>
+
+        <h2><code>iframe</code> тег</h2>
+        <p>Тег <code>iframe</code> позволяет встраивать веб-страницы в другие веб-страницы.</p>
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/W4MIiV4nZDY?si=sRlrT33qXJ0MXMoA"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+</body>
+
+</html>

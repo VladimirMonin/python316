@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Знакомство с JS. Python 316. 21.10.2023">
+    <title>JS Lesson 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Подключение JS файла -->
+    <!-- <script src="JS/1.js"></script> -->
+    <style>
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        body {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body class="fs-3">
+    <header>
+        <nav>
+            <a href="#h2-noscript">Тег <code>noscript</code></a>
+            <a href="#h2-add-js">Спсобы добавления JS скриптов на страницу. <code>script</code></a>
+            <a href="#h2-reserved">Резервированные слова в JS</a>
+            <a href="#h2-namingRules">Правила нейминга переменных</a>
+            <a href="#h2-dataType">Типы данных в JS</a>
+            <a href="#h2-console">Вывод данных в консоль</a>
+            <a href="#h2-ModalWindows">Модальные окна</a>
+            <a href="#h2-jsMath">Математика в JS</a>
+            <a href="#h2-typeof">Typeof - определение типа данных</a>
+            <a href="#h2-boolVariant">Варианты возвращаемых значений при логических операциях</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Знакомство с JS</h1>
+        <h2 id="h2-noscript">Тег <code>noscript</code></h2>
+        <noscript>
+            <p>К сожалению, ваш браузер не поддерживает JavaScript или он отключен. Это может вызвать проблемы при
+                работе с нашим сайтом.</p>
+        </noscript>
+        <h2 id="h2-add-js">Спсобы добавления JS скриптов на страницу. <code>script</code></h2>
+        <p>Способ 1. Внешний файл</p>
+        <p>Способ 2. Внутренний скрипт <code>script</code></p>
+        <p>Способ 3. Непосредственно в тег</p>
+
+        <h2>Способ 1. Внешний файл</h2>
+        <p>Создаем файл <code>1.js</code> в папке <code>JS</code></p>
+        <p>Подключаем файл <code>1.js</code> в теге <code>head</code> с помощью атрибута <code>src</code></p>
+        <p>Подключение JS файла</p>
+        <pre>
+            <code>
+                &lt;script src="JS/1.js"&gt;&lt;/script&gt;
+            </code>
+        </pre>
+        <h2>Способ 1. Внутренний скрипт</h2>
+        <p>Внутренний скрипт <code>script</code></p>
+        <p>Создаем тег <code>script</code> в теге <code>head</code></p>
+        <p>Внутрь тега <code>script</code> помещаем код</p>
+        <pre>
+            <code>
+                &lt;script&gt;
+                    alert('Привет, мир!');
+                &lt;/script&gt;
+            </code>
+        </pre>
+        <h2>Способ 3. Непосредственно в тег</h2>
+        <button onclick="console.log('Кнопка нажата!');" type="button" class="btn btn-dark">Нажми на меня!</button>
+        <h2 id="h2-reserved">Резервированные слова в JS</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Резервированные слова</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>break</td>
+                    <td>Прерывает выполнение цикла или оператора switch.</td>
+                </tr>
+                <tr>
+                    <td>case</td>
+                    <td>Указывает отдельный случай в операторе switch.</td>
+                </tr>
+                <tr>
+                    <td>catch</td>
+                    <td>Блок для обработки исключений в операторе try...catch.</td>
+                </tr>
+                <tr>
+                    <td>class</td>
+                    <td>Определяет класс в ECMAScript 2015 и выше.</td>
+                </tr>
+                <tr>
+                    <td>const</td>
+                    <td>Объявляет переменную с постоянным значением.</td>
+                </tr>
+                <tr>
+                    <td>continue</td>
+                    <td>Переходит на следующую итерацию цикла.</td>
+                </tr>
+                <tr>
+                    <td>debugger</td>
+                    <td>Ставит выполнение кода на паузу, если активен отладчик.</td>
+                </tr>
+                <tr>
+                    <td>default</td>
+                    <td>Указывает код, который выполнится, если ни один из case не совпадает в операторе switch.</td>
+                </tr>
+                <tr>
+                    <td>delete</td>
+                    <td>Удаляет свойство объекта.</td>
+                </tr>
+                <tr>
+                    <td>do</td>
+                    <td>Запускает блок кода, пока условие истинно (используется с while).</td>
+                </tr>
+                <tr>
+                    <td>else</td>
+                    <td>Выполняет блок кода, если условие в операторе if ложно.</td>
+                </tr>
+                <tr>
+                    <td>export</td>
+                    <td>Экспортирует функции, объекты или примитивы из модуля.</td>
+                </tr>
+                <tr>
+                    <td>extends</td>
+                    <td>Устанавливает класс наследник в классовой иерархии.</td>
+                </tr>
+                <tr>
+                    <td>false</td>
+                    <td>Логическое значение "ложь".</td>
+                </tr>
+                <tr>
+                    <td>finally</td>
+                    <td>Блок кода, который будет выполнен после try и catch, независимо от того, было ли исключение.
+                    </td>
+                </tr>
+                <tr>
+                    <td>for</td>
+                    <td>Создает цикл, который состоит из трех необязательных выражений.</td>
+                </tr>
+                <tr>
+                    <td>function</td>
+                    <td>Объявляет функцию.</td>
+                </tr>
+                <tr>
+                    <td>if</td>
+                    <td>Выполняет блок кода, если указанное условие истинно.</td>
+                </tr>
+                <tr>
+                    <td>import</td>
+                    <td>Импортирует функции, объекты или примитивы из модуля.</td>
+                </tr>
+                <tr>
+                    <td>in</td>
+                    <td>Определяет, существует ли указанное свойство в объекте.</td>
+                </tr>
+                <tr>
+                    <td>instanceof</td>
+                    <td>Проверяет, является ли объект экземпляром конкретного класса.</td>
+                </tr>
+                <tr>
+                    <td>new</td>
+                    <td>Создает экземпляр объекта.</td>
+                </tr>
+                <tr>
+                    <td>null</td>
+                    <td>Значение, представляющее отсутствие значения или отсутствие объекта.</td>
+                </tr>
+                <tr>
+                    <td>return</td>
+                    <td>Завершает выполнение функции и возвращает значение из этой функции.</td>
+                </tr>
+                <tr>
+                    <td>super</td>
+                    <td>Вызывает методы родительского класса.</td>
+                </tr>
+                <tr>
+                    <td>switch</td>
+                    <td>Выполняет один из многих блоков кода в зависимости от условия.</td>
+                </tr>
+                <tr>
+                    <td>this</td>
+                    <td>Ссылка на текущий объект.</td>
+                </tr>
+                <tr>
+                    <td>throw</td>
+                    <td>Выбрасывает исключение пользовательской ошибки.</td>
+                </tr>
+                <tr>
+                    <td>true</td>
+                    <td>Логическое значение "истина".</td>
+                </tr>
+                <tr>
+                    <td>try</td>
+                    <td>Тестирует блок кода на наличие ошибок.</td>
+                </tr>
+                <tr>
+                    <td>typeof</td>
+                    <td>Возвращает строку, указывающую тип операнда.</td>
+                </tr>
+                <tr>
+                    <td>var</td>
+                    <td>Объявляет переменную.</td>
+                </tr>
+                <tr>
+                    <td>void</td>
+                    <td>Определяет значение как не определенное.</td>
+                </tr>
+                <tr>
+                    <td>while</td>
+                    <td>Создает цикл, который выполняется, пока условие истинно.</td>
+                </tr>
+                <tr>
+                    <td>with</td>
+                    <td>Расширяет область действия цепочки.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="h2-namingRules">Правила нейминга переменных</h2>
+        <p><code>camelCase</code>, часто называемый <code>lowerCamelCase</code>, это стиль именования, при котором
+            первое слово начинается с маленькой буквы, а каждое последующее слово или аббревиатура начинается с
+            заглавной буквы. Этот стиль широко применяется в программировании, особенно в языках, таких как JavaScript,
+            для именования переменных, функций и экземпляров объектов.</p>
+
+        <p>Примеры использования <code>camelCase</code>:</p>
+        <ul>
+            <li><code>userName</code></li>
+            <li><code>getUserInfo</code></li>
+            <li><code>calculateTotalAmount</code></li>
+        </ul>
+
+        <p>Основные преимущества использования <code>camelCase</code>:</p>
+        <ol>
+            <li><strong>Читаемость</strong>: Имена переменных и функций становятся легко читаемыми, когда отдельные
+                слова разделены различным регистром букв, вместо того чтобы использовать символы или пробелы.</li>
+            <li><strong>Совместимость</strong>: Многие языки программирования не разрешают пробелы в именах переменных
+                или функций, и некоторые даже имеют проблемы с некоторыми символами. Использование
+                <code>camelCase</code> устраняет эти проблемы.
+            </li>
+            <li><strong>Стандарт в многих областях</strong>: Во многих языках программирования и библиотеках
+                <code>camelCase</code> является стандартным стилем именования.
+            </li>
+        </ol>
+
+        <p>Однако стоит заметить, что не все сообщества и языки программирования предпочитают <code>camelCase</code>.
+            Например, в Python принято использовать <code>snake_case</code> для переменных и функций. Тем не менее, в
+            контексте JavaScript и некоторых других языков <code>camelCase</code> остается доминирующим стилем.</p>
+        <h2 id="h2-dataType">Типы данных в JS</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Тип данных</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Number</td>
+                    <td>Представляет как целые, так и числа с плавающей запятой.</td>
+                </tr>
+                <tr>
+                    <td>String</td>
+                    <td>Представляет последовательность символов. Например: "Hello, World!"</td>
+                </tr>
+                <tr>
+                    <td>Boolean</td>
+                    <td>Имеет два значения: true или false.</td>
+                </tr>
+                <tr>
+                    <td>Undefined</td>
+                    <td>Значение переменной, которому не присвоено значение.</td>
+                </tr>
+                <tr>
+                    <td>Null</td>
+                    <td>Представляет отсутствие значения или отсутствие объекта.</td>
+                </tr>
+                <tr>
+                    <td>Object</td>
+                    <td>Объекты в JavaScript могут быть проиндексироваными коллекциями данных или более сложными вещами,
+                        такими как функции.</td>
+                </tr>
+                <tr>
+                    <td>Array</td>
+                    <td>Представляет упорядоченный список значений, который может содержать разные типы данных.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="h2-console">Вывод данных в консоль</h2>
+        <p>Консоль в JavaScript предоставляет разработчикам инструменты для диагностики и отладки кода. Среди прочих
+            методов, <code>console</code> предлагает три основных метода для вывода сообщений разного уровня важности:
+            <code>log</code>, <code>warn</code>, и <code>error</code>.
+        </p>
+
+        <ol>
+            <li><strong>console.log()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Это наиболее часто используемый метод для вывода информации в
+                        консоль. Он применяется, в основном, для отладки и мониторинга выполнения кода.</li>
+                    <li><strong>Пример</strong>: <code>console.log("Это обычное сообщение");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров это сообщение отображается
+                        обычным черным текстом.</li>
+                </ul>
+            </li>
+            <li><strong>console.warn()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для вывода предупреждений. Подсказывает, что что-то
+                        может быть неправильно, но это не препятствует нормальной работе приложения.</li>
+                    <li><strong>Пример</strong>: <code>console.warn("Это предупреждение");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров предупреждения отображаются в
+                        желтом цвете, иногда с иконкой предупреждения.</li>
+                </ul>
+            </li>
+            <li><strong>console.error()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для вывода сообщений об ошибках. Указывает на серьезные
+                        проблемы, которые могут мешать выполнению программы.</li>
+                    <li><strong>Пример</strong>: <code>console.error("Это сообщение об ошибке");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров ошибки отображаются красным
+                        цветом с иконкой ошибки.</li>
+                </ul>
+            </li>
+        </ol>
+        <h2 id="h2-ModalWindows">Модальные окна</h2>
+        <p>Методы <code>console</code> в JavaScript предоставляют разработчикам инструменты для отладки и вывода
+            сообщений разного уровня важности в консоль браузера.</p>
+
+        <ol>
+            <li><strong>console.log()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Обычно используется для вывода диагностической информации и
+                        отслеживания выполнения кода.</li>
+                    <li><strong>Пример</strong>: <code>console.log("Это обычное сообщение");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров это сообщение отображается
+                        обычным черным текстом.</li>
+                </ul>
+            </li>
+            <li><strong>console.warn()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для вывода предупреждающих сообщений, которые указывают
+                        на потенциальные проблемы в коде, которые, однако, не препятствуют его выполнению.</li>
+                    <li><strong>Пример</strong>: <code>console.warn("Это предупреждающее сообщение");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров предупреждения отображаются в
+                        желтом цвете, часто с иконкой предупреждения.</li>
+                </ul>
+            </li>
+            <li><strong>console.error()</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для вывода сообщений об ошибках, указывая на серьезные
+                        проблемы, которые могут мешать нормальному выполнению кода.</li>
+                    <li><strong>Пример</strong>: <code>console.error("Это сообщение об ошибке");</code></li>
+                    <li><strong>Визуальное отображение</strong>: В большинстве браузеров сообщения об ошибках
+                        отображаются красным цветом с иконкой ошибки.</li>
+                </ul>
+            </li>
+        </ol>
+        <h2 id="h2-jsMath">Математика в JS</h2>
+        <p>Математические операторы в JS:</p>
+
+        <ol>
+            <li><strong>Сложение (+)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для сложения двух чисел или для конкатенации строк.</li>
+                    <li><code>let result = 5 + 10; // 15</code></li>
+                </ul>
+            </li>
+            <li><strong>Вычитание (-)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для вычитания одного числа из другого.</li>
+                    <li><code>let result = 15 - 5; // 10</code></li>
+                </ul>
+            </li>
+            <li><strong>Умножение (*)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для умножения двух чисел.</li>
+                    <li><code>let result = 5 * 3; // 15</code></li>
+                </ul>
+            </li>
+            <li><strong>Деление (/)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Используется для деления одного числа на другое.</li>
+                    <li><code>let result = 15 / 3; // 5</code></li>
+                </ul>
+            </li>
+            <li><strong>Остаток от деления (%)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Возвращает остаток от деления двух чисел.</li>
+                    <li><code>let result = 16 % 5; // 1</code></li>
+                </ul>
+            </li>
+            <li><strong>Целочисленное деление (//)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Этот оператор не существует в JS. Но можно имитировать его поведение.
+                    </li>
+                    <li><code>let result = Math.floor(17 / 5); // 3</code></li>
+                </ul>
+            </li>
+            <li><strong>Возведение в степень (**)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Возводит число в указанную степень.</li>
+                    <li><code>let result = 5 ** 2; // 25</code></li>
+                </ul>
+            </li>
+            <li><strong>Инкремент (++)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Увеличивает число на 1.</li>
+                    <li><code>let x = 5; x++; // x станет 6</code></li>
+                </ul>
+            </li>
+            <li><strong>Декремент (--)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Уменьшает число на 1.</li>
+                    <li><code>let x = 5; x--; // x станет 4</code></li>
+                </ul>
+            </li>
+            <li><strong>Сокращенная запись (+=, -=, *=, /=, %=, **=)</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Позволяет быстро применять математическую операцию к переменной.</li>
+                    <li><code>let x = 5; x += 10; // x станет 15</code></li>
+                </ul>
+            </li>
+        </ol>
+        <h2 id="h2-typeof">Typeof - определение типа данных</h2>
+        <p>Оператор <strong>typeof</strong> в JS:</p>
+
+        <p>Оператор <code>typeof</code> возвращает строку, указывающую тип операнда.</p>
+
+        <ol>
+            <li><strong>Number</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является числом.</li>
+                    <li><code>typeof 123; // "number"</code></li>
+                </ul>
+            </li>
+            <li><strong>String</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является строкой.</li>
+                    <li><code>typeof "hello"; // "string"</code></li>
+                </ul>
+            </li>
+            <li><strong>Boolean</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является булевым значением (true или false).</li>
+                    <li><code>typeof true; // "boolean"</code></li>
+                </ul>
+            </li>
+            <li><strong>Object</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является объектом (кроме функций).</li>
+                    <li><code>typeof {name: "Alice"}; // "object"</code></li>
+                </ul>
+            </li>
+            <li><strong>Undefined</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд не был определен.</li>
+                    <li><code>typeof undeclaredVar; // "undefined"</code></li>
+                </ul>
+            </li>
+            <li><strong>Function</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является функцией.</li>
+                    <li><code>typeof function() {}; // "function"</code></li>
+                </ul>
+            </li>
+            <li><strong>Symbol</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является символом.</li>
+                    <li><code>typeof Symbol("symbol"); // "symbol"</code></li>
+                </ul>
+            </li>
+            <li><strong>BigInt</strong>
+                <ul>
+                    <li><strong>Описание</strong>: Если операнд является большим целым числом.</li>
+                    <li><code>typeof 123n; // "bigint"</code></li>
+                </ul>
+            </li>
+        </ol>
+        <h2 id="h2-boolVariant">Варианты возвращаемых значений при логических операциях</h2>
+        Конечно! Вот сводная таблица логических операторов `И`, `ИЛИ`, и `НЕ` в JavaScript, представленная в формате
+        HTML:
+
+        ```html
+        <table  class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th colspan="3">Логические операторы в JavaScript</th>
+                </tr>
+                <tr>
+                    <th>Оператор</th>
+                    <th>Описание</th>
+                    <th>Пример</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Логическое И (&&) -->
+                <tr>
+                    <td><code>&&</code></td>
+                    <td>Логическое "И". Если оба значения <code>true</code>, то возвращает <code>true</code>. В
+                        противном случае возвращает <code>false</code>.</td>
+                    <td><code>true && false // false</code></td>
+                </tr>
+
+                <!-- Логическое ИЛИ (||) -->
+                <tr>
+                    <td><code>||</code></td>
+                    <td>Логическое "ИЛИ". Если хотя бы одно значение <code>true</code>, то возвращает <code>true</code>.
+                        В противном случае возвращает <code>false</code>.</td>
+                    <td><code>true || false // true</code></td>
+                </tr>
+
+                <!-- Логическое НЕ (!) -->
+                <tr>
+                    <td><code>!</code></td>
+                    <td>Логическое "НЕ". Инвертирует булевое значение.</td>
+                    <td><code>!true // false</code></td>
+                </tr>
+            </tbody>
+        </table>
+        ```
+
+        Эта таблица содержит описание и примеры использования основных логических операторов в JavaScript.
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        // Вывод сообщения в консоль
+        // console.log('Привет, мир!');
+        // console.warn('Привет, мир!');
+        // console.error('Привет, мир!');
+
+        // Взаимодействие с пользователем через модальные окна
+        // alert('Привет, мир!');
+        // confirm('Привет, мир!');
+        // prompt('Привет, мир!');
+
+        // alert('Привет, мир!');
+        // let userName = prompt('Как тебя зовут?');
+        // alert('Привет, ' + userName + '!');
+        // console.log(userName);
+        // let isAge = confirm('Тебе есть 18 лет?');
+        // console.log(isAge);
+
+        // Математика в JS
+        // Математические операторы в JS
+        // + сложение
+        // - вычитание
+        // * умножение
+        // / деление
+        // % остаток от деления
+        // Целочисленное деление //
+        // Возведение в степень **
+        // Инкремент ++ увеличение на 1
+        // Декремент -- уменьшение на 1
+
+        // Сокращенная запись +=, -=, *=, /=, %=, **=
+
+
+        let a = 10;
+
+        let b = 20;
+        let c = a + b;
+
+        console.log(a + b);
+        console.log(a - b);
+        console.log(a * b);
+        console.log(a / b);
+        console.log(a % b);
+        console.log(a ** b);
+        console.log(a++);
+        console.log(a--);
+
+        a = 10;
+        a += 5;
+        a -= 5;
+        a *= 5;
+
+        // Сравнение в JS
+        // > больше
+        // < меньше
+        // >= больше или равно
+        // <= меньше или равно
+        // == равно
+        // != не равно
+        // === строгое равенство
+        // !== строгое неравенство
+
+        console.log(`Проверка на больше 2 > 1: ${2 > 1}`);
+        console.log(`Проверка на меньше 2 < 1: ${2 < 1}`);
+        console.log(`Проверка на больше или равно 2 >= 1: ${2 >= 1}`);
+        console.log(`Проверка на меньше или равно 2 <= 1: ${2 <= 1}`);
+        console.log(`Проверка на равенство 2 == 2: ${2 == 2}`);
+        console.log(`Проверка на равенство 2 == "2": ${2 == "2"}`); // true
+        console.log(`Проверка на неравенство 2 != "2": ${2 != "2"}`);
+        console.log(`Проверка на строгое равенство 2 === "2": ${2 === "2"}`); // false
+        console.log(`Проверка на строгое неравенство 2 !== "2": ${2 !== "2"}`);
+
+        
+
+
+    </script>
+</body>
+
+</html>

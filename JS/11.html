@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        .airPolutionOne {
+            background-color: #bbd9bb;
+        }
+
+        .airPolutionTwo {
+            background-color: #f0e68c;
+        }
+
+        .airPolutionThree {
+            background-color: #c5a468;
+        }
+
+        .airPolutionFour {
+            background-color: #ee9281;
+        }
+
+        .airPolutionFive {
+            background-color: #ee6565;
+        }
+
+        /* Прячем таблицу */
+        #forecastWeatherTable {
+            display: none;
+
+        }
+
+        /* tr - выравниваем по вертикали (в каждой полосе таблицы шрифт по центру высоты) */
+        #forecastWeatherTable tr {
+            vertical-align: middle;
+        }
+
+        .card-text {
+            font-size: 0.8rem;
+            /* Отступы меньше */
+            margin-bottom: 0.1rem;
+        }
+
+        .card-body,
+        .card {
+            padding: 0.2rem;
+            border-radius: 0.9rem;
+            border: #ee6565 1px solid;
+        }
+
+        .card {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #c3e1c3;
+            /* Семейство шрифтов - моноширный */
+            font-family: monospace;
+            display: inline-block;
+            margin: 0.5rem;
+            width: 12rem;
+
+        }
+
+        .card-body {
+            background-color: #e5d9d9;
+        }
+
+        .card:hover {
+            /* Изменение тени и эффект всплытия плавный */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: box-shadow 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Погодное приложение <code>v2.0</code></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="input-group mb-3 searchGroup">
+                    <input type="text" class="form-control" placeholder="Введите город" aria-label="Введите город"
+                        id="searchForm" aria-describedby="button-addon2">
+                </div>
+            </div>
+            <div class="col">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Текущая погода
+                            </button>
+                        </h2>
+                        <!-- show - обозначает что именно этот элемент будет раскрыт по-умолчанию -->
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body" id="currentWeatherAccordionContent">
+                                Тут будет текущая погода. Пока что, Вы не сделали ни одного запроса.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Состояние воздуха
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body" id="airPollutionAccordionContent">
+                                Tут будет состояние воздуха. Пока что, Вы не сделали ни одного запроса.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5" id="forecastWeatherTable">
+            <div class="col">
+                <h2 class="mb-4">Погода на 5 дней</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Дата</th>
+                            <th scope="col">Иконка</th>
+                            <th scope="col">Описание</th>
+                            <th scope="col">Температура</th>
+                            <th scope="col">Ощущается как</th>
+                            <th scope="col">Ветер</th>
+                            <th scope="col">Давление</th>
+                            <th scope="col">Влажность</th>
+                            <th scope="col">Вероятность дождя</th>
+                        </tr>
+                    </thead>
+                    <tbody id="forecastTableBody">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-center" " id=" forecastWeatherCardsCol">
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Ключ API
+        const API_KEY = "23496c2a58b99648af590ee8a29c5348";
+        // Язык и единицы измерения
+        const lang = "ru";
+        const units = "metric";
+
+        // Форма
+        const searchForm = document.getElementById("searchForm");
+
+        // Аккордеон
+        const currentWeatherAccordionContent = document.getElementById("currentWeatherAccordionContent");
+        const airPollutionAccordionContent = document.getElementById("airPollutionAccordionContent");
+
+        // Объект. Ключ - оценка воздуха. Значение - класс для подсветки
+        const airPolutionClasses = {
+            1: "airPolutionOne",
+            2: "airPolutionTwo",
+            3: "airPolutionThree",
+            4: "airPolutionFour",
+            5: "airPolutionFive",
+        }
+
+        // Div с таблицей и заголовком + таблица
+        const forecastWeatherTableDiv = document.getElementById("forecastWeatherTable");
+        const forecastTableBody = document.getElementById("forecastTableBody");
+
+        // Div с карточками
+        const forecastWeatherCardsCol = document.getElementById("forecastWeatherCardsCol");
+
+
+        // В прошлый раз мы использовали вот такое обращение
+        // Но это незадокументированный способ, который может быть удален в любой момент 
+        // Документация текущей погоды - https://openweathermap.org/current
+        // const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+        // Пример запроса - https://api.openweathermap.org/data/2.5/weather?q=Москва&lang=ru&units=metric&appid=23496c2a58b99648af590ee8a29c5348
+
+        // Поэтому будем использовать вот такой способ, с использованием координат
+        // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+        // Чтобы это сделать, нам надо получить координаты города. Ищем в документации
+        // Документация геокодера - https://openweathermap.org/api/geocoding-api
+
+        // Обращение будет выглядеть вот так
+        // http://api.openweathermap.org/geo/1.0/direct?q=London&appid={API key}
+
+
+        // 1. Получить форму по id searchForm
+        // 2. Функция которая подготавливает url геокодера
+        // 3. Получить координаты города
+        // 4. Сделать запрос, получить ответ
+        // 5. Очистить ответ (только координаты города)
+        // 6. Подготовить url для получения текущей погоды
+        // 7. Сделать запрос, получить ответ
+        // 8. Очистить ответ
+        // 9. Отрисовать результат
+
+
+        // 1. Функция которая будет использоваться в листнере и будет добывать данные из формы ввода
+
+        function getCityFromInput() {
+            // 1. Получить форму по id searchForm
+            const searchForm = document.getElementById("searchForm");
+            // 2. Получить данные из формы
+            const city = searchForm.value;
+            // 3. Вернуть данные
+            return city;
+        }
+
+        // 2. Функция которая подготавливает url геокодера
+        function createGeoUrl(city) {
+            return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
+        }
+
+        // 3. Максимально абстрактная функция для отправки fetch запроса и получение ответа в JSON формате
+        async function getResponse(url) {
+            // await - ждет выполнения промиса - т.е. пока не придет ответ от сервера
+            const response = await fetch(url);
+            // await - ждет преобразования ответа в json, т.к. это тоже асинхронная операция и json тоже возвращает промис
+            const data = await response.json();
+            // Возвращаем данные
+            return data;
+        }
+
+        // 4. Функция которая будет получать большой объект с координатами города и возвращать только координаты (объект с координатами)
+        function getClearCoordsObj(data) {
+            let coords = {};
+            coords.lat = data[0].lat;
+            coords.lon = data[0].lon;
+            return coords;
+        }
+
+        // 5. Функция которая подготавливает url для получения текущей погоды на основе координат
+        // Принимает объект с координатами, возвращает строку с url
+
+        function createCurrentWeatherUrl(coords) {
+            return `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+        }
+
+        // 6. Функция которая будет получать объект с погодой и возвращать очищенный объект с данными о погоде
+        // ---------------------------------------
+        // 1. Текущая температура - main.temp
+        // 2. Ощущается как - main.feels_like
+        // 3. Ветер - wind.speed
+        // 4. Иконка - weather[0].icon
+        // 5. Описание - weather[0].description
+
+        function getClearCurrentWeatherObj(weather) {
+            // Объект под результат
+            let clearWeather = {};
+
+            // Заполняем объект
+            clearWeather.temp = weather.main.temp;
+            clearWeather.feels_like = weather.main.feels_like;
+            clearWeather.wind = weather.wind.speed;
+            // clearWeather.icon = weather.weather[0].icon;
+            // Добываем url для отображения иконки
+            clearWeather.icon = getIconUrl(weather.weather[0].icon, 0);
+            clearWeather.description = weather.weather[0].description;
+
+            return clearWeather;
+        }
+
+        // 7. Функция которая будет отрисовывать результат
+        // Лентяйская версия. Вам, желательно, это надо будет переработать!
+        // Мы получаем на вход объект с данными, проходим по нему циклом и возвращаем строку с HTML кодом
+        // Каждая пара ключ - значение будет отображаться в отдельном <p></p>
+
+        function GetObjectToHTMLString(weather) {
+            // Строка с результатом
+            let result = "";
+            // Цикл по ключам объекта
+            for (let key in weather) {
+                // Проверяем, что ключ == icon
+                if (key == "icon") {
+                    // Если да, то добавляем в строку HTML код с картинкой
+                    result += `<p><img src="${weather[key]}" alt="Погодная иконка"></p>`;
+                } else {
+                    // Если нет, то добавляем в строку HTML код с данными
+                    result += `<p>${key}: ${weather[key]}</p>`;
+                }
+            }
+            return result;
+        }
+
+        // 8. Функция которая получает id иконки, и размер (0, 2, 4) и возвращает url для иконки
+        // https://openweathermap.org/weather-conditions#How-to-get-icon-URL - документация
+        // 50х50 - https://openweathermap.org/img/wn/10d.png
+        // 100х100 - https://openweathermap.org/img/wn/10d@2x.png
+        // 200х200 - https://openweathermap.org/img/wn/10d@4x.png
+
+
+
+        function getIconUrl(iconId, size) {
+            if (size > 0) {
+                return `https://openweathermap.org/img/wn/${iconId}@${size}x.png`;
+            } else {
+                return `https://openweathermap.org/img/wn/${iconId}.png`;
+            }
+        }
+
+        // 02ч10мин на записи
+        // Что еще осталось???
+
+        // Выбросы воздуха - https://openweathermap.org/api/air-pollution - документация
+        // Погода на 5 дней - https://openweathermap.org/forecast5 - документация
+
+        // 9. Подготовить url для получения состояния воздуха по координатам
+        function createAirPollutionUrl(coords) {
+            return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coords.lat}&lon=${coords.lon}&appid=${API_KEY}`;
+        }
+
+        // 10. Функция которая будет получать объект с состоянием воздуха и возвращать очищенный объект с данными о состоянии воздуха
+        // Только общее состояние. obj.list[0].main.aqi
+
+        function getClearAirPollutionObj(obj) {
+            let clearAirPollution = {};
+            // TODO - это можно улучшить, офомрив визуально качество воздуха
+            clearAirPollution.aqi = obj.list[0].main.aqi;
+            return clearAirPollution;
+        }
+
+
+        // 11. Функция которая будет получать оценку воздуха и id элемента, в котором будет отображаться оценка воздуха
+        // Находим элемент по id, проверяем есть ли у него класс из нашего объекта, если есть - удаляем
+        // Добавляем новый класс из нашего объекта
+
+        function renderAirPollution(aqi, elementId) {
+            // Получаем элемент по id
+            const element = document.getElementById(elementId);
+            // Проверяем есть ли у него класс из нашего объекта
+            for (let key in airPolutionClasses) {
+                // Если есть - удаляем
+                if (element.classList.contains(airPolutionClasses[key])) {
+                    element.classList.remove(airPolutionClasses[key]);
+                }
+            }
+            // Добавляем новый класс из нашего объекта
+            element.classList.add(airPolutionClasses[aqi]);
+        }
+
+
+        // 10 декабря. Lesson 12. Продолжаем работу с погодным api
+        // Разбираем маршрут погода на 5 дней с шагом 3 часа
+        // Документация - https://openweathermap.org/forecast5
+
+        // Что мы будем брать с этого маршрута?
+        // У нас есть массив объектов с погодой на 5 дней с шагом 3 часа
+        // Лежит в obj.list - это массив объектов
+        // От туда мы возьмем нужные данные
+        // 1. Дата - obj.list[index].dt_txt
+        // 2. Температура - obj.list[index].main.temp
+        // 3. Ощущается как - obj.list[index].main.feels_like
+        // 4. Ветер - obj.list[index].wind.speed
+        // 5. Иконка - obj.list[index].weather[0].icon
+        // 6. Описание - obj.list[index].weather[0].description
+        // 7. Давление - obj.list[index].main.pressure
+        // 8. Влажность - obj.list[index].main.humidity
+        // 9. Вероятность дождя - obj.list[index].pop
+
+
+        // 12. Функция которая будет получать объект с координатами и возвращать url для получения погоды на 5 дней
+        // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+
+        function createForecastUrl(coords) {
+            return `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+        }
+
+        //  13. Функция которая примет число (вероятность дождя в формате 0.5) и вернет строку в формате 50% (проценты - округление вверх до целого числа)
+
+        function getPopString(pop) {
+            return `${Math.ceil(pop * 100)}%`;
+        }
+
+
+        // 13. Функция которая будет получать объект с погодой и возвращать очищенный объект с данными о погоде
+        // ---------------------------------------
+
+        function getClearForecastWeatherObj(weather) {
+            // Объект под результат
+            let clearForecastWeather = [];
+
+            // Цикл по массиву объектов
+            for (let i = 0; i < weather.list.length; i++) {
+                // Объект для одного дня
+                let day = {};
+                // Заполняем объект
+
+                day.date = weather.list[i].dt_txt;
+                // Добываем url для отображения иконки
+                day.icon = getIconUrl(weather.list[i].weather[0].icon, 4);
+                day.description = weather.list[i].weather[0].description;
+                day.temp = weather.list[i].main.temp;
+                day.feels_like = weather.list[i].main.feels_like;
+                day.wind = weather.list[i].wind.speed;
+                day.pressure = weather.list[i].main.pressure;
+                day.humidity = weather.list[i].main.humidity;
+                // Добываем строку с вероятностью дождя и переводим в проценты
+                day.pop = getPopString(weather.list[i].pop);
+
+                // Добавляем объект в массив
+                clearForecastWeather.push(day);
+            }
+
+            return clearForecastWeather;
+        }
+
+        // 14. Отрисуем таблицу в цикле, вставим в tbody, включим отображение таблицы
+        // Функция принимает массив объектов с погодой на 5 дней и подготавливает строку с HTML кодом
+        // После чего вставляет эту строку в tbody таблицы, включает отображение таблицы в документе
+
+        function renderForecastWeatherTable(weather) {
+            // Строка с результатом
+            let result = "";
+            // Цикл по массиву объектов
+            for (let i = 0; i < weather.length; i++) {
+                // Добавляем в строку HTML код с данными
+                result += `
+                <tr>
+                    <td>${weather[i].date}</td>
+                    <td><img src="${weather[i].icon}" alt="Погодная иконка"></td>
+                    <td>${weather[i].description}</td>
+                    <td>${weather[i].temp}</td>
+                    <td>${weather[i].feels_like}</td>
+                    <td>${weather[i].wind}</td>
+                    <td>${weather[i].pressure}</td>
+                    <td>${weather[i].humidity}</td>
+                    <td>${weather[i].pop}</td>
+                </tr>
+                `;
+            }
+            // Вставляем строку в tbody таблицы
+            forecastTableBody.innerHTML = result;
+            // Включаем отображение таблицы
+            forecastWeatherTableDiv.style.display = "block";
+        }
+
+        // 15. Функция которая генерирует одну карточку с погодой. Принимает объект с погодой, возвращает строку с HTML кодом
+        // одной карточки по типу ПРИМЕР КАРТОЧКИ:
+
+        // <div class="card" style="width: 18rem;">
+        //             <img src="https://openweathermap.org/img/wn/10d@4x.png" class="card-img-top" alt="Погодная иконка">
+        //             <div class="card-body">
+        //                 <h5 class="card-title">2023-12-10 09:00:00</h5>
+        //                 <p class="card-text">Пасмурно</p>
+        //                 <p class="card-text">Вероятность дождя 9%</p>
+        //                 <p class="card-text">Температура 10.5</p>
+        //                 <p class="card-text">Ощущается как 9.5</p>
+        //                 <p class="card-text">Ветер 2.5</p>
+        //                 <p class="card-text">Давление 1000</p>
+        //                 <p class="card-text">Влажность 50</p>
+
+
+        //             </div>
+        //         </div>
+
+        function renderForecastWeatherCard(weather) {
+            // Данные для подстановки
+            // Дата. Делаем сплит по : и берем первый элемент и добавляем пробел и ч.
+            let date = weather.date.split(":")[0] + " ч.";
+            let icon = weather.icon;
+            let description = weather.description;
+            let pop = weather.pop;
+            let temp = weather.temp;
+            let feels_like = weather.feels_like;
+            let wind = weather.wind;
+            let pressure = weather.pressure;
+            let humidity = weather.humidity;
+
+
+            // Строка с результатом
+            let result = "";
+
+            // Добавляем в строку HTML код с данными
+            result += `<div class="card">
+                <img src="${icon}" class="card-img-top" alt="Погодная иконка">
+                <div class="card-body">
+                    <h5 class="card-title">${date}</h5>
+                    <p class="card-text">${description}</p>
+                    <p class="card-text">Вероятность дождя ${pop}</p>
+                    <p class="card-text">Температура ${temp}</p>
+                    <p class="card-text">Ощущается как ${feels_like}</p>
+                    <p class="card-text">Ветер ${wind} м/с</p>
+                    <p class="card-text">Давление ${pressure} мм.рт.ст.</p>
+                    <p class="card-text">Влажность ${humidity}%</p>
+                </div></div>`;
+            return result;
+        }
+
+        // 16. Функция которая будет отрисовывать результат в виде карточек
+        // Принимает массив объектов с погодой на 5 дней и подготавливает строку с HTML кодом, который вставляет в div с карточками
+
+        function renderForecastWeatherCards(weather) {
+            // Строка с результатом
+            let result = "";
+            // Цикл по массиву объектов
+            for (let i = 0; i < weather.length; i++) {
+                // Добавляем в строку HTML код с данными
+                result += renderForecastWeatherCard(weather[i]);
+            }
+            // Вставляем строку в div с карточками
+            forecastWeatherCardsCol.innerHTML = result;
+        }
+
+        // Что осталось?
+        // Посмотреть на адаптивность в бутстрапе
+        // Посмотреть на отображение карточек в бутстрапе, как они выглядят на мобильных устройствах
+        // Посмотреть на отображение таблицы в бутстрапе, как выключить отображение некоторых столбцов на мобильных устройствах
+        // Посмотреть на подсказки генерируемые из дата-сета городов РФ
+
+
+        // 99. Листнер на форму, который будет по "keyup", (event) if (event.key == "Enter")
+        // 1. Получить данные из формы
+        // 2. Подготовить url для геокодера
+        // 3. Получить координаты города
+        // 4. Выводить объект с координатами в консоль
+
+        searchForm.addEventListener("keyup", async (event) => {
+            if (event.key == "Enter") {
+                // 1. Получить данные из формы
+                const city = getCityFromInput();
+                // 2. Подготовить url для геокодера
+                const url = createGeoUrl(city);
+                // 3. Получить координаты города
+                console.log(`Город: ${city} запрашиваю координаты.`);
+                const geoData = await getResponse(url);
+                // 4. Получаем очищенные координаты
+                let cityClearCoords = getClearCoordsObj(geoData);
+                console.log(`Координаты города ${city}: `, cityClearCoords);
+
+                // 5. Подготовить url для получения текущей погоды
+                const currentWeatherUrl = createCurrentWeatherUrl(cityClearCoords);
+
+                // 6. Получить текущую погоду
+                const currentWeatherData = await getResponse(currentWeatherUrl);
+
+                // 7. Очищаем объект с погодой
+                const clearCurrentWeather = getClearCurrentWeatherObj(currentWeatherData);
+                console.log(`Текущая погода в городе ${city}: `, clearCurrentWeather);
+
+                // 8. Отрисовываем результат в аккордеоне id = currentWeatherAccordionContent
+                const currentWeatherString = GetObjectToHTMLString(clearCurrentWeather);
+                currentWeatherAccordionContent.innerHTML = currentWeatherString;
+
+                // 9. Подготовить url для получения состояния воздуха
+                const airPollutionUrl = createAirPollutionUrl(cityClearCoords);
+
+                // 10. Получить состояние воздуха
+                const airPollutionData = await getResponse(airPollutionUrl);
+
+                // 11. Очищаем объект с состоянием воздуха
+                const clearAirPollution = getClearAirPollutionObj(airPollutionData);
+
+                // 12. Отрисовываем результат в аккордеоне id = airPollutionAccordionContent
+                const airPollutionString = GetObjectToHTMLString(clearAirPollution);
+                airPollutionAccordionContent.innerHTML = airPollutionString;
+
+                // 13. Оформляем визуально состояние воздуха
+                renderAirPollution(clearAirPollution.aqi, "airPollutionAccordionContent");
+
+                // 14. Подготовить url для получения погоды на 5 дней
+                const forecastUrl = createForecastUrl(cityClearCoords);
+
+                // 15. Получить погоду на 5 дней
+                const forecastData = await getResponse(forecastUrl);
+
+                // 16. Очищаем объект с погодой на 5 дней
+                const clearForecastWeather = getClearForecastWeatherObj(forecastData);
+
+                // 17. Отрисовываем результат в таблице
+                renderForecastWeatherTable(clearForecastWeather);
+
+                // 18. Отрисовываем результат в карточках
+                renderForecastWeatherCards(clearForecastWeather);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Знакомство с JS. Python 316. 22.10.2023">
+    <title>JS Lesson 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Подключение JS файла -->
+    <!-- <script src="JS/1.js"></script> -->
+    <style>
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        body {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body class="fs-4">
+
+    <h2>Логические операторы в JS</h2>
+    <p id="result"></p>
+    <h2>Ветвления в JS</h2>
+    <h2>Методы строк</h2>
+    <h2>Массивы</h2>
+    <h2>Методы массивов</h2>
+    <h2>Практика</h2>
+    <h2>Разбор - задачка можно ли войти?</h2>
+    <h2>Разбор - задачка на пароль НА БУДУЩЕЕ!</h2>
+    <h2>Разбор - задачка на список покупок</h2>
+    <h2>Разбор - задачка расшифровка оценки</h2>
+    <script>
+        // Сравнение в JS
+        // > больше
+        // < меньше
+        // >= больше или равно
+        // <= меньше или равно
+        // == равно
+        // != не равно
+        // === строгое равенство
+        // !== строгое неравенство
+
+        // console.log(`Проверка на больше 2 > 1: ${2 > 1}`);
+        // console.log(`Проверка на меньше 2 < 1: ${2 < 1}`);
+        // console.log(`Проверка на больше или равно 2 >= 1: ${2 >= 1}`);
+        // console.log(`Проверка на меньше или равно 2 <= 1: ${2 <= 1}`);
+        // console.log(`Проверка на равенство 2 == 2: ${2 == 2}`);
+        // console.log(`Проверка на равенство 2 == "2": ${2 == "2"}`); // true
+        // console.log(`Проверка на неравенство 2 != "2": ${2 != "2"}`);
+        // console.log(`Проверка на строгое равенство 2 === "2": ${2 === "2"}`); // false
+        // console.log(`Проверка на строгое неравенство 2 !== "2": ${2 !== "2"}`);
+
+        // Логические операторы в JS
+        // && - логическое И
+        // || - логическое ИЛИ
+        // ! - логическое НЕ
+        // () - скобки, имеют наивысший приоритет
+        // Приоритет операторов: (), !, &&, ||
+
+
+        // Вывод в result
+        // let numA = (2 + 2) * 2
+        // document.getElementById("result").innerHTML = `Скобки как и в математике: ${numA}`;
+        // let numB = 2 + 2 * 2
+        // document.getElementById("result").innerHTML += `<br>Без скобок как и в математике: ${numB}`;
+        // Логическое и VS логическое или
+        // let numC = 2
+        // let numD = 3
+        // document.getElementById("result").innerHTML += `<br> numD > numC && numD < numC: ${numD > numC && numD < numC}`;
+        // document.getElementById("result").innerHTML += `<br> numD > numC || numD < numC: ${numD > numC || numD < numC}`;
+        // Логическое не
+        // let numE = 2
+        // let numF = 2
+        // document.getElementById("result").innerHTML += `<br> numE != numF: ${numE != numF}`;
+        // document.getElementById("result").innerHTML += `<br> !(numE != numF): ${!(numE != numF)}`;
+
+        // Проверка (1+1=2) && !(1+1=2)
+        // document.getElementById("result").innerHTML += `<br> (1+1=2) && !(1+1=2): ${(1 + 1 == 2) && !(1 + 1 == 2)}`;
+        // Проверка (1+1=2) && !(1+1=3)
+        // document.getElementById("result").innerHTML += `<br> (1+1=2) && !(1+1=3): ${(1 + 1 == 2) && !(1 + 1 == 3)}`;
+
+        // Ветвления в JS
+        // let age = prompt("Сколько вам лет?");
+        // if (age >= 18 && age < 21) {
+        //     alert("Вы можете войти в клуб!");
+        // }
+        // else if (age > 21) {
+        //     alert("Вы можете войти в клуб!\nВам можно пить!");
+        // }
+        // else {
+        //     alert("Вам нет 18 лет!");
+        // }
+
+        // Практика. Повторите этот код!
+
+        // Проверка оценки исходя из баллов 0 - 12. Шаг 3 балла
+
+        // let mark = prompt("Введите количество баллов от 0 до 12");
+        // let descript = "";
+        // if (mark >= 0 && mark < 3) {
+        //     alert("Ваша оценка: 2");
+        //     descript = "Неудовлетворительно";
+
+        // }
+        // else if (mark >= 3 && mark < 6) {
+        //     alert("Ваша оценка: 3");
+        //     descript = "Удовлетворительно";
+        // }
+        // else if (mark >= 6 && mark < 9) {
+        //     alert("Ваша оценка: 4");
+        //     descript = "Хорошо";
+        // }
+        // else if (mark >= 9 && mark <= 12) {
+        //     alert("Ваша оценка: 5");
+        //     descript = "Отлично";
+        // }
+        // else {
+        //     // Делаем проверку, а является ли это вообще числом?
+        //     if (isNaN(mark)) {
+        //         alert("Вы ввели не число!");
+        //         descript = "Вы ввели не число!";
+        //     }
+        //     else {
+        //         alert("Неверное количество баллов!");
+        //         descript = "Неверное количество баллов!";
+        //     }
+
+        // }
+        // document.getElementById("result").innerHTML = `Ваша оценка: ${mark} (${descript})`;
+        // alert(`Ваша оценка: ${mark} (${descript})`);
+
+        // Строки в JS
+        // Строка в JS это упорядоченный, неизменяемый набор символов, заключенный в кавычки
+        // Попробуем изменить строку в JS
+        // let str = "Hello";
+        // str[0] = "h";
+
+        // Методы строк
+        // toUpperCase() - преобразует строку в верхний регистр
+        // toLowerCase() - преобразует строку в нижний регистр
+        // str.length - возвращает длину строки
+        // str.split([separator, limit]) - разбивает строку на массив по разделителю separator, если он есть, и возвращает этот массив. Если разделитель не указан, то разбивает по каждому символу. Если указана опция limit, то возвращает массив из максимум limit элементов.
+        // str.replace(substr, newSubstr) - заменяет подстроку substr на подстроку newSubstr в строке str.
+        // str.indexOf(substr, pos) - ищет подстроку substr в строке str, начиная с позиции pos, и возвращает позицию, на которой располагается найденная подстрока, или -1, если ничего не найдено.
+        // str.lastIndexOf(substr, pos) - то же самое, но ищет с конца строки к началу.
+        // str.includes(substr, pos) - возвращает true, если в строке str есть подстрока substr, либо false, если нет.
+        // str.startsWith(substr, pos) - возвращает true, если строка str начинается со строки substr, либо false, если нет.
+        // str.endsWith(substr, pos) - возвращает true, если строка str заканчивается со строки substr, либо false, если нет.
+        // str.slice(start [, end]) - возвращает часть строки от start до (не включая) end.
+        // str.substring(start [, end]) - возвращает часть строки между start и end.
+        // str.substr(start [, length]) - возвращает часть строки от start длины length.
+        // str.repeat(n) - повторяет строку str n раз.
+        // str.trim() - убирает пробелы в начале и конце строки.
+        // str.trimStart() - убирает пробелы в начале строки.
+        // str.trimEnd() - убирает пробелы в конце строки.
+        // str.padStart(length, str) - дополняет строку str до длины length слева.
+        // str.padEnd(length, str) - дополняет строку str до длины length справа.
+        // str.charAt(pos) - возвращает символ, находящийся на позиции pos.
+        // str.charCodeAt(pos) - возвращает код символа, находящегося на позиции pos.
+
+        // Варианты проверок на число, на строку, на спецсимволы, на пробелы
+
+        // TODO ПРИЕМЕР НА БУДУЩЕЕ. ПОКА НЕ ПРОХОДИЛИ!
+        // Попробуйте это разобрать в свободное время!
+        let password = prompt("Введите пароль");
+        const specSymbols = "!@#$%^&*()_+";
+        const thresholdLength = 8;
+        const thresholdNumber = 1;
+        const threshoSpecSymbol = 1;
+        const thresholdSpace = 0;
+
+        // Проверка на длину
+        if (password.length < thresholdLength) {
+            alert("Пароль слишком короткий!");
+        }
+        else {
+            // Проверка на количество цифр
+            let numCount = 0;
+            for (let i = 0; i < password.length; i++) {
+                if (!isNaN(password[i])) {
+                    numCount++;
+                }
+            }
+            if (numCount < thresholdNumber) {
+                alert("Пароль должен содержать хотя бы одну цифру!");
+            }
+            else {
+                // Проверка на количество спецсимволов
+                let specSymbolCount = 0;
+                for (let i = 0; i < password.length; i++) {
+                    if (specSymbols.includes(password[i])) {
+                        specSymbolCount++;
+                    }
+                }
+                if (specSymbolCount < threshoSpecSymbol) {
+                    alert("Пароль должен содержать хотя бы один спецсимвол!");
+                }
+                else {
+                    // Проверка на пробелы
+                    let spaceCount = 0;
+                    for (let i = 0; i < password.length; i++) {
+                        if (password[i] == " ") {
+                            spaceCount++;
+                        }
+                    }
+                    if (spaceCount > thresholdSpace) {
+                        alert("Пароль не должен содержать пробелы!");
+                    }
+                    else {
+                        alert("Пароль принят!");
+                    }
+                }
+            }
+        }
+
+        // Массивы в JS
+        // Массив в JS это упорядоченный изменяемый набор данных, заключенный в квадратные скобки
+
+        // Создание массива
+        // let arr = [];
+        // let arr = new Array();
+
+        // Создание массива с данными
+        // let arr = [1, 2, 3, 4, 5];
+        // let arr = new Array(1, 2, 3, 4, 5);
+
+        // Массив может содержать разные типы данных
+        let arr = [1, "Hello", true, null, undefined, [1, 2, 3], { name: "John" }];
+
+        // Вывод массива
+        console.log(arr);
+        // Вывод элемента массива
+        console.log(arr[2]);
+        // Вывод длины массива
+        console.log(arr.length);
+
+        // Методы массивов
+        // arr.join([separator]) - создает строку из элементов массива arr, вставляя между ними разделитель separator, если он есть, и возвращает эту строку.
+        // arr.push(item) - добавляет элемент item в конец массива arr.
+        // arr.pop() - удаляет последний элемент массива arr и возвращает его.
+        // arr.shift() - удаляет из массива первый элемент и возвращает его.
+        // arr.unshift(item) - добавляет элемент item в начало массива arr.
+        // arr.slice(start [, end]) - возвращает часть массива от start до (не включая) end.
+        // arr.splice(start, deleteCount, [item1, item2, ...]) - удаляет deleteCount элементов из массива, начиная с позиции start, а затем вставляет item1, item2, ... на их место.
+        // arr.concat(arr1, arr2, ...) - создает новый массив, в который копирует элементы из arr, а также arr1, arr2, ... .
+        // arr.reverse() - меняет порядок элементов в массиве на обратный.
+        // arr.indexOf(item, pos) - ищет элемент item в массиве arr, начиная с позиции pos, и возвращает позицию, на которой располагается найденный элемент, или -1, если ничего не найдено.
+        // arr.lastIndexOf(item, pos) - то же самое, но ищет с конца массива к началу.
+        // arr.includes(item, pos) - возвращает true, если в массиве arr есть элемент item, либо false, если нет.
+        // arr.forEach(function(item, index, array) {}) - выполняет функцию function для каждого элемента массива arr. Функция function принимает три параметра: item - элемент массива, index - его номер, array - сам массив.
+        // arr.filter(function(item, index, array) {}) - создает новый массив, в который войдут только те элементы arr, для которых вызов функции function(item, index, array) возвратит true.
+        // arr.map(function(item, index, array) {}) - создает новый массив, в который войдут результаты вызова функции function(item, index, array) для каждого элемента массива arr.
+        // arr.reduce(function(accumulator, item, index, array) {}) - вычисляет одно значение на основе всего массива arr. Функция function принимает четыре параметра: accumulator - накопленное значение, item - очередной элемент массива, index - его номер, array - сам массив.
+        // arr.reduceRight(function(accumulator, item, index, array) {}) - то же самое, но проходит по массиву справа налево.
+        // arr.sort([compareFunction]) - сортирует массив arr. Если функция compareFunction(a, b) не указана, то сортирует элементы как строки. Если функция compareFunction(a, b) указана, то она должна возвращать отрицательное число, если a < b, положительное число, если a > b, и 0, если a == b.
+        // arr.fill(value, start, end) - заполняет массив arr значением value, начиная с позиции start и заканчивая позицией end (не включая).
+        // arr.find(function(item, index, array) {}) - возвращает первый элемент массива arr, для которого вызов функции function(item, index, array) возвратит true, либо undefined, если ничего не найдено.
+        // arr.findIndex(function(item, index, array) {}) - возвращает номер первого элемента массива arr, для которого вызов функции function(item, index, array) возвратит true, либо -1, если ничего не найдено.
+        // arr.some(function(item, index, array) {}) - возвращает true, если в массиве arr есть хотя бы один элемент, для которого вызов функции function(item, index, array) возвратит true, либо false, если нет.\
+        // arr.every(function(item, index, array) {}) - возвращает true, если в массиве arr все элементы, для которых вызов функции function(item, index, array) возвратит true, либо false, если нет.
+        // arr.flat([depth]) - создает новый массив, в который входят все элементы массива arr, а также все элементы вложенных массивов, если указана опция depth, то вложенные массивы будут включены в новый массив не более чем на глубину depth.
+
+    
+        // Разбить строку на массив по разделиителю
+        // let str = "Hello, World!";
+        // let arr2 = str.split(" ");
+        // console.log(arr2);
+
+        // Собрираем обратно строку
+        // let str2 = arr2.join(" ");
+        // console.log(str2);
+
+        // Добавляем элемент в конец массива
+        // arr2.push("Hello"); 
+        // console.log(arr2);
+
+        // Удаляем последний элемент массива (pop удаляет и возвращает удаленный элемент)
+        // let deletedElem = arr2.pop();
+        // console.log(deletedElem);
+
+        // Добавляем элемент в начало массива
+        // arr2.unshift("Hello-0");
+        // console.log(arr2);
+
+        // Удаляем первый элемент массива (shift удаляет и возвращает удаленный элемент)
+        // let deletedElem2 = arr2.shift();
+        // console.log(deletedElem2);
+
+        // Практика
+        // Делаем промпт и просим пользоваля ввести список покупок через запятую
+        // Делаем промпт с вопросом, какой номер из списка вывести на экран?
+        // Разбиваем это на массив по запятой и выводим нужный номер в HTML через ID result innerHTML
+        // ПРИМЕР синтаксиса: document.getElementById("result").innerHTML = `Ваша оценка: ${mark} (${descript})`
+        // ПРИМЕР let arr2 = str.split(" ");
+        // ПРИМЕР добываем элемент по индексу arr2[2]
+        
+        // let shoppingList = prompt("Введите список покупок через запятую");
+        // let shoppingListArr = shoppingList.split(",");
+        // console.log(shoppingListArr);
+        // let numItem = prompt(`Какой номер из списка вывести на экран? (от 0 до ${shoppingListArr.length - 1})`);
+        // let item = shoppingListArr[numItem];
+        // document.getElementById("result").innerHTML = `Ваша покупка: ${item}`;
+        
+        // Для чего нам смещатся -1 в массиве?
+        // let arr3 = [1, 2, 3, 4, 5];
+        // console.log(arr3);
+        // console.log(arr3.length);
+        // Индекс последнего элемента
+        // console.log(arr3.length - 1);
+        
+        // TODO ОБЪЕКТЫ В JS - оставляем на будущее
+
+    </script>
+</body>
+
+</html>

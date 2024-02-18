@@ -1,0 +1,201 @@
+<!-- 
+    16.12.2023
+    Bootstrap 5 - знакомимся поближе 
+    Колонки col
+    Ширина колонок в Bootstrap 5 col-1
+    Выравнивание текста text-center
+    Заливка фона bg-style
+    Цвет текста text-style
+    Цвет границы border border-4 border-danger (4 - толщина границы в rem)
+    Container - контейнер
+    Row - строка
+    Col - колонка
+    Сетка Bootstrap 5
+    Braekpoints - точки перелома
+    Классы для управления видимостью
+    Отступы между колонками
+    Отступы внутри колонок
+    m - margin
+    p - padding
+    0-5 - есть 5 вариантов отступов
+    управление видимостью в таблице
+ -->
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap эксперименты</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+</head>
+
+<body class="bg-info-subtle">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-8 bg-warning text-danger border border-1 border-danger me-3 p-2">
+                Фотография
+            </div>
+            <div class="col bg-warning text-danger border border-1 border-danger me-3 p-2">
+                Описание. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae consequuntur totam inventore
+                natus temporibus doloribus nesciunt laborum veritatis suscipit id a iste, fuga harum ullam dicta qui
+                adipisci. Id, doloremque?
+
+                Описание. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae consequuntur totam inventore
+                natus temporibus doloribus nesciunt laborum veritatis suscipit id a iste, fuga harum ullam dicta qui
+                adipisci. Id, doloremque?
+
+                Описание. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae consequuntur totam inventore
+                natus temporibus doloribus nesciunt laborum veritatis suscipit id a iste, fuga harum ullam dicta qui
+                adipisci. Id, doloremque?
+            </div>
+
+        </div>
+
+        <div class="row gx-2 gy-1 mt-1 justify-content-center" id="rowFeedback">
+            <div
+                class="col col-xl-2 col-sm-12 bg-warning text-danger border border-1 border-danger me-3 p-2 d-flex justify-content-center">
+
+                <div class="card" style="width: 14rem;">
+                    <img src="../images/logo2.webp" class="card-img-top" alt="Заглушка">
+                    <div class="card-body">
+                        <h5 class="card-title">Отзыв</h5>
+                        <p class="card-text">Небольшой пример текста, который должен основываться на названии карточки и
+                            составлять основную часть содержимого карты.</p>
+
+                    </div>
+                </div>
+
+            </div>
+            <div
+                class="col col-xl-2 col-sm-12 bg-warning text-danger border border-1 border-danger me-3 p-2 d-flex justify-content-center">
+
+                <div class="card" style="width: 14rem;">
+                    <img src="../images/logo2.webp" class="card-img-top" alt="Заглушка">
+                    <div class="card-body">
+                        <h5 class="card-title">Отзыв</h5>
+                        <p class="card-text">Небольшой пример текста, который должен основываться на названии карточки и
+                            составлять основную часть содержимого карты.</p>
+
+                    </div>
+                </div>
+
+            </div>
+            <div
+                class="col col-xl-2 col-sm-12 bg-warning text-danger border border-1 border-danger me-3 p-2 d-flex justify-content-center">
+                <div class="card" style="width: 14rem;">
+                    <img src="../images/logo2.webp" class="card-img-top" alt="Заглушка">
+                    <div class="card-body">
+                        <h5 class="card-title">Отзыв</h5>
+                        <p class="card-text">Небольшой пример текста, который должен основываться на названии карточки и
+                            составлять основную часть содержимого карты.</p>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div
+                class="col col-xl-2 col-sm-12 bg-warning text-danger border border-1 border-danger me-3 p-2 d-flex justify-content-center">
+                <div class="card" style="width: 14rem;">
+                    <img src="../images/logo2.webp" class="card-img-top" alt="Заглушка">
+                    <div class="card-body">
+                        <h5 class="card-title">Отзыв</h5>
+                        <p class="card-text">Небольшой пример текста, который должен основываться на названии карточки и
+                            составлять основную часть содержимого карты.</p>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- Ширина колонок начинается с 50% на мобильных устройствах и увеличивается до 33,3% на компьютерах. -->
+        <div class="row gx-2 gy-1 mt-1">
+            <div class="col-lg-4 col-md-6 col-sm-12 bg-warning text-danger border border-1 border-danger">col-lg-4
+                col-md-6 col-sm-12</div>
+            <div class="col-lg-4 col-md-6 col-sm-12 bg-warning text-danger border border-1 border-danger">col-lg-4
+                col-md-6 col-sm-12</div>
+            <div class="col-lg-4 col-md-6 col-sm-12 bg-warning text-danger border border-1 border-danger">col-lg-4
+                col-md-6 col-sm-12</div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col" class="d-none d-md-table-cell">Имя</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Фамилия</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Email</th>
+                        <th scope="col" class="d-none d-xxl-table-cell">Город</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Должность</th>
+                        <th scope="col">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="d-none d-md-table-cell">Сидор</td>
+                        <td class="d-none d-lg-table-cell">Сидоров</td>
+                        <td class="d-none d-xl-table-cell">sidorov@example.com</td>
+                        <td class="d-none d-xxl-table-cell">Москва</td>
+                        <td class="d-none d-lg-table-cell">Инженер</td>
+                        <td>Редактировать</td>
+                    </tr>
+                    <!-- Другие строки -->
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <h2>Анализ Таблицы и Классов</h2>
+            <p><code>&lt;table class="table"&gt;</code></p>
+            <ul>
+                <li><code>table</code>: Этот класс добавляет базовые стили таблицы в Bootstrap, такие как границы между
+                    ячейками и строками.</li>
+            </ul>
+
+            <h3><code>&lt;th&gt;</code> и <code>&lt;td&gt;</code> с классами для управления видимостью:</h3>
+            <ul>
+                <li><code>d-none</code>: Скрывает элемент на всех размерах экрана.</li>
+                <li><code>d-*-table-cell</code>: Показывает элемент как ячейку таблицы (<code>table-cell</code>) на
+                    размере экрана <code>*</code> и выше. Замените <code>*</code> на <code>md</code>, <code>lg</code>,
+                    <code>xl</code> или <code>xxl</code>, в зависимости от брейкпоинта.
+                </li>
+            </ul>
+
+            <h2>Размещение Таблицы в Существующем Контейнере</h2>
+            <p>Вы можете разместить эту таблицу в уже существующем контейнере Bootstrap, не создавая новый.</p>
+
+            <h2>Нужно ли Создавать Новую Строку (row) и Колонку (col)?</h2>
+            <p>Зависит от дизайна страницы и желаемого расположения таблицы.</p>
+
+            <h2>Пример с Строкой и Колонкой</h2>
+            <pre>
+        <code>
+&lt;div class="container"&gt;
+    &lt;!-- Существующее содержимое --&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-12"&gt;
+            &lt;!-- Ваша таблица здесь --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Дальнейшее содержимое --&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

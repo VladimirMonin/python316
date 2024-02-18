@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Погодное приложение <code>v1.0</code></h1>
+    <!-- BS5 поле ввода  -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Введите город" aria-label="Введите город" id="searchForm"
+            aria-describedby="button-addon2">
+    </div>
+    <div>
+        <p>Результат поиска: <span id="result"></span></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // const timeOut = 3000;
+
+        // // Знакомство с асинхронными функциями.
+        // // Функция которая принимает таймаут и возвращает промис.
+        // // Возвращает строку "Ответ с сервера"
+        // function timer(time) {
+
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             resolve("Ответ с сервера");
+        //         }, time);
+        //     });
+        // }
+
+        // // Функция которая имитирует запрос на сервер.
+        // // ES6
+        // function fetchTodos() {
+
+        //         console.log("Делаю ПЕРВЫЙ запрос на сервер...");
+        //         // Возвращаем промис.
+        //         // Пишем полученное в ответе
+        //         return timer(timeOut)
+        //         // При успешном выполнении промиса
+        //         // Выводим в консоль сообщение (данные помещаются в data автоматически)
+        //             .then((data) => {
+        //                 console.log(`Получил ПЕРВЫЙ ответ, могу начать отрисовку... ${data}`);
+        //             })
+        //             .then(() => {
+        //                 console.log("Синхронные операции ПОСЛЕ ПЕРВОГО запроса из функции");
+        //             })
+        //             // При ошибке
+        //             .catch((err) => {
+        //                 console.error(err);
+        //             });
+
+        //     }
+        // // ES8
+        // // async - говорит что функция асинхронная.
+        // // function - обычная функция.
+        // async function fetchAsyncTodos() {
+        //     try {
+        //         console.log("Делаю ВТОРОЙ запрос на сервер...");
+        //         // Возвращаем промис.
+        //         // Пишем полученное в ответе
+        //         const data = await timer(timeOut);
+        //         console.log(`Получил ВТОРОЙ ответ, могу начать отрисовку... ${data}`);
+        //         console.log("Синхронные операции ПОСЛЕ ВТОРОГО запроса из функции");
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // }
+
+
+        // console.log("Синхронные операции ДО запроса");
+        // fetchTodos();
+        // fetchAsyncTodos();
+        // console.log("Синхронные операции в коде, после запроса");
+
+        // Fetch - это функция которая возвращает промис и делает запрос на сервер.
+        // Мы будем работать с погодным API.
+
+        // Надо зарегистрироваться на сайте https://openweathermap.org/
+        // Получить ключ API
+
+        // Ключ API
+        const API_KEY = "23496c2a58b99648af590ee8a29c5348";
+        // prompt city
+        // const city = prompt("Введите город");
+
+        // Язык и единицы измерения
+        const lang = "ru";
+        const units = "metric";
+
+        // Адрес запроса (возьмите адрес с документации current weather data)
+        // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+        // Добавьте к адресу параметры lang и units
+        // Получится что-то вроде этого:
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+
+        // fetch(url) + async/await
+
+        async function getWeather(url) {
+            // await - ждет выполнения промиса - т.е. пока не придет ответ от сервера
+            const response = await fetch(url);
+            // await - ждет преобразования ответа в json, т.к. это тоже асинхронная операция и json тоже возвращает промис
+            const data = await response.json();
+            console.log(data);
+            // Текущая температура, ощущается как, вероятность дождя
+            console.log(`Погода в городе ${data.name}`);
+            console.log(`Текущая температура: ${data.main.temp}°C`);
+            console.log(`Ощущается как: ${data.main.feels_like}°C`);
+            console.log(`Вероятность дождя: ${data.clouds.all}%`);
+        }
+
+
+        async function getWeather(url) {
+            // await - ждет выполнения промиса - т.е. пока не придет ответ от сервера
+            const response = await fetch(url);
+            // await - ждет преобразования ответа в json, т.к. это тоже асинхронная операция и json тоже возвращает промис
+            const data = await response.json();
+
+            return data;
+        }
+
+        // 1. Получить форму по id searchForm
+        const searchForm = document.getElementById("searchForm");
+
+        // 2. Функция которая подготавливает url
+        function createUrl(city) {
+            return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+        }
+
+        // 3. Функция которая отрисует резуьлтат (строка) в элементе с id result
+        function renderResult(result) {
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = result;
+        }
+
+        // 4. Функция которая получает объект погоды и формирует строку HTML кода с данными о погоде
+        // Текущая температура, ощущается как, ветер, ощущается как, вероятность дождя
+        function createWeatherString(weather) {
+            return `
+            <p>Погода в городе ${weather.name}</p>
+            <p>Текущая температура: ${weather.main.temp}°C</p>
+            <p>Ощущается как: ${weather.main.feels_like}°C</p>
+            <p>Ветер: ${weather.wind.speed} м/с</p>
+            <p>Вероятность дождя: ${weather.clouds.all}%</p>
+            `;
+        }
+        // 5. Асинхронная функция для листнера на форму (событие нажатие Enter).
+        // Функция получает значение формы, подготавливает url, делает запрос на сервер, получает ответ, отрисовывает результат.
+        async function getWeatherByForm() {
+            // Получаем значение формы
+            const city = searchForm.value;
+            // Подготавливаем url
+            const url = createUrl(city);
+            // Делаем запрос на сервер
+            const weatherObj = await getWeather(url);
+            // Формируем строку HTML кода с данными о погоде
+            const weatherString = createWeatherString(weatherObj);
+            // Отрисовываем результат
+            renderResult(weatherString);
+        }
+
+        // 6. Листнер на форму (собыите нажатие клавиши, если эта клавиша == Enter - вызываем функцию getWeatherByForm)
+        searchForm.addEventListener("keyup", (event) => {
+            if (event.key == "Enter") {
+                getWeatherByForm();
+            }
+        });
+
+    </script>
+</body>
+
+</html>

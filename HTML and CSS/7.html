@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="Div как элемент блочной верстки. Lesson 7 python 316">
+    <title>Lesson 7 python 316</title>
+    <link rel="stylesheet" href="7.css">
+</head>
+
+<body>
+    <header>
+        <h1><code>Div</code> как элемент блочной верстки.</h1>
+    </header>
+    <main>
+        <div class="col">
+            <section>
+                <h2><code>Div</code> определение.</h2>
+                <p>Тег <code>Div</code> в HTML представляет собой блочный элемент, который обычно
+                    используется длягруппировки крупных
+                    блоков контента и их дальнейшей стилизации с помощью CSS. Он не несет в себе никакого семантического
+                    значения и служит исключительно для структурной разметки.
+                </p>
+            </section>
+            <section>
+                <h2><code>margin</code> и <code>padding</code> отступы - важнейшие свойства блочных элементов.</h2>
+                <p>
+                    В CSS отступы являются важным инструментом для создания пространства вокруг элементов, что позволяет
+                    добиться желаемой компоновки и дизайна страницы.
+                </p>
+                <p>
+                    Отступы делятся на внешние и внутренние
+                </p>
+                <h3>Внешние <code>margin</code> отступы</h3>
+                <ul>
+                    <li>Эти отступы создают пространство вокруг элемента, отделяя его от соседних элементов.</li>
+                    <li>Внешний отступ не добавляет пространства внутри самого элемента
+                        он работает между границей элемента и соседними элементами.</li>
+                </ul>
+
+                <p>Свойства для установки внешних отступов:</p>
+                <ul>
+                    <li><code>margin-top</code>устанавливает верхний внешний отступ</li>
+                    <li><code>margin-right</code>устанавливает правый внешний отступ</li>
+                    <li><code>margin-bottom</code>устанавливает нижний внешний отступ</li>
+                    <li><code>margin-left</code>устанавливает левый внешний отступ</li>
+                    <li><code>margin</code>устанавливает все четыре внешних отступа одновременно</li>
+                </ul>
+                <p>Интересный эффект, связанный с внешними отступами, — это "схлопывание отступов". Когда два
+                    вертикальных
+                    внешних отступа встречаются, они схлопываются в один, равный наибольшему из этих двух отступов.</p>
+
+                <h3>Внутренние <code>padding</code> отступы</h3>
+                <p> Эти отступы создают пространство внутри элемента, между содержимым элемента и его границей.
+                    Внутренний отступ влияет на размер элемента, увеличивая его визуальное пространство.</p>
+
+                <p>Свойства для установки внутренних отступов:</p>
+
+                <ul>
+                    <li><code>padding-top</code>устанавливает верхний внутренний отступ</li>
+                    <li><code>padding-right</code>устанавливает правый внутренний отступ</li>
+                    <li><code>padding-bottom</code>устанавливает нижний внутренний отступ</li>
+                    <li><code>padding-left</code>устанавливает левый внутренний отступ</li>
+                    <li><code>padding</code>устанавливает все четыре внутренних отступа одновременно</li>
+
+                    <h3>Порядок указания отступов в формате четырёх</h3>
+
+                    <h4>Одно значение</h4>
+                    <p><code>margin: 10px;</code> или <code>padding: 10px;</code></p>
+                    <ul>
+                        <li>Верхний отступ = 10px</li>
+                        <li>Правый отступ = 10px</li>
+                        <li>Нижний отступ = 10px</li>
+                        <li>Левый отступ = 10px</li>
+                    </ul>
+
+                    <p><mark>Все</mark> четыре стороны элемента получат одинаковый отступ.</p>
+                    <h4>Два значения</h4>
+                    <p><code>margin: 10px 20px;</code> или <code>padding: 10px 20px;</code></p>
+                    <ul>
+                        <li>Верхний отступ = 10px</li>
+                        <li>Правый отступ = 20px</li>
+                        <li>Нижний отступ = 10px</li>
+                        <li>Левый отступ = 20px</li>
+                    </ul>
+                    <p>Первое значение применяется к <mark>верхнему и нижнему</mark> отступам, второе значение — <mark>к
+                            правому и левому</mark>
+                        отступам.</p>
+
+                    <h4>Три значения</h4>
+                    <p><code>margin: 10px 20px 30px;</code> или <code>padding: 10px 20px 30px;</code></p>
+                    <ul>
+                        <li>Верхний отступ = 10px</li>
+                        <li>Правый отступ = 20px</li>
+                        <li>Нижний отступ = 30px</li>
+                        <li>Левый отступ = 20px</li>
+                    </ul>
+                    <p>Первое значение применяется к <mark>верхнему</mark> отступу, второе значение — <mark>к правому и
+                            левому</mark>
+                        отступам, третье значение — <mark>к нижнему</mark> отступу.</p>
+
+                    <h4>Значения для отступов</h4>
+                    <ul class="external-list">
+                        <li> <code>auto</code> - автоматический отступ</li>
+
+                        <ul>
+                            <li> Описание: Позволяет браузеру <mark>автоматически</mark> рассчитать отступы.</li>
+                            <li> Применение: Часто используется для центрирования блоков горизонтально. При
+                                установке
+                                <code>margin-left: auto;</code> и <code>margin-right: auto;</code> для блочного
+                                элемента с
+                                фиксированной шириной, этот элемент будет автоматически центрирован внутри своего
+                                родительского контейнера.
+                            </li>
+                        </ul>
+                        <li> <code>length</code> - отступ в пикселях</li>
+                        <ul>
+                            <li> Описание: Позволяет указать конкретный размер отступа, используя единицы
+                                измерения,
+                                такие как пиксели (px), точки (pt), сантиметры (cm) и многие другие.</li>
+                            <li> Применение: Используется для <mark>точной настройки</mark> пространства вокруг
+                                элемента,
+                                например,
+                                <code>margin-top: 20px;</code> задает верхний отступ в 20 пикселей.
+                            </li>
+                        </ul>
+                        <li> <code>%</code> - отступ в процентах</li>
+                        <ul>
+                            <li> Описание: Устанавливает отступ в <mark>процентах от ширины</mark> (для горизонтальных
+                                отступов)
+                                или
+                                высоты (для вертикальных отступов) родительского элемента.</li>
+                            <li> Применение: Если у родительского элемента ширина 500px и вы установите <mark>для
+                                    дочернего элемента</mark>
+                                элемента <code>margin-left: 10%;</code>, то левый отступ будет равен 50px.
+                            </li>
+                        </ul>
+                        <li> <code>inherit</code> - наследование отступов</li>
+                        <ul>
+                            <li> Описание: Значение свойства будет <mark>наследовано</mark> от родительского
+                                элемента.</li>
+                            <li> Применение: Полезно, когда вы хотите, чтобы дочерний элемент имел такие же отступы,
+                                как у
+                                его
+                                родителя, без необходимости дублировать код.
+                            </li>
+                        </ul>
+                    </ul>
+            </section>
+            <section>
+                <h2><code>Border</code> - границы.</h2>
+                <h3><code>Border-style</code> - стиль рамки</h3>
+                <p>Свойство <code>border-style</code> устанавливает стиль рамки.</p>
+                <p>Свойство <code>border-style</code> может принимать одно из следующих значений:</p>
+                <ul>
+                    <li><code>none</code> - рамка отсутствует</li>
+                    <li><code>hidden</code> - рамка отсутствует</li>
+                    <li><code>dotted</code> - точечная рамка</li>
+                    <li><code>dashed</code> - пунктирная рамка</li>
+                    <li><code>solid</code> - сплошная рамка</li>
+                    <li><code>double</code> - двойная рамка</li>
+                    <li><code>groove</code> - 3D-рамка, выглядит как впадина</li>
+                    <li><code>ridge</code> - 3D-рамка, выглядит как выступ</li>
+                    <li><code>inset</code> - 3D-рамка, выглядит как внутренняя часть</li>
+                    <li><code>outset</code> - 3D-рамка, выглядит как внешняя часть</li>
+                    <li><code>hidden</code> - рамка отсутствует</li>
+
+                </ul>
+                <h3><code>border-width</code> - толщина рамки</h3>
+                <p>Свойство <code>border-width</code> устанавливает толщину рамки.</p>
+                <p>Свойство <code>border-width</code> может принимать одно из следующих значений:</p>
+                <ul>
+                    <li><code>thin</code> - тонкая рамка</li>
+                    <li><code>medium</code> - средняя рамка</li>
+                    <li><code>thick</code> - толстая рамка</li>
+                    <li><code>length</code> - рамка заданной толщины в единицах измерения</li>
+                    <li><code>%</code> - рамка заданной толщины в процентах от ширины элемента</li>
+                </ul>
+
+                <h3><code>border-color</code> - цвет рамки</h3>
+                <p>Свойство <code>border-color</code> устанавливает цвет рамки.</p>
+                <p>Свойство <code>border-color</code> может принимать одно из следующих значений:</p>
+                <ul>
+                    <li><code>color</code> - цвет рамки</li>
+                    <li><code>transparent</code> - прозрачная рамка</li>
+                </ul>
+
+                <h3><code>border-radius</code> - закругление углов рамки</h3>
+                <p>Свойство <code>border-radius</code> устанавливает радиус скругления углов рамки.</p>
+                <p>Свойство <code>border-radius</code> может принимать одно из следующих значений:</p>
+                <ul>
+                    <li><code>length</code> - радиус скругления углов рамки в единицах измерения</li>
+                    <li><code>%</code> - радиус скругления углов рамки в процентах от ширины элемента</li>
+                </ul>
+
+
+
+                <h3>Пример <code>div</code> с рамкой пунктиром слева и справа одним цветом сверху и снизу другим
+                </h3>
+
+                <div class="border-1"
+                    style="border-left: 6px dotted red; border-right: 6px dotted red; border-top: 6px solid blue; border-bottom: 6px solid blue;">
+                    <p>Это <code>Div</code> блок с внешними и внутренними отступами.</p>
+                    <p>Этот <code>Div</code> имеет свойство <code>overflow</code> в значении <code>visible</code>.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet </p>
+                </div>
+
+                <h3>Пример одинаковая рамка со всех сторон. Снизу толще втрое</h3>
+                <div class="border-1"
+                    style="border: 6px solid red; border-bottom-width: 18px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;">
+                    <p>Это <code>Div</code> блок с внешними и внутренними отступами.</p>
+                    <p>Этот <code>Div</code> имеет свойство <code>overflow</code> в значении <code>visible</code>.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet </p>
+                </div>
+
+
+                <h3>Пример <code>div</code> с рамкой <code>outset</code> и <code>inset</code></h3>
+                <div class="border-1"
+                    style="border: 6px outset red; border-bottom-width: 18px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;">
+                    <p>Это <code>Div</code> блок с внешними и внутренними отступами.</p>
+                    <p>Этот <code>Div</code> имеет свойство <code>overflow</code> в значении <code>visible</code>.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet </p>
+                </div>
+
+
+                <div class="circles-wrap">
+                    <h3>Помещаем фотографию в <code>Div</code>. Центрируем её и делаем кружок с портретом</h3>
+                    <img src="./images/bender.webp" alt="Фотография"
+                        style="width: 300px; height: auto; border-radius: 50%;">
+
+                </div>
+
+                <div class="circles-wrap">
+                    <h3>Три круга из <code>Div</code> залитые зеленым цветом</h3>
+                    <div class="circle"> </div>
+                    <div class="circle"> </div>
+                    <div class="circle"> </div>
+                </div>
+
+            </section>
+        </div>
+        <div class="col">
+            <section>
+                <h2> <code>Flexbox</code> - гибкая верстка</h2>
+                <div class="flex-container">
+                    <div class="flex-item item1">1</div>
+                    <div class="flex-item item2">2</div>
+                    <div class="flex-item item3">3</div>
+                    <div class="flex-item item4">4</div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Свойства flexbox</h2>
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Свойство</th>
+                            <th>Описание и параметры</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>display</strong></td>
+                            <td>Устанавливает тип отображения элемента. Для flexbox используются значения: <br>•
+                                <code>flex</code>:
+                                блочный контейнер flex. <br>• <code>inline-flex</code>: строчный контейнер flex.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex-direction</strong></td>
+                            <td>Определяет главную ось контейнера. <br>• <code>row</code>: горизонтально (по умолчанию)
+                                <br>•
+                                <code>row-reverse</code>: горизонтально в обратном порядке <br>• <code>column</code>:
+                                вертикально
+                                <br>• <code>column-reverse</code>: вертикально в обратном порядке
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>justify-content</strong></td>
+                            <td>Выравнивает элементы вдоль главной оси. <br>• <code>flex-start</code>: в начале оси
+                                <br>•
+                                <code>flex-end</code>: в конце оси <br>• <code>center</code>: по центру <br>•
+                                <code>space-between</code>: равные промежутки между элементами <br>•
+                                <code>space-around</code>:
+                                равные промежутки вокруг элементов <br>• <code>space-evenly</code>: равное распределение
+                                пространства между и вокруг элементов
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>align-items</strong></td>
+                            <td>Выравнивает элементы вдоль поперечной оси. <br>• <code>stretch</code>: растягивает
+                                элементы на
+                                всю
+                                высоту контейнера <br>• <code>flex-start</code>: выравнивает элементы к верху контейнера
+                                <br>•
+                                <code>flex-end</code>: выравнивает элементы к низу контейнера <br>• <code>center</code>:
+                                выравнивает
+                                элементы по центру <br>• <code>baseline</code>: выравнивает элементы по базовой линии
+                                текста
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex-wrap</strong></td>
+                            <td>Управляет переносом элементов на новую строку. <br>• <code>nowrap</code>: все элементы
+                                на одной
+                                строке (по умолчанию) <br>• <code>wrap</code>: элементы могут переноситься на новую
+                                строку <br>•
+                                <code>wrap-reverse</code>: элементы могут переноситься на новую строку в обратном
+                                порядке
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex</strong></td>
+                            <td>Сокращенное свойство для <code>flex-grow</code>, <code>flex-shrink</code> и
+                                <code>flex-basis</code>.
+                                <br>• Первое значение: <code>flex-grow</code> <br>• Второе значение:
+                                <code>flex-shrink</code>
+                                <br>•
+                                Третье значение: <code>flex-basis</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex-grow</strong></td>
+                            <td>Определяет фактор роста элемента. Значение по умолчанию — <code>0</code>. Если у всех
+                                элементов
+                                это
+                                значение равно <code>1</code>, все элементы будут расти равномерно.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex-shrink</strong></td>
+                            <td>Определяет фактор сжатия элемента. Значение по умолчанию — <code>1</code>. Если у всех
+                                элементов
+                                это
+                                значение равно <code>1</code>, все элементы будут сжиматься равномерно.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>flex-basis</strong></td>
+                            <td>Определяет базовый размер элемента перед тем, как применяются <code>flex-grow</code> или
+                                <code>flex-shrink</code>. Значение по умолчанию — <code>auto</code>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>order</strong></td>
+                            <td>Устанавливает порядок элемента внутри контейнера. Элементы с меньшим значением порядка
+                                располагаются
+                                перед элементами с большим значением. Значение по умолчанию — <code>0</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Тренеровка на практике</strong></td>
+                            <td><a href=https://flexboxfroggy.com/#ru>Посади лягушку!</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

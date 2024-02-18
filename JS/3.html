@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Массивы и циклы в JS. Знакомство с функциями Python 316. 29.10.2023">
+    <title>JS Lesson 3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Подключение JS файла -->
+    <!-- <script src="JS/1.js"></script> -->
+    <style>
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        body {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body class="fs-4">
+<header>
+<ul>
+    <li>Методы массивов</li>
+    <li>Получить с промпта массив</li>
+    <li>Объект Math - получить рандомное значение массива</li>
+    <li>Удалить из массива</li>
+    <li>Цикл for (of in)</li>
+    <li>Наполнить в цикле ul - li</li>
+    <li>События по кнопке</li>
+    <li>Функции</li>
+</ul>
+</header>
+<main>
+    <table table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Метод</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>push()</code></td>
+                <td>Добавляет один или несколько элементов в конец массива и возвращает новую длину массива.</td>
+            </tr>
+            <tr>
+                <td><code>pop()</code></td>
+                <td>Удаляет последний элемент из массива и возвращает его.</td>
+            </tr>
+            <tr>
+                <td><code>shift()</code></td>
+                <td>Удаляет первый элемент из массива и возвращает его.</td>
+            </tr>
+            <tr>
+                <td><code>unshift()</code></td>
+                <td>Добавляет один или несколько элементов в начало массива и возвращает новую длину массива.</td>
+            </tr>
+            <tr>
+                <td><code>forEach()</code></td>
+                <td>Выполняет заданную функцию для каждого элемента массива.</td>
+            </tr>
+            <tr>
+                <td><code>map()</code></td>
+                <td>Создает новый массив с результатами вызова указанной функции для каждого элемента исходного массива.</td>
+            </tr>
+            <tr>
+                <td><code>filter()</code></td>
+                <td>Создает новый массив со всеми элементами, которые проходят проверку заданной функции.</td>
+            </tr>
+            <tr>
+                <td><code>reduce()</code></td>
+                <td>Применяет функцию к аккумулятору и каждому элементу массива (слева направо), сводя его к одному значению.</td>
+            </tr>
+            <tr>
+                <td><code>join()</code></td>
+                <td>Объединяет все элементы массива в строку.</td>
+            </tr>
+            <tr>
+                <td><code>split()</code></td>
+                <td>Разделяет строку на массив подстрок.</td>
+            </tr>
+            <tr>
+                <td><code>slice()</code></td>
+                <td>Возвращает поверхностную копию части массива в виде нового массива.</td>
+            </tr>
+            <tr>
+                <td><code>splice()</code></td>
+                <td>Изменяет содержимое массива, удаляя, заменяя или добавляя элементы.</td>
+            </tr>
+            <tr>
+                <td><code>find()</code></td>
+                <td>Возвращает первый найденный элемент, который удовлетворяет условию проверочной функции. В противном случае возвращается undefined.</td>
+            </tr>
+            <tr>
+                <td><code>indexOf()</code></td>
+                <td>Возвращает первый индекс элемента в массиве, равный указанному значению, или -1, если таковой не найден.</td>
+            </tr>
+            <tr>
+                <td><code>lastIndexOf()</code></td>
+                <td>Возвращает последний индекс элемента в массиве, равного указанному значению, или -1, если таковой не найден.</td>
+            </tr>
+            <tr>
+                <td><code>some()</code></td>
+                <td>Проверяет, соответствует ли хотя бы один элемент в массиве условию, заданному в передаваемой функции.</td>
+            </tr>
+            <tr>
+                <td><code>every()</code></td>
+                <td>Проверяет, соответствуют ли все элементы в массиве условию, заданному в передаваемой функции.</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Свойство/Метод</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Константы -->
+            <tr>
+                <td><code>Math.E</code></td>
+                <td>Основание натурального логарифма (приблизительно равно 2.718).</td>
+            </tr>
+            <tr>
+                <td><code>Math.LN10</code></td>
+                <td>Натуральный логарифм 10.</td>
+            </tr>
+            <tr>
+                <td><code>Math.LN2</code></td>
+                <td>Натуральный логарифм 2.</td>
+            </tr>
+            <tr>
+                <td><code>Math.LOG10E</code></td>
+                <td>Логарифм по основанию 10 от e.</td>
+            </tr>
+            <tr>
+                <td><code>Math.LOG2E</code></td>
+                <td>Логарифм по основанию 2 от e.</td>
+            </tr>
+            <tr>
+                <td><code>Math.PI</code></td>
+                <td>Значение числа π (приблизительно равно 3.14159).</td>
+            </tr>
+            <tr>
+                <td><code>Math.SQRT1_2</code></td>
+                <td>Квадратный корень из 1/2.</td>
+            </tr>
+            <tr>
+                <td><code>Math.SQRT2</code></td>
+                <td>Квадратный корень из 2.</td>
+            </tr>
+            <!-- Методы -->
+            <tr>
+                <td><code>Math.abs(x)</code></td>
+                <td>Возвращает абсолютное значение числа.</td>
+            </tr>
+            <tr>
+                <td><code>Math.ceil(x)</code></td>
+                <td>Округляет число до ближайшего большего целого.</td>
+            </tr>
+            <tr>
+                <td><code>Math.floor(x)</code></td>
+                <td>Округляет число вниз до ближайшего меньшего целого.</td>
+            </tr>
+            <tr>
+                <td><code>Math.round(x)</code></td>
+                <td>Округляет число до ближайшего целого.</td>
+            </tr>
+            <tr>
+                <td><code>Math.max(...values)</code></td>
+                <td>Возвращает наибольшее из числовых значений.</td>
+            </tr>
+            <tr>
+                <td><code>Math.min(...values)</code></td>
+                <td>Возвращает наименьшее из числовых значений.</td>
+            </tr>
+            <tr>
+                <td><code>Math.pow(x, y)</code></td>
+                <td>Возводит x в степень y.</td>
+            </tr>
+            <tr>
+                <td><code>Math.sqrt(x)</code></td>
+                <td>Возвращает квадратный корень числа.</td>
+            </tr>
+            <tr>
+                <td><code>Math.random()</code></td>
+                <td>Возвращает псевдослучайное число между 0 (включительно) и 1 (не включая 1).</td>
+            </tr>
+            <tr>
+                <td><code>Math.sin(x), Math.cos(x), Math.tan(x)</code></td>
+                <td>Тригонометрические функции.</td>
+            </tr>
+            <tr>
+                <td><code>Math.asin(x), Math.acos(x), Math.atan(x)</code></td>
+                <td>Обратные тригонометрические функции.</td>
+            </tr>
+            <tr>
+                <td><code>Math.log(x)</code></td>
+                <td>Возвращает натуральный (по основанию e) логарифм числа.</td>
+            </tr>
+            <tr>
+                <td><code>Math.exp(x)</code></td>
+                <td>Возвращает e в степени x.</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul id="ulList">
+    
+    </ul>
+    <!-- Кнопка bs5 dark -->
+    <button class="btn btn-dark" onclick="run()">Нажми на меня!</button>
+</main>
+<script>
+    // Массивы - это объекты, которые хранят наборы значений и предназначены для хранения упорядоченных коллекций значений.
+    // Упорядоченность значений в массиве означает, что они располагаются в нем по порядку, начиная с нуля.
+    // Изменяемость значений в массиве означает, что мы можем изменять значения в массиве, добавлять новые значения или удалять старые.
+
+    // Создание массива
+    let arr = []; // пустой массив
+
+    let arr2 = [1, 2, 3, 4, 5]; // массив с элементами
+
+    let arr3 = [1, 'two', 3, 'four', ['a', 'b']]; // массив с элементами разных типов
+
+    // Доступ к элементам массива
+    // Для доступа к элементам массива используется квадратные скобки [ ] и индекс элемента.
+    // Индекс элемента - это порядковый номер элемента в массиве, начиная с нуля.
+
+    let arr3_0 = arr3[0]; // 1
+    let arr3_1 = arr3[1]; // 'two'
+    let arr3_2 = arr3[2]; // 3
+
+    // Изменить элемент массива
+
+    arr3[0] = 10; // [10, 'two', 3, 'four', ['a', 'b']]
+
+    // Длина массива
+    // Длина массива - это количество элементов в массиве.
+    // Длина массива хранится в свойстве length.
+
+    let arr3_length = arr3.length; // 5
+
+    // Добавление элементов в массив
+    // Для добавления элементов в массив используется метод push(item).
+    // Метод push(item) добавляет элемент item в конец массива arr.
+
+    arr3.push(6); // [10, 'two', 3, 'four', ['a', 'b'], 6]
+
+    // Удаление элементов из массива
+
+    // Для удаления элементов из массива используется метод pop().
+    // Метод pop() удаляет последний элемент массива arr и возвращает его.
+
+    let arr3_pop = arr3.pop(); // [10, 'two', 3, 'four', ['a', 'b']]
+
+    // Для удаления элементов из массива используется метод shift().
+    // Метод shift() удаляет из массива первый элемент и возвращает его.
+
+    let arr3_shift = arr3.shift(); // ['two', 3, 'four', ['a', 'b']]
+
+    // Для удаления конкртеного элемента из массива используется метод splice(start, deleteCount).
+    // Метод splice(start, deleteCount) удаляет deleteCount элементов из массива, начиная с позиции start,
+    //  а затем возвращает массив удаленных элементов.
+
+    let arr3_splice = arr3.splice(1, 2); // ['two', 3]
+
+    // Удаление элемента по индексу из массива TODO - Уточнить.
+
+    // Цикл for - перебор элементов итерируемых объектов
+    // for of - перебирает значения массива
+    // for in - перебирает ключи массива
+    // for (условие) { тело цикла }
+    
+    
+    
+    // let string = 'Hello World!';
+    // let arr4 = ['Один', 'Два', 'Три', 'Четыре', 'Пять'];
+
+    // for (let item of string) {
+    //     console.log(item);
+    // }
+
+    // for (let item of arr4) {
+    //     console.log(item);
+    // }
+    // Практика!
+    // Промпт - введите слова через запятую
+    // Вывести в консоль слова, в которых есть буква 'р'
+    
+    // Проверка на вхождение буквы 'р' в слово - // if (element.indexOf('р') != -1) {}
+
+    // wordsPrompt = prompt('Введите слова через запятую').split(', ');
+    
+    // Делаем цикл for of - он перебирает значения массива
+    // for (let word of wordsPrompt) {
+    //     if (word.toLowerCase().indexOf('р') != -1) {
+    //         console.log(wordsPrompt);
+    //     }
+    // }
+
+    // Делаем цикл for in - он перебирает индексы элементов массива\
+    // for (let index in wordsPrompt) {
+    //     if (wordsPrompt[index].toLowerCase().indexOf('р') != -1) {
+    //         console.log(`Слово ${wordsPrompt[index]} с индексом ${index} содержит букву 'р'`);
+    //     }
+    // }
+
+    // Как работает indexOf('р') != -1
+
+    let str1 = "Привет!"
+    let str2 = "Реллоу!"
+
+    // console.log(str1.indexOf('р')); // 1
+    // console.log(str2.toLocaleLowerCase().indexOf('р')); // -1
+
+    // console.log(str2[0]); // Р
+    
+    // Цикл for с условием - похож на while! :)
+    // Полная версия
+    // Инициализация; Условие; Шаг
+    // ++ - увеличивает на 1 аналог i = i + 1
+    // -- - уменьшает на 1 аналог i = i - 1
+
+    // for (let index = 0; index < 10; index++) {
+    //     console.log(index);
+    // }
+
+    // Вынести инициализацию за цикл
+    // В условии так же пишется пусто;условие;шаг
+    // let index = 0;
+
+    // for (; index < 10; index++) {
+    //     console.log(index);
+    // }
+    
+    // Выносим итерацию за условие цикла
+    // В условии так же пишется пусто;условие;пусто
+
+    // let index = 0;
+
+    // for (; index < 10;) {
+    //     console.log(index);
+    //     index++;
+    // }
+
+    // Выносим и условие остановки из условия цикла
+    // В условии так же пишется пусто;пусто;пусто
+
+    // let index = 0;
+
+    // for (;;) {
+    //     console.log(index);
+    //     index++;
+    //     if (index == 10) {
+    //         break;
+    //     }
+    // }
+    
+    // Break - прерывает цикл
+    // Continue - пропускает итерацию цикла
+
+    // let words = ['Один', 'Два', 'Три', 'Четыре', 'Пять'];
+    // let noRWords = [];
+
+    // for (let word of words) {
+    //     // Если буква р есть в слове, то пропускаем итерацию
+    //     if (word.toLowerCase().indexOf('р') != -1) {
+    //         break;
+    //     }
+    //     noRWords.push(word);
+    // }
+    // console.log(noRWords);
+
+    // Находим элемент с id ulList
+    // Наполняем его в цикле for li элементами массива через 
+    // appendChild - добавляет элемент в конец родителя
+
+    // let ulList = document.getElementById('ulList');
+    // let userInputWords = prompt('Введите слова через запятую').split(', ');
+
+    // for (let word of userInputWords) {
+    //     let li = document.createElement('li');
+    //     li.innerText = word;
+    //     ulList.appendChild(li);
+    // }
+
+    // Math - объект, который содержит в себе математические методы и константы
+
+    // Math.random() - возвращает случайное число от 0 до 1
+
+    // Math.round() - округляет число до ближайшего целого
+    // Math.ceil() - округляет число в большую сторону
+    // Math.floor() - округляет число в меньшую сторону
+
+    // Генератор случайных чисел от 0 до 10
+
+    // 1. Получить случайное число от 0 до 1 (допустим 0.456)
+    // 2. Умножить его на 10 (допустим 4.56)
+    // 3. Округлить его в меньшую сторону (допустим 4)
+
+    // let random = Math.floor(Math.random() * 10);
+    // console.log(random);
+    
+    // Привязка к массивам
+    // let arr5 = ['Один', 'Два', 'Три', 'Четыре', 'Пять'];
+
+    // Получить случайный элемент массива
+    // 1. Получить случайное число от 0 до 1 (допустим 0.999)
+    // 2. Умножить его на длину массива (допустим 4.995)
+    // 3. Округлить его в меньшую сторону (допустим 4)
+
+    // randomNum = Math.floor(Math.random() * arr5.length);
+
+    // console.log(arr5[randomNum]);
+
+    // Допустим у нас есть 2 массива и мы хотим получить рандомное значение из каждого массива
+
+    let arr6 = ['Один', 'Два', 'Три', 'Четыре', 'Пять'];
+    let arr7 = ['1', '2', '3', '4', '5'];
+
+    randomNum1 = Math.floor(Math.random() * arr6.length);
+    randomNum2 = Math.floor(Math.random() * arr7.length);
+
+    randomItemArr6 = arr6[randomNum1];
+    randomItemArr7 = arr7[randomNum2];
+
+    console.log(randomItemArr6);
+    console.log(randomItemArr7);
+
+    // Замена строки мир на randomItemArr6
+
+    let str3 = 'Привет, мир!';
+    let str4 = str3.replace('мир', randomItemArr6).replace('Привет', randomItemArr7);
+
+    console.log(str4);
+
+  // Функции! - это объекты, которые содержат в себе набор инструкций, 
+//   которые можно вызывать по имени.
+
+// Функции раньше называли подпрограммами, подпрограммы - это набор инструкций,
+// которые можно вызывать по имени.
+
+// Функции можно вызывать в любом месте программы, несколько раз, с разными параметрами.
+
+// Функции можно вызывать внутри других функций.
+// Функции можно передавать в качестве параметров другим функциям.
+// Правила именования функций такие же, как и для переменных.
+// - Имя функции должно быть глаголом или начинаться с глагола.
+// - Имя функции должно быть понятным и описывать то, что она делает.
+// - Имя функции должно быть в camelCase нотации.
+
+// Объявление функции
+// function имя_функции(параметры) {
+//     тело_функции
+// }
+
+// Вызов функции
+// имя_функции(параметры)
+
+function sayHello() {
+    console.log('Hello!');
+}
+
+function sayHelloToUser(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+function run() {
+    let namePrompt = prompt('Введите имя');
+    sayHello();
+    sayHelloToUser(namePrompt);
+    
+}
+
+
+function innerHTMLUl() {
+    let ulList = document.getElementById('ulList');
+    let userInputWords = prompt('Введите слова через запятую').split(', ');
+
+    for (let word of userInputWords) {
+        let li = document.createElement('li');
+        li.innerText = word;
+        ulList.appendChild(li);
+    }
+}
+
+function getSum(a, b) {
+    result = a + b;
+    console.log(`Сумма чисел ${a} и ${b} равна ${result}`);
+    return result;
+}
+
+let resultSum = getSum(10, 20);
+console.log(resultSum);
+
+let resultSum2 = getSum(resultSum, resultSum);
+console.log(resultSum2);
+
+</script>
+</body>
+
+</html>
