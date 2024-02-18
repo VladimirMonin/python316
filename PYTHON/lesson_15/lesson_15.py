@@ -21,4 +21,6 @@ def main() -> None:
     exit_program()
 
 
-main()
+if __name__ == '__main__':
+    main()
+   
