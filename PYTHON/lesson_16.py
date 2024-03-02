@@ -11,6 +11,7 @@ Lesson 16
 2. Функции высшего порядка
 - my_map - пишем сами map
 - map - применение функции к каждому элементу коллекции
+- filter - фильтрация коллекции
 """
 from pprint import pprint
 from typing import Callable, Iterable, List, Set, Tuple
@@ -72,3 +73,20 @@ pprint(next(map(string_processor, simple_set)))
 Превратите это снова в список
 После, используйте к нему функцию sum(спиок) и выведите результат
 """
+
+# user_input = input('Введите числа через пробел: ')
+# user_list = user_input.split()
+# user_list = list(map(int, user_list))
+# print(sum(user_list))
+
+# В одну строку
+print(sum(list(map(int, input('Введите числа через пробел: ').split()))))
+
+# В одну строку через комприхеншн
+print(sum([int(i) for i in input('Введите числа через пробел: ').split()]))
+
+# Что же происходит внутри?
+
+user_input = input('Введите числа через пробел: ')
+user_list = user_input.split()
+rusult = sum([int(i) for i in user_list])
