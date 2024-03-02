@@ -14,7 +14,7 @@ Lesson 16
 - filter - фильтрация коллекции
 """
 from pprint import pprint
-from typing import Callable, Iterable, List, Set, Tuple
+from typing import Callable, Iterable, List, Set, Tuple, Any
 
 from data.marvel import simple_set, small_dict, full_dict
 
@@ -42,51 +42,39 @@ def my_map(func: Callable, collection: List | Set | Tuple) -> List:
     return result
 
 
-def string_processor(string: str) -> str:
+def my_filter(func: Callable[[Any], bool], collection: List | Set | Tuple) -> List:
     """
-    Функция принимает строку и возвращает ее в верхнем регистре
-    :param string: строка
-    :return: строка в верхнем регистре
+    Функция высшего порядка, которая принимает функцию и коллекцию.
+    После чего фильтрует коллекцию по функции
+    :param func: функция
+    :param collection: коллекция
+    :return:
     """
-    return string.upper().replace(' ', '_').replace('-', '_').replace(':', '')
+    result = []
+    for item in collection:
+        if func(item):
+            result.append(item)
+    return result
 
 
-# Применяем функцию высшего порядка к simple_set
+def filter_film_by_first_letter(film: str, letter: str = 'Ч') -> bool:
+    """
+    Функция фильтрации фильмов по первой букве
+    :param letter: буква
+    :param film: название фильма
+    :return: результат фильтрации
+    """
+    return film[0].lower() == letter.lower()
 
-# pprint(my_map(string_processor, simple_set))
 
-# Применю функцию string_processor к каждому элементу simple_set через map
-# map(функция, коллекция)
+# Тестируем my_filter и filter_film_by_first_letter
+# print(my_filter(filter_film_by_first_letter, simple_set))
 
-# pprint(list(map(string_processor, simple_set)))
+# Это же на комприхеншн
+# print([film for film in simple_set if filter_film_by_first_letter(film, 'ж')])
 
-# В таком варианте мы получим map object (генератор), который нужно преобразовать в список
-# Или нет. Если вам нужен генератор, то оставьте его в таком виде
-pprint(map(string_processor, simple_set))
-pprint(next(map(string_processor, simple_set)))
+# Filter - фильтрация коллекции. Встроеенная функция в Python
+# filter(функция, коллекция)
 
-# TODO Практика
-"""
-Напишите пользовательский ввод
-Пользователь должен ввести числа через пробел
-Разбейте это на список и используйте map(int, список) для получения списка чисел
-Превратите это снова в список
-После, используйте к нему функцию sum(спиок) и выведите результат
-"""
-
-# user_input = input('Введите числа через пробел: ')
-# user_list = user_input.split()
-# user_list = list(map(int, user_list))
-# print(sum(user_list))
-
-# В одну строку
-print(sum(list(map(int, input('Введите числа через пробел: ').split()))))
-
-# В одну строку через комприхеншн
-print(sum([int(i) for i in input('Введите числа через пробел: ').split()]))
-
-# Что же происходит внутри?
-
-user_input = input('Введите числа через пробел: ')
-user_list = user_input.split()
-rusult = sum([int(i) for i in user_list])
+# Это же на filter
+print(list(filter(filter_film_by_first_letter, simple_set)))
