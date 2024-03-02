@@ -9,50 +9,57 @@ Lesson 16
 - перепаковка данных
 
 2. Функции высшего порядка
+- my_map - пишем сами map
+- map - применение функции к каждому элементу коллекции
 """
 from pprint import pprint
+from typing import Callable, Iterable, List, Set, Tuple
 
 from data.marvel import simple_set, small_dict, full_dict
 
-# 1.2. Словарные включения
+# 2. Функции высшего порядка
+"""
+Допустим, у нас есть коллекция, и мы хотим к каждому элементу применить функцию.
+При функциональном стиле, нам нужно написать функцию, которая принимает функцию и коллекцию.
+А внутри этой функции мы применяем функцию к каждому элементу коллекции в цикле.
 
-# Простая копия small_dict
-new_small_dict = {key: value for key, value in small_dict.items()}
-# pprint(new_small_dict, sort_dicts=False)
+Давайте это напишем!
+"""
 
-# Условие после. Фильтрация - год не None
-new_small_dict = {key: value for key, value in small_dict.items() if value is not None}
-# pprint(new_small_dict, sort_dicts=False)
 
-# Условие после. Фильмы где год выпуска не None и 2020 и новее
-new_small_dict = {key: value for key, value in small_dict.items() if value is not None and value >= 2020}
-# pprint(new_small_dict, sort_dicts=False)
+def my_map(func: Callable, collection: List | Set | Tuple) -> List:
+    """
+    Функция высшего порядка, которая принимает функцию и коллекцию.
+    После чего применяет функцию к каждому элементу коллекции
+    :param func: функция
+    :param collection: коллекция
+    :return:
+    """
+    result = []
+    for item in collection:
+        result.append(func(item))
+    return result
 
-# Условие после. Фильмы где год выпуска не None и 2020 и новее
-# Замена символов в ключе
-new_small_dict = {key.replace("Ч", "ЧЧ"): value for key, value in small_dict.items() if
-                  value is not None and value >= 2020}
-# pprint(new_small_dict, sort_dicts=False)
 
-# Реплейс в ключе по условию, если в строке есть буква ё
-new_small_dict = {key.replace("Ч", "ЧЧ") if 'ё' in key else key: value for key, value in small_dict.items() if
-                  value is not None and value >= 2020}
-# pprint(new_small_dict, sort_dicts=False)
+def string_processor(string: str) -> str:
+    """
+    Функция принимает строку и возвращает ее в верхнем регистре
+    :param string: строка
+    :return: строка в верхнем регистре
+    """
+    return string.upper().replace(' ', '_').replace('-', '_').replace(':', '')
 
-# full_dict - получаем копию
-new_full_dict = {key: value for key, value in full_dict.items()}
-# pprint(new_full_dict, sort_dicts=False)
 
-# Список словарей full_dict
-full_list = [value for value in full_dict.values()]
-# pprint(full_list, sort_dicts=False)
+# Применяем функцию высшего порядка к simple_set
 
-# Список словарей full_dict, добавляем внешний ключ как значение в каждый словарь в списке словарей
-# Получаем список словарей с ключом 'id', который равен ключу словаря (key)
-full_list2 = [{'id': key, **value} for key, value in full_dict.items()]
-# pprint(full_list2, sort_dicts=False)
+# pprint(my_map(string_processor, simple_set))
 
-full_lst3 = [{'айди': key, 'название': value['title'], 'год': value['year'] if value['year'] != 'TBA' else 0} for
-             key, value in full_dict.items()]
-pprint(full_lst3, sort_dicts=False)
-# Ключ id только внутри каждого словаря
+# Применю функцию string_processor к каждому элементу simple_set через map
+# map(функция, коллекция)
+
+# pprint(list(map(string_processor, simple_set)))
+
+# В таком варианте мы получим map object (генератор), который нужно преобразовать в список
+# Или нет. Если вам нужен генератор, то оставьте его в таком виде
+pprint(map(string_processor, simple_set))
+pprint(next(map(string_processor, simple_set)))
