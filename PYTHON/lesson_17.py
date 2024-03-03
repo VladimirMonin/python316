@@ -3,6 +3,8 @@ Lesson 17
 03.03.2024
 - Анонимные функции
 - lambda
+- sort
+- sorted
 - map + lambda
 - filter + lambda
 - sorted + lambda
@@ -11,26 +13,24 @@ Lesson 17
 - yield
 - генераторное выражение
 - ленивые вычисления
+- all, any + генераторное выражение
+- all, any + lambda
 """
-import csv
-from pprint import pprint
-from typing import Tuple
 
+products = ['apple', 'banana', 'orange', 'milk', 'bread', 'butter', 'cheese', 'tomato', 'cucumber', 'potato']
 
-# Ленивое чтение построчно txt файла
-def read_file(file_name: str) -> str:
-    with open(file_name, 'r', encoding='utf-8') as file:
-        for line in file:
-            yield line
+# Генераторное выражение с ленивыми вычислениями
+gen = (x for x in products if x.startswith('b'))
 
+for product in gen:
+    print(product)
 
-# Создание генератора "файлов"
-file_gen = read_file('data.txt')
+# all, any + генераторное выражение
+print(all(x for x in products if x.startswith('b')))  # False
 
+# all, any + lambda
+print(all(map(lambda x: x.startswith('b'), products)))
 
-# Ленивое чтение построчно csv файла
-def read_csv(file_name: str, delimiter: str = ';') -> Tuple:
-    with open(file_name, 'r', encoding='utf-8') as file:
-        reader = csv.reader(file, delimiter=delimiter, lineterminator='\n')
-        for row in reader:
-            yield row
+# Проверка а все ли числа в генераторе являются четными
+print(all(x % 2 == 0 for x in range(1000000000000000000000000000000000)))  # False
+print(all(list((x % 2 == 0 for x in range(100000000)))))  # False
