@@ -12,12 +12,69 @@ Lesson 17
 from pprint import pprint
 from typing import Tuple
 
-from PYTHON.data.marvel import simple_set, small_dict, full_dict
 
-print(small_dict)
+# Генераторы - это функции, которые возвращают итераторы
+# Итератор - это объект, который возвращает свои элементы по одному за раз
+# Генераторы создаются с помощью ключевого слова yield - в переводе "давать", "уступать"
+# Генераторы могут быть бесконечными
+# Генераторы могут быть использованы в циклах for, в списковых включениях, в функции sum, max, min и т.д.
+# Генераторы могут быть переданы в функцию list, чтобы получить список из всех значений генератора
+# Генераторы могут быть переданы в функцию next, чтобы получить следующее значение генератора
+# Генераторы могут быть однострочными (генераторное выражение)
 
-# Сортировка словаря по ключам на выходе словарь
-# print((sorted(small_dict.items(), key=lambda x: x[0])))
+# Пример генератора
+def my_generator():
+    yield 1
+    yield 2
+    yield 3
 
-# Сортировка словаря по значениям на выходе словарь
-print((sorted(small_dict.items(), key=lambda x: x[1] if isinstance(x[1], int) else 3000, reverse=True)))
+
+gen = my_generator()
+# print(next(gen))
+# print(next(gen))
+# print(next(gen))
+# print(next(gen))  # StopIteration
+
+for i in my_generator():
+    print(i)
+
+
+def my_generator_2(n):
+    for i in range(n):
+        yield i
+
+
+def my_list(n):
+    return [i for i in range(n)]
+
+
+# print(my_list(10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000))
+
+# Получаем MemoryError
+# print(my_list(100 ** 100))
+
+# for i in my_generator_2(100 ** 100):
+#     print(i)
+
+# for i in my_list(100 ** 100):
+#     print(i)
+
+# Генераторное выражение
+gen = (i for i in range(10))
+
+print(next(gen))
+gen_list = list(gen)
+
+print(gen_list)
+# print(next(gen_list)) # TypeError: 'list' object is not an iterator
+
+map_list = (map(lambda x: x ** 2, range(10)))
+print(next(map_list))
+print(next(map_list))
+print(next(map_list))
+print(next(map_list))
+print(next(map_list))
+
+for i in map(lambda x: x ** 2, range(10000000000000000000000000000000000000000000000000000)):
+    if i == 778446231616:
+        print(f'Found {i}')
