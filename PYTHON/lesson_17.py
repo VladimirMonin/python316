@@ -14,8 +14,10 @@ from typing import Tuple
 
 from PYTHON.data.marvel import simple_set, small_dict, full_dict
 
-full_list2 = [{'id': key, **value} for key, value in full_dict.items()]
+print(small_dict)
 
-# Фильтр (фильмы 2021 + сортировка по title в одну строку
-result = sorted(filter(lambda x: x['year'] == 2021, full_list2), key=lambda x: x['title'])
-pprint(result, sort_dicts=False)
+# Сортировка словаря по ключам на выходе словарь
+# print((sorted(small_dict.items(), key=lambda x: x[0])))
+
+# Сортировка словаря по значениям на выходе словарь
+print((sorted(small_dict.items(), key=lambda x: x[1] if isinstance(x[1], int) else 3000, reverse=True)))
