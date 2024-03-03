@@ -11,16 +11,19 @@ from PYTHON.data.marvel import simple_set, small_dict, full_dict
 
 full_list2 = [{'id': key, **value} for key, value in full_dict.items()]
 
-# filter + lambda
-# filter(func, iterable)
 
-# Отберем ID меньше 10
-# result = list(filter(lambda x: x['id'] < 10, full_list2))
-# pprint(result)
+# sorted + lambda
+# sorted(iterable, key=lambda x: x['key'], reverse=True)
 
-# TODO: ищем фильмы с Тор в названии - печатаем
-result = list(filter(lambda x: x['title'].startswith('Тор'), full_list2))
+# Сортировка по ключу title
 
-query = 'Железный'
-result2 = list(filter(lambda x: query in x['title'], full_list2))
-pprint(result2)
+def sort_by_title(item):
+    return item['title']
+
+
+# sorted_list = sorted(full_list2, key=sort_by_title)
+# pprint(sorted_list, sort_dicts=False)
+
+# Это же + lambda
+sorted_list = sorted(full_list2, key=lambda x: x['title'][-1], reverse=True)
+pprint(sorted_list, sort_dicts=False)
