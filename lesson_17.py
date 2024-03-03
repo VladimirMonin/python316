@@ -36,7 +36,7 @@ def sort_dict_by_key_first_letter(key: str) -> str:
 
 # Сортировка ключей словаря по алфавиту
 sorted_dict = sorted(small_dict, key=sort_dict_by_key_first_letter)
-pprint(sorted_dict, sort_dicts=False)
+# pprint(sorted_dict, sort_dicts=False)
 
 full_list2 = [{'id': key, **value} for key, value in full_dict.items()]
 
@@ -55,14 +55,14 @@ def my_lambda2(x):
 
 int_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-print(list(map(lambda x: x ** 2, int_list)))
+# print(list(map(lambda x: x ** 2, int_list)))
 
 # Проходим map lambda по словарю .items, работаем с ключами и значениями (small_dict)
-print(small_dict.items())
-print(list(small_dict.items()))
-print(dict(list(small_dict.items())))
-print(dict(map(lambda x: (x[0].upper(), x[1]), small_dict.items())))
-print(dict(map(lambda x: (x[0].upper(), x[1] + 1000 if isinstance(x[1], int) else x[1]), small_dict.items())))
+# print(small_dict.items())
+# print(list(small_dict.items()))
+# print(dict(list(small_dict.items())))
+# print(dict(map(lambda x: (x[0].upper(), x[1]), small_dict.items())))
+# print(dict(map(lambda x: (x[0].upper(), x[1] + 1000 if isinstance(x[1], int) else x[1]), small_dict.items())))
 
 # TODO Практика
 """
@@ -77,3 +77,12 @@ print(dict(map(lambda x: (x[0].upper(), x[1] + 1000 if isinstance(x[1], int) els
 
 Ч2 добавьте проверку на int, если строка не число, вставьте None
 """
+# Ч1
+user_input = input('Введите числа через пробел: ')
+user_list = user_input.split()
+print(list(map(lambda x: int(x) + 100, user_list)))
+
+# Ч2
+user_input = input('Введите числа через пробел: ')
+user_list = user_input.split()
+print(list(map(lambda x: int(x) + 100 if x.isdigit() else None, user_list)))
