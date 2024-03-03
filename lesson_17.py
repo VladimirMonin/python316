@@ -82,7 +82,16 @@ user_input = input('Введите числа через пробел: ')
 user_list = user_input.split()
 print(list(map(lambda x: int(x) + 100, user_list)))
 
+# В одну строку
+print(list(map(lambda x: int(x) + 100, input('Введите числа через пробел: ').split())))
+
+# Через комприхеншен
+compr_result = [int(x) + 100 for x in input('Введите числа через пробел: ').split()]
+print(f'{compr_result=}')
 # Ч2
 user_input = input('Введите числа через пробел: ')
 user_list = user_input.split()
 print(list(map(lambda x: int(x) + 100 if x.isdigit() else None, user_list)))
+
+# В одну строку
+print(list(map(lambda x: int(x) + 100 if x.isdigit() else None, input('Введите числа через пробел: ').split())))
