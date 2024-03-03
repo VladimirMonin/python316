@@ -64,4 +64,16 @@ print(dict(list(small_dict.items())))
 print(dict(map(lambda x: (x[0].upper(), x[1]), small_dict.items())))
 print(dict(map(lambda x: (x[0].upper(), x[1] + 1000 if isinstance(x[1], int) else x[1]), small_dict.items())))
 
-#
+# TODO Практика
+"""
+Ч1
+Сделайте пользовательский ввод чисел через пробел
+Разбейте это на список
+Обработайте это map lambda:
+- Примените int
+- прибавьте 100
+
+На выходе print(list)
+
+Ч2 добавьте проверку на int, если строка не число, вставьте None
+"""
