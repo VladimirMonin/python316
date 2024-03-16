@@ -27,9 +27,12 @@ a = 'чебурек'  # global
 
 
 def some_func():
-    # a = "шавуха"  # local
+    global a
+    a = "шавуха"  # local
     print(f'Local: {a}')
 
 
 some_func()
-print(a)  # global
+print(f'Global: {a}')  # global
+
+# 4. Nonlocal scope - область видимости внутри вложенных функций
