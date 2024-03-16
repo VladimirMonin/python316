@@ -36,3 +36,19 @@ some_func()
 print(f'Global: {a}')  # global
 
 # 4. Nonlocal scope - область видимости внутри вложенных функций
+a = 'чебурек'  # global
+
+
+def some_func():
+    a = "шавуха"  # local
+    print(f'Local: {a}')
+
+    def inner_func():
+        a = 'бургер'
+        print(f'Inner: {a}')
+
+    inner_func()
+
+
+some_func()
+print(f'Global: {a}')  # global
