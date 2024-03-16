@@ -86,8 +86,19 @@ sn()
 # sn2()
 # sn3()
 
+# Мы можем использовать переменные для того, чтобы ссылаться на функции
+
 ppp = print
 ppp('Hello')
+
+
+def sum_a_b(a, b):
+    return a + b
+
+
+new_name: Callable[[int, int], int] = sum_a_b
+
+print(new_name(1, 2))
 
 """
 Пока sn ссылается на функцию say_name2, то она не будет удалена из памяти.
@@ -100,3 +111,27 @@ ppp('Hello')
 
 sn -> say_name2 -> say_goodbye -> name = "Олег" 
 """
+
+
+# Делаем счетчик хранящий состояние
+
+def counter(start: int = 0) -> Callable[[], int]:
+    # Счетчик start
+    def step():
+        nonlocal start
+        start += 1
+        return start
+
+    return step
+
+
+c1: Callable = counter(10)
+c2: Callable = counter()
+
+print(c1())
+print(c1())
+print(c1())
+
+print(c2())
+print(c2())
+print(c2())
