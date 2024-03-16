@@ -248,6 +248,7 @@ def print_decorator3(func: Callable) -> Callable:
         print("Start")
         func(*args, **kwargs)
         print("End")
+        # RETURN!!!!!
 
     return wrapper
 
@@ -267,3 +268,26 @@ some_func6("Матвей", "Петров")
 Обратите внимание, что если функция возвращает данные, wrapper декоратора 
 тоже должен вернуть данные!!!
 """
+
+
+def print_decorator4(func: Callable) -> Callable:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        print("Start")
+        result = func(*args, **kwargs)
+        print("End")
+        return result
+
+    return wrapper
+
+
+@print_decorator4
+def check_palindromes(*words: str) -> List[str]:
+    result: List[str] = []
+    for word in words:
+        word_row = word.replace(' ', '').lower()
+        if word_row == word_row[::-1]:
+            result.append(word)
+    return result
+
+
+print(check_palindromes('шалаш', 'привет', 'Довод', 'А роза упала на лапу Азора'))
