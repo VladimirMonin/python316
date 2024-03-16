@@ -179,3 +179,31 @@ fruits.append("apples")
 print(sorter())
 
 print(fruits)
+
+
+# Первая декорация
+
+def print_decorator(func: Callable[[], None]) -> Callable[[], None]:
+    # func - будет ссылаться на функцию, которую мы обернем, и лежать внутри wrapper
+    def wrapper() -> None:
+        print("Start")
+        func()
+        print("End")
+
+    return wrapper
+
+
+def some_func() -> None:
+    print("Вызов функции some_func")
+
+
+f: Callable = print_decorator(some_func)
+f()
+
+
+@print_decorator
+def some_func2() -> None:
+    print("Вызов функции some_func2")
+
+
+some_func2()
