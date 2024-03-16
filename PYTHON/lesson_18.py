@@ -207,3 +207,54 @@ def some_func2() -> None:
 
 
 some_func2()
+
+
+@print_decorator
+def some_func3(name: str) -> None:
+    print(f"Вызов функции some_func3 с параметром {name}")
+
+
+# some_func3("Матвей")  # TypeError: wrapper() takes 0 positional arguments but 1 was given
+
+
+# Частный случай. Но не универсальный.
+def print_decorator2(func: Callable[[str], None]) -> Callable[[str], None]:
+    def wrapper(name: str) -> None:
+        print("Start")
+        func(name)
+        print("End")
+
+    return wrapper
+
+
+@print_decorator2
+def some_func4(name: str) -> None:
+    print(f"Вызов функции some_func4 с параметром {name}")
+
+
+some_func4("Матвей")
+
+
+@print_decorator2
+def some_func5(name: str, last_name: str) -> None:
+    print(f"Вызов функции some_func5 с параметром {name} и {last_name}")
+
+
+# some_func5("Матвей", "Петров")  # TypeError: wrapper() takes 1 positional argument but 2 were given
+
+
+def print_decorator3(func: Callable) -> Callable:
+    def wrapper(*args: Any, **kwargs: Any) -> None:
+        print("Start")
+        func(*args, **kwargs)
+        print("End")
+
+    return wrapper
+
+
+@print_decorator3
+def some_func6(name: str, last_name: str) -> None:
+    print(f"Вызов функции some_func6 с параметром {name} и {last_name}")
+
+
+some_func6("Матвей", "Петров")
