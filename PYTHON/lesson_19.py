@@ -9,7 +9,7 @@ Lesson 19
 - Практика с декоратором с параметрами
 """
 import time
-from typing import Callable, List
+from typing import Callable, List, Dict, Any
 from data.cities import cities
 
 # def say_name2(name: str) -> Callable[[], None]:
@@ -104,10 +104,10 @@ start_time = time.perf_counter()
 finish_time = time.perf_counter()
 """
 
-start_time = time.perf_counter()
-finish_time = time.perf_counter()
-result_time = finish_time - start_time
-print(f'Прошло {result_time:.10f} секунд')
+# start_time = time.perf_counter()
+# finish_time = time.perf_counter()
+# result_time = finish_time - start_time
+# print(f'Прошло {result_time:.10f} секунд')
 
 """
 Практика!
@@ -135,3 +135,39 @@ def check_time_decorator(func: Callable) -> Callable:
         return result
 
     return wrapper
+
+
+"""
+Напишем 3 функции. Каждая будет принимать города и ключ для фильтрации
+и возвращать фильтрованные данные.
+1. Использует цикл for
+2. Использует списковое включение
+3. Использует встроенную функцию filter
+"""
+
+
+@check_time_decorator
+def get_city_by_letter_in_for(cities: List[Dict[str, Any]], letter: str) -> List[str]:
+    result_list: List[str] = []
+    for city in cities:
+        if letter in city['name']:
+            result_list.append(city['name'])
+    return result_list
+
+
+@check_time_decorator
+def get_city_by_letter_in_comprehension(cities: List[Dict[str, Any]], letter: str) -> List[str]:
+    return [city['name'] for city in cities if letter in city['name']]
+
+
+@check_time_decorator
+def get_city_by_letter_in_filter(cities: List[Dict[str, Any]], letter: str) -> List[str]:
+    return list(filter(lambda city: letter in city['name'], cities))
+
+
+# Тестируем функции
+letter = "Усть"
+# print(cities)
+print(get_city_by_letter_in_for(cities, letter))
+print(get_city_by_letter_in_comprehension(cities, letter))
+print(get_city_by_letter_in_filter(cities, letter))
