@@ -137,6 +137,29 @@ def check_time_decorator(func: Callable) -> Callable:
     return wrapper
 
 
+def log_decorator(func: Callable) -> Callable:
+    def wrapper(*args, **kwargs):
+        # Готовим данные для логирования
+        func_name = func.__name__  # Имя функции в виде строки
+        args_str = ', '.join(map(str, args))
+        kwargs_str = ', '.join([f'{key}={value}' for key, value in kwargs.items()])
+        time_now = time.strftime("%d-%m-%Y %H:%M:%S", time.localtime())
+
+        # Получаем результат выполнения функции
+        result = func(*args, **kwargs)
+        result_str = str(result)[:50]
+
+        # Пишем в лог файл
+        with open('log.txt', 'a') as file:
+            file.write(f'[{time_now}] Вызвана функция {func_name} с аргументами {args_str[:50]}... и {kwargs_str}.'
+                       f' Результат: {result_str}\n')
+
+        print(f'[{time_now}] Вызвана функция {func_name} с аргументами {args_str[:50]}... и {kwargs_str}.')
+        return result
+
+    return wrapper
+
+
 """
 Напишем 3 функции. Каждая будет принимать города и ключ для фильтрации
 и возвращать фильтрованные данные.
@@ -168,9 +191,9 @@ def get_city_by_letter_in_filter(cities: List[Dict[str, Any]], letter: str) -> L
 # Тестируем функции
 letter = "Усть"
 # print(cities)
-print(get_city_by_letter_in_for(cities, letter))
-print(get_city_by_letter_in_filter(cities, letter))
-print(get_city_by_letter_in_comprehension(cities, letter))
+# print(get_city_by_letter_in_for(cities, letter))
+# print(get_city_by_letter_in_filter(cities, letter))
+# print(get_city_by_letter_in_comprehension(cities, letter))
 
 """
 Напишем 3 функции, которые будут принимать города и метод строки
@@ -203,6 +226,17 @@ def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) ->
 # Тестируем функции
 method = str.upper
 
-print(get_city_by_method_in_map(cities, method))
-print(get_city_by_method_in_comprehension(cities, method))
-print(get_city_by_method_in_for(cities, method))
+
+# print(get_city_by_method_in_map(cities, method))
+# print(get_city_by_method_in_comprehension(cities, method))
+# print(get_city_by_method_in_for(cities, method))
+
+# print(len.__name__) # Имя функции в виде строки
+
+@log_decorator  # Вторым зашел, первым вышел
+@check_time_decorator  # Первым зашел, последним вышел
+def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    return list(map(method, [city['name'] for city in cities]))
+
+
+result = get_city_by_method_in_map(cities, method)
