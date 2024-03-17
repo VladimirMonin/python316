@@ -240,3 +240,46 @@ def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) ->
 
 
 result = get_city_by_method_in_map(cities, method)
+
+# Декораторы с параметрами
+# Декораторы с параметрами - это функции, которые принимают параметры и возвращают декоратор.
+"""
+Внешняя функция - принимает параметры декоратора
+Средняя функция - это декоратор, которая принимает функцию и возвращает обертку
+Внутренняя функция - это обертка, которая параметры декоратора передает в обертку
+"""
+
+
+def print_decorator(func: Callable[[], None]) -> Callable[[], None]:
+    # func - будет ссылаться на функцию, которую мы обернем, и лежать внутри wrapper
+    def wrapper() -> None:
+        print("Start")
+        result = func()
+        print("End")
+        return result
+
+    return wrapper
+
+
+def print_decorator2(prefix: str = 'Привет', postfix: str = 'Пока') -> Callable:
+    # Вторая функция передает обворачиваемую функцию в обвертку
+    def decorator(func: Callable) -> Callable:
+        # Третья функция - сама обвертка
+        def wrapper(name: str) -> str:
+            print(prefix)
+            result = func(name)
+            print(postfix)
+            return result
+
+        return wrapper
+
+    return decorator
+
+
+@print_decorator2('Hello', 'Goodbye')
+def print_name(name: str) -> str:
+    return f"Вызов функции print_name с параметром {name}"
+
+
+result = print_name('Oleg')
+print(result)
