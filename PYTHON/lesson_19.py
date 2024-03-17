@@ -169,5 +169,40 @@ def get_city_by_letter_in_filter(cities: List[Dict[str, Any]], letter: str) -> L
 letter = "Усть"
 # print(cities)
 print(get_city_by_letter_in_for(cities, letter))
-print(get_city_by_letter_in_comprehension(cities, letter))
 print(get_city_by_letter_in_filter(cities, letter))
+print(get_city_by_letter_in_comprehension(cities, letter))
+
+"""
+Напишем 3 функции, которые будут принимать города и метод строки
+который они будут применять к каждому городу, и возвращать список с названиями городов
+преобразованными методом строки.
+1. Использует цикл for
+2. Использует списковое включение
+3. Использует встроенную функцию map
+"""
+
+
+@check_time_decorator
+def get_city_by_method_in_for(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    result_list: List[str] = []
+    for city in cities:
+        result_list.append(method(city['name']))
+    return result_list
+
+
+@check_time_decorator
+def get_city_by_method_in_comprehension(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    return [method(city['name']) for city in cities]
+
+
+@check_time_decorator
+def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    return list(map(method, [city['name'] for city in cities]))
+
+
+# Тестируем функции
+method = str.upper
+
+print(get_city_by_method_in_map(cities, method))
+print(get_city_by_method_in_comprehension(cities, method))
+print(get_city_by_method_in_for(cities, method))
