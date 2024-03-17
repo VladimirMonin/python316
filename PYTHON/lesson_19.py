@@ -10,6 +10,7 @@ Lesson 19
 """
 import time
 from typing import Callable, List
+from data.cities import cities
 
 # def say_name2(name: str) -> Callable[[], None]:
 #     # Олег тут
@@ -115,3 +116,22 @@ print(f'Прошло {result_time:.10f} секунд')
 3. Внутри обертки замерьте время выполнения функции и выведите результат на экран.
 4. Не забудьте передать аргументы в обертку, и вернуть результат выполнения функции.
 """
+
+
+def check_time_decorator(func: Callable) -> Callable:
+    def wrapper(*args, **kwargs):
+        # Засекаем время старта
+        start_time = time.perf_counter()
+
+        # Выполняем функцию
+        result = func(*args, **kwargs)
+
+        # Засекаем время окончания
+        finish_time = time.perf_counter()
+
+        # Считаем разницу
+        result_time = finish_time - start_time
+        print(f'Прошло {result_time:.10f} секунд')
+        return result
+
+    return wrapper
