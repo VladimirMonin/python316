@@ -10,7 +10,7 @@ Lesson 19
 - Логирование и замер времени выполнения
 """
 import time
-from typing import Callable, List, Dict, Any
+from typing import Callable, List, Dict, Any, Tuple
 from data.cities import cities
 
 # def say_name2(name: str) -> Callable[[], None]:
@@ -369,4 +369,37 @@ def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) ->
     return list(map(method, [city['name'] for city in cities]))
 
 
-result = get_city_by_method_in_map(cities, method)
+# result = get_city_by_method_in_map(cities, method)
+
+"""
+Декоратор без параметров для кеширования результатов выполнения функции
+"""
+
+
+def cache_decorator(func: Callable) -> Callable:
+    """
+    Работает только с неизменяемыми типами данных
+    Которые можно хешировать и записывать в кеш (словарь)
+    :param func:
+    :return:
+    """
+    cache: Dict[Tuple, Any] = {}
+
+    def wrapper(*args, **kwargs):
+        key = (args, tuple(kwargs.items()))
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+
+    return wrapper
+
+
+@cache_decorator
+def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    return list(map(method, [city['name'] for city in cities]))
+
+
+# Получим кортеж городов
+cities_tuple = tuple([city['name'] for city in cities])
+result = get_city_by_method_in_map(cities_tuple, method)
+print(result)
