@@ -283,3 +283,40 @@ def print_name(name: str) -> str:
 
 result = print_name('Oleg')
 print(result)
+
+
+def check_time_decorator2(is_detail_log=False):
+    def check_time_decorator(func: Callable) -> Callable:
+        def wrapper(*args, **kwargs):
+            # Засекаем время старта
+            start_time = time.perf_counter()
+
+            # Выполняем функцию
+            result = func(*args, **kwargs)
+
+            # Засекаем время окончания
+            finish_time = time.perf_counter()
+
+            # Считаем разницу
+            result_time = finish_time - start_time
+
+            if is_detail_log:
+                print(f'Функция {func.__name__} выполнилась за {result_time:.10f} секунд')
+
+            else:
+                print(f'{result_time:.10f} секунд')
+
+            return result
+
+        return wrapper
+
+    return check_time_decorator
+
+
+@log_decorator  # Вторым зашел, первым вышел
+@check_time_decorator2(is_detail_log=True)  # Первым зашел, последним вышел
+def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+    return list(map(method, [city['name'] for city in cities]))
+
+
+result = get_city_by_method_in_map(cities, method)
