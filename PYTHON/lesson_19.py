@@ -8,67 +8,110 @@ Lesson 19
 - Декораторы с параметрами
 - Практика с декоратором с параметрами
 """
+import time
 from typing import Callable, List
 
-
-def say_name2(name: str) -> Callable[[], None]:
-    # Олег тут
-    def say_goodbye():
-        print(f"Привет {name}!")
-
-    return say_goodbye
-
-
-sn: Callable = say_name2("Олег")
-
-sn()
-sn()
-sn()
-sn()
-# sn -> say_name2 -> say_goodbye -> name = "Олег"
-
-fruits = ["apple", "banana", "cherry", "kiwi", "mango", "lemon", "orange", "grape"]
+# def say_name2(name: str) -> Callable[[], None]:
+#     # Олег тут
+#     def say_goodbye():
+#         print(f"Привет {name}!")
+#
+#     return say_goodbye
+#
+#
+# sn: Callable = say_name2("Олег")
+#
+# sn()
+# sn()
+# sn()
+# sn()
+# # sn -> say_name2 -> say_goodbye -> name = "Олег"
+#
+# fruits = ["apple", "banana", "cherry", "kiwi", "mango", "lemon", "orange", "grape"]
+#
+# """
+# аннотация List[str] указывает, что fruits должен быть списком строк,
+# и аннотация Callable[[], List[str]] указывает, что возвращаемое значение является функцией,
+# которая не принимает аргументы (пустые скобки) и возвращает список строк.
+# """
+#
+#
+# # Функция с кешем
+# def sort_fruits(fruits: List[str]) -> Callable[[], List[str]]:
+#     """
+#     Сортируем список и сохраняем результат в кеш
+#     :param fruits:
+#     :return:
+#     """
+#     print(id(fruits))
+#     cache: list = []
+#     print(id(cache))
+#
+#     def sort() -> List[str]:
+#         nonlocal cache
+#         print(f'Внутри sort: {id(fruits)}')
+#         if not cache or len(cache) != len(fruits):
+#             cache = sorted(fruits)
+#         return cache
+#
+#     return sort
+#
+#
+# # Тестируем функцию с кешем
+# print(id(fruits))
+# sorter: Callable = sort_fruits(fruits)
+# print(sorter())
+#
+# # Вызываем повторно с этими же данными (сортировка не будет произведена - вернется кеш)
+# print(sorter())
+#
+# # # Добавляем новый фрукт
+# fruits.append("apples")
+#
+# # # Пересортируем
+# print(sorter())
+#
+# print(fruits)
 
 """
-аннотация List[str] указывает, что fruits должен быть списком строк, 
-и аннотация Callable[[], List[str]] указывает, что возвращаемое значение является функцией, 
-которая не принимает аргументы (пустые скобки) и возвращает список строк.
+time.perf_counter() — это функция из модуля time в стандартной библиотеке Python, которая предоставляет доступ к 
+монотонному счётчику времени с наивысшим доступным разрешением для измерения коротких промежутков времени. 
+Вот несколько ключевых моментов об time.perf_counter():
+
+Монотонность: Этот счетчик является монотонным, что означает, что его значения никогда не уменьшаются. 
+Это важно для измерения временных интервалов, так как это гарантирует, что разница между концом и началом 
+интервала всегда будет положительной или нулевой, даже если системные часы изменяются.
+
+Высокое разрешение: Функция предоставляет время с высокой точностью, что делает ее идеальной для замера 
+времени выполнения операций, особенно когда требуется измерить очень короткие промежутки времени.
+
+Независимость от системного времени: Значение, возвращаемое time.perf_counter(), не зависит от системного 
+времени и не подвержено изменениям из-за корректировки часов или перехода на летнее/зимнее время.
+
+Использование: Эта функция часто используется для бенчмаркинга и профилирования кода, поскольку 
+она предоставляет более точные измерения времени, чем time.time() или time.clock().
+
+Платформонезависимость: time.perf_counter() работает на различных платформах, 
+предоставляя стабильный интерфейс для замера времени.
+
+Возвращаемое значение: Функция возвращает время в секундах как число с 
+плавающей точкой. С момента запуска Python (или от момента первого вызова time.perf_counter(), 
+точное определение зависит от реализации) до момента вызова функции.
+
+
+start_time = time.perf_counter()
+finish_time = time.perf_counter()
 """
 
+start_time = time.perf_counter()
+finish_time = time.perf_counter()
+result_time = finish_time - start_time
+print(f'Прошло {result_time:.10f} секунд')
 
-# Функция с кешем
-def sort_fruits(fruits: List[str]) -> Callable[[], List[str]]:
-    """
-    Сортируем список и сохраняем результат в кеш
-    :param fruits:
-    :return:
-    """
-    print(id(fruits))
-    cache: list = []
-    print(id(cache))
-
-    def sort() -> List[str]:
-        nonlocal cache
-        print(f'Внутри sort: {id(fruits)}')
-        if not cache or len(cache) != len(fruits):
-            cache = sorted(fruits)
-        return cache
-
-    return sort
-
-
-# Тестируем функцию с кешем
-print(id(fruits))
-sorter: Callable = sort_fruits(fruits)
-print(sorter())
-
-# Вызываем повторно с этими же данными (сортировка не будет произведена - вернется кеш)
-print(sorter())
-
-# # Добавляем новый фрукт
-fruits.append("apples")
-
-# # Пересортируем
-print(sorter())
-
-print(fruits)
+"""
+Практика!
+1. Импортируйте time
+2. Напишите декоратор check_time_decorator, который принимает функцию и возвращает функцию-обертку.
+3. Внутри обертки замерьте время выполнения функции и выведите результат на экран.
+4. Не забудьте передать аргументы в обертку, и вернуть результат выполнения функции.
+"""
