@@ -7,6 +7,9 @@ Lesson 18
 Замыкания
 Декораторы
 Декораторы с параметрами
+
+Декоратор засекаем время работы
+Декоратор логирования
 """
 
 from typing import Callable, List, Any
@@ -83,6 +86,8 @@ sn: Callable = say_name2("Олег")
 # sn2: Callable = say_name2("Вася")
 # sn3: Callable = say_name2("Петя")
 sn()
+sn()
+
 # sn2()
 # sn3()
 
@@ -270,17 +275,32 @@ some_func6("Матвей", "Петров")
 """
 
 
-def print_decorator4(func: Callable) -> Callable:
+def is_digit_decorator(func: Callable) -> Callable:
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        print("Start")
+        # Обходим коллекцию с проверкой на isdigit
+        for arg in args:
+            if arg.isdigit():
+                raise ValueError(f'Аргумент {arg} является числом')
         result = func(*args, **kwargs)
-        print("End")
         return result
 
     return wrapper
 
 
-@print_decorator4
+def is_string_decorator(func: Callable) -> Callable:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        # Обходим коллекцию с проверкой на isdigit
+        for arg in args:
+            if not isinstance(arg, str):
+                raise ValueError(f'Аргумент {arg} является {type(arg)}, а должен быть строкой')
+        result = func(*args, **kwargs)
+        return result
+
+    return wrapper
+
+
+@is_string_decorator  # Первым зашел, последним вышел
+@is_digit_decorator  # Вторым зашел, первым вышел
 def check_palindromes(*words: str) -> List[str]:
     result: List[str] = []
     for word in words:
