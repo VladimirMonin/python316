@@ -6,7 +6,8 @@ Lesson 19
 - Области видимости
 - Практика с простым декоратором
 - Декораторы с параметрами
-- Практика с декоратором с параметрами
+- Примеры декораторов с параметрами
+- Логирование и замер времени выполнения
 """
 import time
 from typing import Callable, List, Dict, Any
@@ -239,7 +240,7 @@ def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) ->
     return list(map(method, [city['name'] for city in cities]))
 
 
-result = get_city_by_method_in_map(cities, method)
+# result = get_city_by_method_in_map(cities, method)
 
 # Декораторы с параметрами
 # Декораторы с параметрами - это функции, которые принимают параметры и возвращают декоратор.
@@ -281,8 +282,8 @@ def print_name(name: str) -> str:
     return f"Вызов функции print_name с параметром {name}"
 
 
-result = print_name('Oleg')
-print(result)
+# result = print_name('Oleg')
+# print(result)
 
 
 def check_time_decorator2(is_detail_log=False):
@@ -313,8 +314,57 @@ def check_time_decorator2(is_detail_log=False):
     return check_time_decorator
 
 
-@log_decorator  # Вторым зашел, первым вышел
+# @log_decorator  # Вторым зашел, первым вышел
+# @check_time_decorator2(is_detail_log=True)  # Первым зашел, последним вышел
+# def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
+#     return list(map(method, [city['name'] for city in cities]))
+#
+#
+# result = get_city_by_method_in_map(cities, method)
+
+
+def log_decorator2(log_file: str | None = 'log.txt', strip_symbols: int = 50,
+                   time_format: str = "%d-%m-%Y %H:%M:%S", console_log: bool = True):
+    """
+    Декоратор для логирования вызовов функций
+    :param log_file: Имя файла для логирования
+    :param strip_symbols: Количество символов для обрезки аргументов
+    :param time_format: Формат времени
+    :param console_log: Логировать ли в консоль
+    """
+
+    def log_decorator(func: Callable) -> Callable:
+        def wrapper(*args, **kwargs):
+            # Готовим данные для логирования
+            func_name = func.__name__  # Имя функции в виде строки
+            args_str = ', '.join(map(str, args))
+            kwargs_str = ', '.join([f'{key}={value}' for key, value in kwargs.items()])
+            time_now = time.strftime(time_format, time.localtime())
+
+            # Получаем результат выполнения функции
+            result = func(*args, **kwargs)
+            result_str = str(result)[:strip_symbols]
+
+            # Пишем в лог файл
+            if log_file:
+                with open(log_file, 'a') as file:
+                    file.write(
+                        f'[{time_now}] Вызвана функция {func_name} с аргументами'
+                        f' {args_str[:strip_symbols]}... и {kwargs_str}.'
+                        f' Результат: {result_str}\n')
+
+            if console_log:
+                print(f'[{time_now}] Вызвана функция {func_name} с '
+                      f'аргументами {args_str[:strip_symbols]}... и {kwargs_str}.')
+            return result
+
+        return wrapper
+
+    return log_decorator
+
+
 @check_time_decorator2(is_detail_log=True)  # Первым зашел, последним вышел
+@log_decorator2(console_log=False)  # Вторым зашел, первым вышел
 def get_city_by_method_in_map(cities: List[Dict[str, Any]], method: Callable) -> List[str]:
     return list(map(method, [city['name'] for city in cities]))
 
