@@ -6,29 +6,22 @@ Lesson 20
 ключевое слово class
 Создание экземпляра класса
 Проверка типа объекта
-"""
-# Нейминг
-"""
-Классы в Python называются с большой буквы
-Классы в Python называются в единственном числе
-Классы в Python называются существительными
-Классы в Python называются CamelCase
+Атрибуты класса
 """
 
 
-# ключевое слово class
+# атрибуты класса
 
 class Person:
-    pass
+    name = 'Дмитрий'
 
+
+Person.name = 'Александр'
 
 # Создание экземпляра класса
 person = Person()
 person2 = Person()
-print(person)
-print(person2)
-# <__main__.Person object at 0x000001C1A8FC3170>
-# main - имя модуля
-# Person - имя класса
-# 0x000001C1A8FC3170 - адрес в памяти
-print(type(person))
+person2.name = 'Алексей'
+Person.name = 'Иван'
+print(person.name)
+print(person2.name)
