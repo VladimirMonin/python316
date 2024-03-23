@@ -14,6 +14,7 @@ Lesson 20
 Атрибут экземпляра
 Методы экземпляра
 Метод класса- @classmethod
+Статический метод- @staticmethod
 """
 
 # TODO Практика!
@@ -68,6 +69,13 @@ class Mattr:
         """
         return cls.count
 
+    @staticmethod
+    def get_mattr_value(heigth: int, width: int, depth: int) -> int:
+        """
+        Метод для получения объема матрешки
+        """
+        return heigth * width * depth
+
 
 m1 = Mattr('красный', 'дерево')
 m2 = Mattr('зеленый', 'пластик')
@@ -84,3 +92,7 @@ print(f'Количество матрешек: {m1.get_mattr_count()}')
 print(f'Количество матрешек: {m1.get_mattr_count_2()}')
 
 print(m1, m2, m3, sep='\n')
+
+# Тестируем метод измерения объема матрешки
+print(f'Объем матрешки: {Mattr.get_mattr_value(10, 20, 30)}')
+print(f'Объем матрешки: {m1.get_mattr_value(10, 20, 30)}')
