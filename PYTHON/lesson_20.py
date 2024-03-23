@@ -15,84 +15,87 @@ Lesson 20
 Методы экземпляра
 Метод класса- @classmethod
 Статический метод- @staticmethod
-"""
-
-# TODO Практика!
-"""
-1. Опишите класс Mattr (матрешка)
-2. Определите инициализатор и атрибуты экземпляра класса:
-- Цвет
-- Материал
-3. Определите методы:
-__str__ - вывод информации об объекте
-change_color - изменение цвета матрешки (переопределение атрибута цвет)
-4. Создайте 3 экземпляра класса Mattr
-5. Выведите информацию об объектах
-6. Измените цвет у 2х матрешек
-7. Попробуйте получить цвет напрямую из атрибута переменная.color
+Полиморфизм - преемственность методов
 """
 
 
-class Mattr:
-    count = 0
+class PngImage:
+    def __init__(self, width: int, height: int, file_path: str):
+        self.width = width
+        self.height = height
+        self.file_path = file_path
+        self.saturation = 100
 
-    def __init__(self, color: str, material: str):
-        """Инициализатор класса"""
-        self.color = color
-        self.material = material
-        # Мы обращаемся к атрибуту класса через self.__class__ и увеличиваем его на 1
-        # Mattr.count += 1
-        self.__class__.count += 1
-        self.id = self.__class__.count
+    def __str__(self):
+        return (f'Формат изображения: {self.__class__.__name__}, ширина: {self.width}, '
+                f'высота: {self.height}, путь к файлу: {self.file_path}, насыщенность: {self.saturation}')
 
-    def __str__(self) -> str:
-        """Представление объекта в виде строки"""
-        return (f'Цвет: {self.color}, '
-                f'Материал: {self.material} '
-                f'ID: {self.id}')
+    def open(self):
+        print(f'Открытие файла {self.file_path}')
 
-    def change_color(self, new_color: str) -> None:
-        """Метод изменения цвета матрешки"""
-        self.color = new_color
+    def save(self):
+        print(f'Сохранение файла {self.file_path}')
 
-    def get_mattr_count(self) -> int:
-        """
-        Тоже будет работать, но лучше использовать метод класса
-        """
-        return self.__class__.count
-
-    @classmethod
-    def get_mattr_count_2(cls) -> int:
-        """
-        Раз мы работаем с аттрибутами класса, то
-        лучше использовать метод класса
-        """
-        return cls.count
-
-    @staticmethod
-    def get_mattr_value(heigth: int, width: int, depth: int) -> int:
-        """
-        Метод для получения объема матрешки
-        """
-        return heigth * width * depth
+    def change_saturation(self, value: int):
+        print(f'Изменение насыщенности на {value}')
+        self.saturation += value
 
 
-m1 = Mattr('красный', 'дерево')
-m2 = Mattr('зеленый', 'пластик')
-m3 = Mattr('синий', 'стекло')
+class WebPImage:
+    def __init__(self, width: int, height: int, file_path: str):
+        self.width = width
+        self.height = height
+        self.file_path = file_path
+        self.saturation = 100
 
-# Вывод информации о состоянии счетчика
-print(f'Количество матрешек: {Mattr.count}')
-print(f'Количество матрешек: {m3.count}')
-print(f'Количество матрешек: {m3.__class__.count}')
+    def __str__(self):
+        return (f'Формат изображения: {self.__class__.__name__}, ширина: {self.width}, '
+                f'высота: {self.height}, путь к файлу: {self.file_path}, насыщенность: {self.saturation}')
 
-# Тестируем оба метода получения количества матрешек
-print(f'Методы получения количества матрешек:')
-print(f'Количество матрешек: {m1.get_mattr_count()}')
-print(f'Количество матрешек: {m1.get_mattr_count_2()}')
+    def open(self):
+        print(f'Открытие файла {self.file_path}')
 
-print(m1, m2, m3, sep='\n')
+    def save(self):
+        print(f'Сохранение файла {self.file_path}')
 
-# Тестируем метод измерения объема матрешки
-print(f'Объем матрешки: {Mattr.get_mattr_value(10, 20, 30)}')
-print(f'Объем матрешки: {m1.get_mattr_value(10, 20, 30)}')
+    def change_saturation(self, value: int):
+        print(f'Изменение насыщенности на {value}')
+        self.saturation += value
+
+
+class JpegImage:
+    def __init__(self, width: int, height: int, file_path: str):
+        self.width = width
+        self.height = height
+        self.file_path = file_path
+        self.saturation = 100
+
+    def __str__(self):
+        return (f'Формат изображения: {self.__class__.__name__}, ширина: {self.width}, '
+                f'высота: {self.height}, путь к файлу: {self.file_path}, насыщенность: {self.saturation}')
+
+    def open(self):
+        print(f'Открытие файла {self.file_path}')
+
+    def save(self):
+        print(f'Сохранение файла {self.file_path}')
+
+    def change_saturation(self, value: int):
+        print(f'Изменение насыщенности на {value}')
+        self.saturation += value
+
+
+# Создаем по 1 экземпляру каждого класса
+png = PngImage(1920, 1080, 'image.png')
+webp = WebPImage(1920, 1080, 'image.webp')
+jpeg = JpegImage(1920, 1080, 'image.jpeg')
+
+# Помещаем их в список
+images = [png, webp, jpeg]
+
+# Перебираем список и вызываем методы
+for image in images:
+    image.open()
+    image.change_saturation(50)
+    image.save()
+    print(image)
