@@ -12,6 +12,7 @@ Lesson 20
 Конструктор класса
 Как происходит создание экземпляра класса
 Атрибут экземпляра
+Методы экземпляра
 """
 
 
@@ -32,10 +33,29 @@ class MoscvichCar:
         """
         return f'Модель: {self.model}, Год выпуска: {self.year}, Цвет: {self.color}, Класс: {self.__class__.__name__}'
 
+    def get_car(self) -> str:
+        """
+        Метод эклемпляра класса, который возвращает информацию об объекте
+        :return:
+        """
+        return f'Автомобиль {self.model} {self.year} года выпуска сошел с конвейера'
+
+    def change_color(self, new_color: str) -> None:
+        """
+        Метод экземпляра класса, который меняет цвет автомобиля
+        :param new_color:
+        :return:
+        """
+        self.color = new_color
+
 
 m1 = MoscvichCar('412', 1980, 'red')
 print(f'Модель: {m1.model}, Год выпуска: {m1.year}, Цвет: {m1.color}, Класс: {m1.__class__.__name__}')
 
 # Мы добавили магический метод __str__ и можем использовать print
 # Для вывода информации об объекте
+print(m1)
+print(m1.get_car())
+m1.change_color('красный')
+m1.color = 'зеленый'
 print(m1)
