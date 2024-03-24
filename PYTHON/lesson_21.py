@@ -10,6 +10,8 @@ Lesson 21
 - Функция `dir()`
 - __repr__ - представление объекта ("техническое")
 - __str__ - строковое представление объекта
+- repr() - встроенная функция, которая вызывает __repr__
+- eval() - встроенная функция, которая выполняет строку как код
 """
 
 
@@ -34,46 +36,20 @@ class Person:
         Мы видим это при выводе объекта в списке
         :return:
         """
-        return f'Person({self.name}, {self.age})'
+        return f'Person("{self.name}", {self.age})'
 
 
 # Создадим объект класса Person
 person = Person('John', 30)
 
-# __dict__ - словарь атрибутов объекта
-print(person.__dict__)
+# Получим строковое представление объекта, и преобразуем его в объект через eval()
+string_object = repr(person)
+print(string_object)
 
-# Установим атрибут объекту
-person.__dict__['city'] = 'New York'
+# Получим объект обратно
+# Eval - это функция, которая выполняет строку как код
+new_person = eval(string_object)
+print(new_person)
 
-# Проверим наличие атрибута
-print(person.__dict__)
-print(hasattr(person, 'city'))  # True
-
-# Словарь для создания экземпляра класса
-data = {'name': 'John', 'age': 30}
-
-# Создадим объект класса Person
-person = Person(**data)
-# Равносильно
-person1 = Person(data['name'], data['age'])
-person2 = Person(name="John", age=30)
-
-# Список словарей в список экземпляров класса
-
-data = [
-    {'name': 'John', 'age': 30},
-    {'name': 'Jane', 'age': 25},
-    {'name': 'Bob', 'age': 35},
-]
-# Создадим список экземпляров класса Person
-persons = [Person(**item) for item in data]
-
-# Выведем список экземпляров класса Person
-# (увидим результат работы метода __repr__)
-print(persons)
-# Увидим результат работы метода __str__
-print(persons[0])
-
-# Увидим результат работы метода __str__
-[print(person) for person in persons]
+eval_string = 'print("Hello")'
+eval(eval_string)
