@@ -15,72 +15,37 @@ Lesson 21
 - приватные и защищенные атрибуты и методы
 - _name - защищенный атрибут. Доступ к нему есть в наследниках и извне.
 - __name - приватный атрибут. Доступ к нему есть только внутри класса.
+- доступ извне к приватным атрибутам через методы
+- методы __set_attr() и __get_attr() - геттеры и сеттеры - позволяют управлять доступом к атрибутам
 """
 
 
-# Функция `hasattr()` - проверяет наличие атрибута у объекта
-
-
-# Создадим класс
-class Person:
-    def __init__(self, name, age, passport_number):
-        self.name = name
-        self.age = age
-        self._passport_number = passport_number
-        self.__is_checked = self.__validate_person_passport(self._passport_number)
+# Пример класса с __set_attr() и __get_attr()
+class PngImage:
+    def __init__(self, width: int, height: int, file_path: str):
+        self._width = width
+        self._height = height
+        self._file_path = file_path
+        self._saturation = 100
 
     def __str__(self):
-        """
-        Мы видем это при прямом print(person)
-        :return:
-        """
-        return f'Персона: {self.name}, {self.age} годиков'
+        return (f'Формат изображения: {self.__class__.__name__}, ширина: {self._width}, '
+                f'высота: {self._height}, путь к файлу: {self._file_path}, насыщенность: {self._saturation}')
 
-    def __repr__(self):
-        """
-        Мы видим это при выводе объекта в списке
-        :return:
-        """
-        return f'Person("{self.name}", {self.age})'
-
-    @staticmethod
-    def __validate_person_passport(passport_number: int):
-        """
-        Проверка паспорта
-        :return:
-        """
-        if isinstance(passport_number, int):
-            return True
-        return False
-
-    def get_is_checked(self):
-        return self.__is_checked
-
-    def __set_passport_number(self, passport_number):
-        if isinstance(passport_number, int):
-            self._passport_number = passport_number
+    def __validate_saturation(self, value: int):
+        if 0 <= value <= 100:
+            self._saturation = value
         else:
-            raise ValueError('Номер паспорта должен быть числом')
+            raise ValueError('Насыщенность должна быть в пределах от 0 до 100')
 
-    def set_is_checked(self, new_passport_number: int):
-        """
-        Метод иницирует проверку паспорта
-        Для проверки паспорта, вам необходимо установить номер паспорта повторно
-        :param new_passport_number:
-        :return:
-        """
-        self.__set_passport_number(new_passport_number)
-        self.__is_checked = self.__validate_person_passport(self._passport_number)
+    def get_saturation(self):
+        return self._saturation
+
+    def set_saturation(self, value: int):
+        self.__validate_saturation(value)
 
 
-# Создадим объект
-person = Person('Вася', 21, "1234567890")
-
-# Проверим прошел ли Василий проверку
-print(person.get_is_checked())
-
-# Устанавливаем новый номер паспорта
-person.set_is_checked(123456789)
-
-# Проверим прошел ли Василий проверку
-print(person.get_is_checked())
+image = PngImage(100, 100, 'image.png')
+print(image.get_saturation())
+image.set_saturation(50)
+image.set_saturation(-10)
