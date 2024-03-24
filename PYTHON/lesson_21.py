@@ -53,32 +53,34 @@ class Person:
             return True
         return False
 
+    def get_is_checked(self):
+        return self.__is_checked
+
+    def __set_passport_number(self, passport_number):
+        if isinstance(passport_number, int):
+            self._passport_number = passport_number
+        else:
+            raise ValueError('Номер паспорта должен быть числом')
+
+    def set_is_checked(self, new_passport_number: int):
+        """
+        Метод иницирует проверку паспорта
+        Для проверки паспорта, вам необходимо установить номер паспорта повторно
+        :param new_passport_number:
+        :return:
+        """
+        self.__set_passport_number(new_passport_number)
+        self.__is_checked = self.__validate_person_passport(self._passport_number)
+
 
 # Создадим объект
-person = Person('Вася', 21, '1234567890')
+person = Person('Вася', 21, "1234567890")
 
-# Проверим наличие атрибута passport_number и __is_checked
-# print(hasattr(person, 'passport_number'))  # False
-# print(hasattr(person, '_passport_number'))  # True
-# print(hasattr(person, 'is_checked'))  # False
-# print(hasattr(person, '__is_checked'))  # False
-# print(hasattr(person, '_Person__is_checked'))  # True
+# Проверим прошел ли Василий проверку
+print(person.get_is_checked())
 
-# Попробуем переназначить атрибуты через экземпляр класса
-# person.passport_number = '0000000000'
-# print(person._passport_number)  # 1234567890
-# person._passport_number = '1111111111'
-# print(person._passport_number)  # 1111111111
+# Устанавливаем новый номер паспорта
+person.set_is_checked(123456789)
 
-# Пробуем private атрибут
-# print(person.__is_checked)  # AttributeError: 'Person' object has no attribute '__is_checked'
-# print(person._Person__is_checked)  # False
-
-# person.__is_checked = True
-# person._Person__is_checked = True
-# print(person._Person__is_checked)
-
-person.__is_checked = True
-# person.__validate_person_passport(1234567890)
-person._Person__validate_person_passport(1234567890)
-print(person._Person__is_checked)
+# Проверим прошел ли Василий проверку
+print(person.get_is_checked())
