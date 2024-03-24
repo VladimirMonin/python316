@@ -79,3 +79,47 @@ print(image)
 Проведите тестирование класса Person, и убедитесь, что валидация работает корректно
 Как на инициализации, так и при изменении атрибутов
 """
+
+
+class Person:
+    def __init__(self, name: str, age: int):
+        self.__validate_name(name)
+        self.__validate_age(age)
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f'Имя: {self.__name}, Возраст: {self.__age}'
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name: str):
+        self.__validate_name(name)
+        self.__name = name
+
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self, age: int):
+        self.__validate_age(age)
+        self.__age = age
+
+    def __validate_name(self, name: str):
+        if not name:
+            raise ValueError('Имя не может быть пустым')
+
+    def __validate_age(self, age: int):
+        """
+        Проверяем что возрст число и в пределах от 0 до 150
+        """
+        if not isinstance(age, int) or not 0 <= age <= 150:
+            raise ValueError('Возраст должен быть числом и в пределах от 0 до 150')
+person = Person('John', 30)
+print(person.age)
+# person.age = 160
+
