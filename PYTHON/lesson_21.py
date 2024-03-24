@@ -6,8 +6,10 @@ Lesson 21
 - Функция `delattr()`
 - Функция `setattr()`
 - Функция `getattr()`
-- Атрибут `__dict__`
+- Атрибут `__dict__` - словарь атрибутов объекта
 - Функция `dir()`
+- __repr__ - представление объекта ("техническое")
+- __str__ - строковое представление объекта
 """
 
 
@@ -20,26 +22,58 @@ class Person:
         self.name = name
         self.age = age
 
+    def __str__(self):
+        """
+        Мы видем это при прямом print(person)
+        :return:
+        """
+        return f'Персона: {self.name}, {self.age} годиков'
+
+    def __repr__(self):
+        """
+        Мы видим это при выводе объекта в списке
+        :return:
+        """
+        return f'Person({self.name}, {self.age})'
+
 
 # Создадим объект класса Person
 person = Person('John', 30)
 
-# hasattr() - проверяет наличие атрибута у объекта, это можно сделать через переменную
-attr_for_check = 'name'
-if hasattr(person, attr_for_check):
-    print(f'Атрибут {attr_for_check} есть у объекта person')
+# __dict__ - словарь атрибутов объекта
+print(person.__dict__)
 
-# Функция setattr() - устанавливает значение атрибута у объекта
-new_attr = 'surname'
-new_attr_value = 'Doe'
-setattr(person, new_attr, new_attr_value)
+# Установим атрибут объекту
+person.__dict__['city'] = 'New York'
 
-# Проверим, что атрибут установился
-print(person.surname)
+# Проверим наличие атрибута
+print(person.__dict__)
+print(hasattr(person, 'city'))  # True
 
-# Функция getattr() - получает значение атрибута у объекта
-print(getattr(person, new_attr))
+# Словарь для создания экземпляра класса
+data = {'name': 'John', 'age': 30}
 
-# Функция delattr() - удаляет атрибут у объекта
-delattr(person, new_attr)
-print(hasattr(person, new_attr))
+# Создадим объект класса Person
+person = Person(**data)
+# Равносильно
+person1 = Person(data['name'], data['age'])
+person2 = Person(name="John", age=30)
+
+# Список словарей в список экземпляров класса
+
+data = [
+    {'name': 'John', 'age': 30},
+    {'name': 'Jane', 'age': 25},
+    {'name': 'Bob', 'age': 35},
+]
+# Создадим список экземпляров класса Person
+persons = [Person(**item) for item in data]
+
+# Выведем список экземпляров класса Person
+# (увидим результат работы метода __repr__)
+print(persons)
+# Увидим результат работы метода __str__
+print(persons[0])
+
+# Увидим результат работы метода __str__
+[print(person) for person in persons]
