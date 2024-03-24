@@ -17,6 +17,7 @@ Lesson 21
 - __name - приватный атрибут. Доступ к нему есть только внутри класса.
 - доступ извне к приватным атрибутам через методы
 - методы __set_attr() и __get_attr() - геттеры и сеттеры - позволяют управлять доступом к атрибутам
+- getter и setter через декораторы @property
 """
 
 
@@ -26,26 +27,29 @@ class PngImage:
         self._width = width
         self._height = height
         self._file_path = file_path
-        self._saturation = 100
+        self.__saturation = 100
 
     def __str__(self):
         return (f'Формат изображения: {self.__class__.__name__}, ширина: {self._width}, '
-                f'высота: {self._height}, путь к файлу: {self._file_path}, насыщенность: {self._saturation}')
+                f'высота: {self._height}, путь к файлу: {self._file_path}, насыщенность: {self.__saturation}')
+
+    @property
+    def saturation(self):
+        return self.__saturation
+
+    @saturation.setter
+    def saturation(self, value: int):
+        self.__validate_saturation(value)
 
     def __validate_saturation(self, value: int):
         if 0 <= value <= 100:
-            self._saturation = value
+            self.__saturation = value
         else:
             raise ValueError('Насыщенность должна быть в пределах от 0 до 100')
 
-    def get_saturation(self):
-        return self._saturation
-
-    def set_saturation(self, value: int):
-        self.__validate_saturation(value)
-
 
 image = PngImage(100, 100, 'image.png')
-print(image.get_saturation())
-image.set_saturation(50)
-image.set_saturation(-10)
+
+print(image)
+image.saturation = 50
+print(image)
