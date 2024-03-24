@@ -12,6 +12,9 @@ Lesson 21
 - __str__ - строковое представление объекта
 - repr() - встроенная функция, которая вызывает __repr__
 - eval() - встроенная функция, которая выполняет строку как код
+- приватные и защищенные атрибуты и методы
+- _name - защищенный атрибут. Доступ к нему есть в наследниках и извне.
+- __name - приватный атрибут. Доступ к нему есть только внутри класса.
 """
 
 
@@ -20,9 +23,11 @@ Lesson 21
 
 # Создадим класс
 class Person:
-    def __init__(self, name, age):
+    def __init__(self, name, age, passport_number):
         self.name = name
         self.age = age
+        self._passport_number = passport_number
+        self.__is_checked = self.__validate_person_passport(self._passport_number)
 
     def __str__(self):
         """
@@ -38,68 +43,42 @@ class Person:
         """
         return f'Person("{self.name}", {self.age})'
 
-
-# Создадим объект класса Person
-person = Person('John', 30)
-
-# Получим строковое представление объекта, и преобразуем его в объект через eval()
-string_object = repr(person)
-print(string_object)
-
-# Получим объект обратно
-# Eval - это функция, которая выполняет строку как код
-new_person = eval(string_object)
-print(new_person)
-
-eval_string = 'print("Hello")'
-eval(eval_string)
-
-"""
-ПРАКТИКА!
-
-Создайте класс `Car`, у которого есть атрибуты `model`, `year`, `color`, `price`.
-Опишите ему методы `__str__` и `__repr__`.
-Создайте 3 объекта класса `Car` и поместите их в список.
-Распечатайте этот список через print comprehension.
-Превратите эти классы в строки, поместите их в переменные с помощью функции `repr()`.
-Произведите обратное преобразование с помощью функции `eval()`.
-
-"""
+    @staticmethod
+    def __validate_person_passport(passport_number: int):
+        """
+        Проверка паспорта
+        :return:
+        """
+        if isinstance(passport_number, int):
+            return True
+        return False
 
 
-# Создание класса
+# Создадим объект
+person = Person('Вася', 21, '1234567890')
 
-class Car:
-    def __init__(self, model, year, color, price):
-        self.model = model
-        self.year = year
-        self.color = color
-        self.price = price
+# Проверим наличие атрибута passport_number и __is_checked
+# print(hasattr(person, 'passport_number'))  # False
+# print(hasattr(person, '_passport_number'))  # True
+# print(hasattr(person, 'is_checked'))  # False
+# print(hasattr(person, '__is_checked'))  # False
+# print(hasattr(person, '_Person__is_checked'))  # True
 
-    def __str__(self):
-        return f'Модель: {self.model}, год: {self.year}, цвет: {self.color}, цена: {self.price}'
+# Попробуем переназначить атрибуты через экземпляр класса
+# person.passport_number = '0000000000'
+# print(person._passport_number)  # 1234567890
+# person._passport_number = '1111111111'
+# print(person._passport_number)  # 1111111111
 
-    def __repr__(self):
-        return f'Car("{self.model}", {self.year}, "{self.color}", {self.price})'
+# Пробуем private атрибут
+# print(person.__is_checked)  # AttributeError: 'Person' object has no attribute '__is_checked'
+# print(person._Person__is_checked)  # False
 
+# person.__is_checked = True
+# person._Person__is_checked = True
+# print(person._Person__is_checked)
 
-# Создание объектов класса Car
-car1 = Car('BMW', 2020, 'black', 100000)
-car2 = Car('Audi', 2019, 'white', 80000)
-car3 = Car('Запорожец', 1980, 'yellow', 1000)
-
-# Создание списка объектов
-cars = [car1, car2, car3]
-
-# Вывод списка объектов
-[print(car) for car in cars]
-
-# Преобразование объектов в строки
-cars_str = [repr(car) for car in cars]
-[print(type(car)) for car in cars_str]
-print(cars_str)
-
-# Преобразование строк в объекты
-new_cars = [eval(car) for car in cars_str]
-[print(type(car)) for car in new_cars]
-print(new_cars)
+person.__is_checked = True
+# person.__validate_person_passport(1234567890)
+person._Person__validate_person_passport(1234567890)
+print(person._Person__is_checked)
