@@ -14,6 +14,14 @@ __init__ в дочернем классе без super
 
 class Character:
     def __init__(self, name: str, health: int, mana: int, damage: int, custom: str):
+        """
+
+        :param name:
+        :param health:
+        :param mana:
+        :param damage:
+        :param custom:
+        """
         self.name = name
         self.health = health
         self.mana = mana
@@ -31,9 +39,18 @@ class Character:
 
 
 class Warrior(Character):
+    """
+    Класс воин, наследуется от класса Character
+    """
+
     # Сделаем инициализатор без super
-    def __init__(self, name: str, health: int, mana: int, damage: int, damage_mod: int, custom: str):
-        super().__init__(name, health, mana, damage, custom)
+    def __init__(self, damage_mod: int, *args, **kwargs):
+        """
+        :param damage_mod: Модификатор урона
+        :param
+        
+        """
+        super().__init__(*args, **kwargs)
         self.damage_mod = damage_mod
 
     def damage(self):
@@ -47,7 +64,25 @@ class Mage(Character):
         return result + 10
 
 
-warrior = Warrior('Warrior', 100, 50, 20, 2, 'Warrior custom')
+warrior = Warrior(2, name='Warrior', health=100, mana=50, damage=10, custom='Warrior custom')
 print(warrior)
 # warrior.custom = 'Warrior custom'
 warrior.get_custom()  # AttributeError: 'Warrior' object has no attribute 'custom'
+
+# Список словарей с воинами
+
+warriors = [
+    {'name': 'Лучекусь', 'health': 100, 'mana': 50, 'damage': 10, 'custom': 'Warrior1 custom', 'damage_mod': 2},
+    {'name': 'Святомяу', 'health': 100, 'mana': 50, 'damage': 10, 'custom': 'Warrior2 custom', 'damage_mod': 3},
+    {'name': 'Великохвост', 'health': 100, 'mana': 50, 'damage': 10, 'custom': 'Warrior3 custom', 'damage_mod': 4},
+]
+
+# Создаем список воинов
+# warriors_list = []
+#
+# for warrior in warriors:
+#     warriors_list.append(Warrior(**warrior))
+
+
+# comprehension
+warriors_list = [Warrior(**warrior) for warrior in warriors]
