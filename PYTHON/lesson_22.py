@@ -58,3 +58,28 @@ class Mage(Character)
 Добавьте к результату 10 и верните
 
 """
+
+
+class Character:
+    def __init__(self, name: str, health: int, mana: int, damage: int):
+        self.name = name
+        self.health = health
+        self.mana = mana
+        self.damage = damage
+
+    def __str__(self):
+        return f'Имя: {self.name}, Здоровье: {self.health}, Мана: {self.mana}, Урон: {self.damage}'
+
+    def damage(self):
+        return self.damage()
+
+
+class Warrior(Character):
+    def damage(self):
+        return self.damage * 2
+
+
+class Mage(Character):
+    def damage(self):
+        result = super().damage()
+        return result + 10
