@@ -6,6 +6,7 @@ Lesson 22
 Наследование без init
 Переопределение методов
 Вызов метода родительского класса
+super()
 Вызов инициализатора родительского класса
 """
 
@@ -24,6 +25,8 @@ class Animal:
 
 class Dog(Animal):
     def voice(self):
+        # Animal.voice(self)
+        super().voice()
         print('Woof woof')
 
 
