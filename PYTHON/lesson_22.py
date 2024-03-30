@@ -151,3 +151,38 @@ Python, создав базовую структуру для класса пе�
 Это задание поможет вам лучше понять, как организовать структуру программы и как 
 использовать наследование и композицию для создания гибкой и расширяемой архитектуры.
 """
+
+
+# Создаем класс Character
+class Character:
+    def __init__(self, name: str, health: int):
+        self.name = name
+        self.health = health
+
+
+# Создаем класс ManaMixin
+class ManaMixin:
+    def __init__(self, mana: int, intelligence: int):
+        self.mana = mana
+        self.intelligence = intelligence
+
+    def mage_attack(self):
+        return self.intelligence * 2
+
+
+# Создаем класс Mage
+class Mage(Character, ManaMixin):
+    def __init__(self, name: str, health: int, mana: int, intelligence: int):
+        Character.__init__(self, name, health)
+        ManaMixin.__init__(self, mana, intelligence)
+
+    def cast_spell(self, spell_name: str):
+        get_damage = self.mage_attack() * 2
+        print(f'Маг {self.name} произносит заклинание {spell_name} и наносит урон {get_damage}')
+
+    def restore_mana(self, amount: int):
+        self.mana += amount
+
+
+mage = Mage("Файеркусь", 100, 50, 10)
+mage.cast_spell("Fireball")
