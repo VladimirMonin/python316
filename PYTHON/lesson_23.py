@@ -10,41 +10,32 @@ ABC
 Метод разрешения конфликтов
 Миксины
 """
+from abc import ABC, abstractmethod
 
 
-class Character:
+# Abstract Base Class
+
+class Character(ABC):
     def __init__(self, name: str, health: int):
         self.name = name
         self.health = health
 
+    @abstractmethod
+    def say(self, text: str):
+        print(f'{self.name} говорит: {text}')
 
-class Elf(Character):
-    def __init__(self, name: str, health: int, mana: int):
+
+class Thief(Character):
+    def __init__(self, name: str, health: int, agility: int):
         super().__init__(name, health)
-        self.mana = mana
+        self.agility = agility
+
+    def say(self, text: str):
+        super().say(text)
 
 
-class Dwarf(Character):
-    def __init__(self, name: str, health: int, stamina: int):
-        super().__init__(name, health)
-        self.stamina = stamina
+t = Thief('Вор', 100,
+          50)  # TypeError: Can't instantiate abstract class Thief without an implementation for abstract method 'say'
 
-
-# Этот класс вызовет проблему, потому что Elf и Dwarf имеют общего предка (Character),
-# но Python не сможет однозначно определить, в каком порядке следует вызывать методы конструктора __init__
-class ElfDwarf(Elf, Dwarf):
-    def __init__(self, name: str, health: int, mana: int, stamina: int):
-        super().__init__(name, health, mana, stamina)
-
-
-ed = ElfDwarf('Эльф', 100, 100, 100)
-
-"""
-Чтобы вызвать конфликт в порядке разрешения методов (MRO) в Python, 
-можно использовать множественное наследование с диамантовой проблемой. 
-
-Диамантовая проблема возникает, когда два класса наследуют от одного 
-базового класса, а затем еще один класс наследует от обоих этих классов. 
-
-В Python это может привести к неоднозначности порядка вызова методов.
-"""
+c = Character('Персонаж', 100)  # TypeError: Can't instantiate abstract class Character with abstract methods say
+t.say('Привет!')
