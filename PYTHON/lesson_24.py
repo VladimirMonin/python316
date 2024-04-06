@@ -23,6 +23,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from typing import List
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.common.exceptions import NoSuchElementException
+
+
 list_options = [
     "--incognito",
     "--window-size=1920,1080",
@@ -75,14 +78,6 @@ driver.get(URL)
 # Используем By.CLASS_NAME find_elements(By.CLASS_NAME, "product_pod")
 # Используем By.CSS_SELECTOR find_elements(By.CSS_SELECTOR, ".product_pod") или  "article.product_pod"
 
-books: List[WebElement] = driver.find_elements(By.CLASS_NAME, "product_pod")
-# print(len(books))
-# print(books)
-# [print(book.text) for book in books]
-
-books_dicts = []
-time.sleep(1)
-
 mark_dict = {
     "One": 1,
     "Two": 2,
@@ -90,33 +85,56 @@ mark_dict = {
     "Four": 4,
     "Five": 5
 }
+books_dicts = []
+while True:
+    time.sleep(1)
+    books: List[WebElement] = driver.find_elements(By.CLASS_NAME, "product_pod")
+    # print(len(books))
+    # print(books)
+    # [print(book.text) for book in books]
 
 
-for book in books:
-    new_book = {}
-    # title - a внутри h3 - значение атрибута title
-    title = book.find_element(By.CSS_SELECTOR, "h3 a").get_attribute("title")
-    # price - внутри p.price_color - текст book.find_element(By.CLASS_NAME, "price_color").text
-    price = book.find_element(By.CLASS_NAME, "price_color").text
-    # in_stock - внутри p.instock - текст book.find_element(By.CLASS_NAME, "instock").text
-    in_stock = book.find_element(By.CLASS_NAME, "instock").text
-    # ссылка на картинку внутри img атрибут src подставляем в url http://books.toscrape.com/ + src.text book.find_element(By.TAG_NAME, "img").get_attribute("src") 
-    row_url = book.find_element(By.TAG_NAME, "img").get_attribute("src")
-    #  http://books.toscrape.com/ + src
-    final_url = URL + row_url
-    # rating - p.star-rating в атрибут class 1 Элемент find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
-    rating_row = book.find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
-    rating = mark_dict[rating_row.split()[1]]
+    for book in books:
+        new_book = {}
+        # title - a внутри h3 - значение атрибута title
+        title = book.find_element(By.CSS_SELECTOR, "h3 a").get_attribute("title")
+        # price - внутри p.price_color - текст book.find_element(By.CLASS_NAME, "price_color").text
+        price = book.find_element(By.CLASS_NAME, "price_color").text
+        # in_stock - внутри p.instock - текст book.find_element(By.CLASS_NAME, "instock").text
+        in_stock = book.find_element(By.CLASS_NAME, "instock").text
+        # ссылка на картинку внутри img атрибут src подставляем в url http://books.toscrape.com/ + src.text book.find_element(By.TAG_NAME, "img").get_attribute("src") 
+        row_url = book.find_element(By.TAG_NAME, "img").get_attribute("src")
+        #  http://books.toscrape.com/ + src
+        final_url =  row_url
+        # rating - p.star-rating в атрибут class 1 Элемент find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
+        rating_row = book.find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
+        rating = mark_dict[rating_row.split()[1]]
 
+        
+        
+        
+        new_book.update({"title": title,
+                        "price": price,
+                        "in_stock": in_stock,
+                        "url": final_url,
+                        "rating": rating})
+        books_dicts.append(new_book)
+
+        print('.', end='')
+    # Переход на следующую страницу li с текстом Next
+    try:
+        next_button = driver.find_element(By.LINK_TEXT, "next")
     
-    
-    
-    new_book.update({"title": title,
-                     "price": price,
-                     "in_stock": in_stock,
-                     "url": final_url,
-                     "rating": rating})
-    books_dicts.append(new_book)
+    except NoSuchElementException:
+        break
 
-pprint(books_dicts, sort_dicts=False)
+    else:
+        next_button.click()
 
+
+print(len(books_dicts))
+
+# Запись в JSON в utf-8 ensure_ascii=False indent=4
+import json
+with open("books.json", "w", encoding="utf-8") as file:
+    json.dump(books_dicts, file, ensure_ascii=False, indent=4)
