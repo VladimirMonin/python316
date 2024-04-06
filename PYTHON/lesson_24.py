@@ -17,6 +17,7 @@ options = webdriver.ChromeOptions()
 # pip install selenium
 
 # Импорт библиотеки
+from pprint import pprint
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -82,24 +83,40 @@ books: List[WebElement] = driver.find_elements(By.CLASS_NAME, "product_pod")
 books_dicts = []
 time.sleep(1)
 
+mark_dict = {
+    "One": 1,
+    "Two": 2,
+    "Three": 3,
+    "Four": 4,
+    "Five": 5
+}
+
+
 for book in books:
     new_book = {}
     # title - a внутри h3 - значение атрибута title
     title = book.find_element(By.CSS_SELECTOR, "h3 a").get_attribute("title")
     # price - внутри p.price_color - текст book.find_element(By.CLASS_NAME, "price_color").text
+    price = book.find_element(By.CLASS_NAME, "price_color").text
     # in_stock - внутри p.instock - текст book.find_element(By.CLASS_NAME, "instock").text
+    in_stock = book.find_element(By.CLASS_NAME, "instock").text
     # ссылка на картинку внутри img атрибут src подставляем в url http://books.toscrape.com/ + src.text book.find_element(By.TAG_NAME, "img").get_attribute("src") 
+    row_url = book.find_element(By.TAG_NAME, "img").get_attribute("src")
     #  http://books.toscrape.com/ + src
+    final_url = URL + row_url
     # rating - p.star-rating в атрибут class 1 Элемент find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
-    # 
+    rating_row = book.find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
+    rating = mark_dict[rating_row.split()[1]]
+
     
     
     
     new_book.update({"title": title,
-                     ...})
+                     "price": price,
+                     "in_stock": in_stock,
+                     "url": final_url,
+                     "rating": rating})
     books_dicts.append(new_book)
 
-print(books_dicts)
+pprint(books_dicts, sort_dicts=False)
 
-# Практика 2
-# Допишите этот цикл, чтобы собрать все данные о каждой книге с одной странцы
