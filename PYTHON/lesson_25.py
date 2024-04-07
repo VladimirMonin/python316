@@ -20,15 +20,16 @@ class Book:
     cover_url: str
     rating: int
 
+    def is_in_stock(self) -> bool:
+        return self.in_stock
+    
+    # def __bool__(self):
+    #     return self.in_stock
+    
 
-# Это же на обычном классе
-class Book:
-    def __init__(self, title: str, price: float, in_stock: bool, cover_url: str, rating: int):
-        self.title = title
-        self.price = price
-        self.in_stock = in_stock
-        self.cover_url = cover_url
-        self.rating = rating
+book = Book('Гарри Поттер и Белое и Красное', 1000.0, True, 'https://www.google.com', 5)
 
-    def __str__(self):
-        return f"Book({self.title}, {self.price}, {self.in_stock}, {self.cover_url}, {self.rating})"
+if book:
+    print(f'{book.title} в наличии')
+else:
+    print(f'{book.title} нет в наличии')
