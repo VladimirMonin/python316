@@ -19,6 +19,7 @@ options = webdriver.ChromeOptions()
 # Импорт библиотеки
 from pprint import pprint
 import time
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from typing import List
@@ -138,3 +139,70 @@ print(len(books_dicts))
 import json
 with open("books.json", "w", encoding="utf-8") as file:
     json.dump(books_dicts, file, ensure_ascii=False, indent=4)
+
+
+# Рефакторинг на ООП
+    
+class Browser:
+    def __init__(self, options_list: list = []):
+        self.options = webdriver.ChromeOptions()
+        for option in options_list:
+            self.options.add_argument(option)
+        self.driver = webdriver.Chrome(options=self.options)
+
+
+# Создаем класс для парсинга книг
+class BooksParser:
+    def __init__(self, browser: Browser):
+        self.browser = browser
+        self.mark_dict = {
+            "One": 1,
+            "Two": 2,
+            "Three": 3,
+            "Four": 4,
+            "Five": 5
+        }
+        self.books_dicts = []
+
+    def parse_books(self, url: str):
+        self.browser.get(url)
+        while True:
+            time.sleep(1)
+            books: List[WebElement] = self.browser.find_elements(By.CLASS_NAME, "product_pod")
+            for book in books:
+                new_book = {}
+                title = book.find_element(By.CSS_SELECTOR, "h3 a").get_attribute("title")
+                price = book.find_element(By.CLASS_NAME, "price_color").text
+                in_stock = book.find_element(By.CLASS_NAME, "instock").text
+                row_url = book.find_element(By.TAG_NAME, "img").get_attribute("src")
+                final_url =  row_url
+                rating_row = book.find_element(By.CLASS_NAME, "star-rating").get_attribute("class")
+                rating = self.mark_dict[rating_row.split()[1]]
+                new_book.update({"title": title,
+                                "price": price,
+                                "in_stock": in_stock,
+                                "url": final_url,
+                                "rating": rating})
+                
+                self.books_dicts.append(new_book)
+
+                print('.', end='')
+
+            try:
+                next_button = self.browser.find_element(By.LINK_TEXT, "next")
+            except NoSuchElementException:
+                break
+
+
+class Controller:
+    def __init__(self):
+        self.browser = Browser(list_options)
+        self.parser = BooksParser(self.browser)
+
+    def run(self):
+        self.parser.parse_books(URL)
+        self.browser.driver.quit()
+
+
+controller = Controller()
+controller.run()
