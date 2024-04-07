@@ -7,6 +7,7 @@ __post_init__
 интегрировали dataclass Book в парсер книг
 dataclass как конфиг для класса
 __call__
+__len__
 """
 from dataclasses import dataclass
 
@@ -52,6 +53,9 @@ class Person:
     def __bool__(self):
         return self.age > 18
     
+    def __len__(self):
+        return self.growth
+    
     def validate_str_length(self, value, length=2):
         return isinstance(value, str) and len(value) >= length
     
@@ -69,4 +73,11 @@ persons = [
 
 adults = [person for person in persons if person]
 
-# print(len(persons[0])) # TypeError: object of type 'Person' has no len()
+# Кто выше?
+max_height = max(persons, key=len)
+print(max_height)
+# Кто ниже?
+min_height = min(persons, key=len)
+# Сортируем по возрасту
+sorted_persons = sorted(persons, key=lambda person: person.age)
+sorted_persons = persons.sort(key=lambda person: person.age)
