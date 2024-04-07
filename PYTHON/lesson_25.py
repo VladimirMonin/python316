@@ -5,6 +5,8 @@ Dataclasses
 __bool__
 __post_init__
 интегрировали dataclass Book в парсер книг
+dataclass как конфиг для класса
+__call__
 """
 from dataclasses import dataclass
 
@@ -21,35 +23,22 @@ method: str
 """
 
 @dataclass
-class WorkerConfig:
+class PrintConfig:
     message: str
     method: str
 
 
-class Worker:
-    def __init__(self, config: WorkerConfig):
+class Printer:
+    def __init__(self, config: PrintConfig):
         self.config = config
 
-    def say_hello(self):
+    def print_message(self):
         print(self.config.message)
 
-    def say_goodbye(self):
-        print("Goodbye")
+    def __call__(self, *args, **kwargs):
+        self.print_message()
 
 
-class WorkFacade:
-    def __init__(self, config: WorkerConfig):
-        self.worker = Worker(config)
-
-    def work(self):
-        method = getattr(self.worker, self.worker.config.method, None)
-        if method:
-            method()
-        else:
-            print("Unknown method")
-
-
-config = WorkerConfig("Hello", "say_hello")
-config2 = WorkerConfig("Goodbye", "say_goodbye")
-facade = WorkFacade(config2)
-facade.work()
+config = PrintConfig(message="Hello, World!", method="print_message")
+printer = Printer(config)
+printer()
