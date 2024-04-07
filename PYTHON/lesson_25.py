@@ -9,6 +9,7 @@ dataclass как конфиг для класса
 __call__
 """
 from dataclasses import dataclass
+import re
 
 
 
@@ -27,18 +28,32 @@ class PrintConfig:
     message: str
     method: str
 
+    # Делаем post_init с валидацией методов
+    def __post_init__(self):
+        if self.method not in ["print_message", "return_message"]:
+            raise ValueError("Недопустимый метод")
+
 
 class Printer:
-    def __init__(self, config: PrintConfig):
-        self.config = config
+    def __init__(self):
+        self.config = None
 
     def print_message(self):
         print(self.config.message)
 
-    def __call__(self, *args, **kwargs):
-        self.print_message()
+    def return_message(self):
+        return self.config.message
+
+    def __call__(self, config: PrintConfig) -> None | str:
+        self.config = config
+        method = getattr(self, config.method)
+        result = method()
+        return result
 
 
 config = PrintConfig(message="Hello, World!", method="print_message")
-printer = Printer(config)
-printer()
+config2 = PrintConfig(message="Hello, World!", method="return_message")
+printer = Printer()
+printer(config)
+result = printer(config2)
+print(result)
