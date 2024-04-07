@@ -4,45 +4,52 @@ Lesson 25
 Dataclasses
 __bool__
 __post_init__
+интегрировали dataclass Book в парсер книг
 """
 from dataclasses import dataclass
 
 
 
-# Определим BookValidationError
-class BookValidationError(Exception):
-    pass
+"""
+Определим класс Worker а так же dataclass WorkerConfig
+Сделаем контролер, который будет фасадом для обоих классов
+Укажим в dataclass WorkerConfig параметры:
+message: str
+method: str
+
+Заставим работника выполнить метод и вывести сообщение
+"""
 
 @dataclass
-class Book:
-    title: str
-    price: float
-    in_stock: bool
-    cover_url: str
-    rating: int
+class WorkerConfig:
+    message: str
+    method: str
 
-    def is_in_stock(self) -> bool:
-        return self.in_stock
-    
-    # post __init__ method - валидация данных
-    def __post_init__(self):
-        if not isinstance(self.title, str):
-            raise BookValidationError('title должен быть строкой')
-        if not isinstance(self.price, (int, float)):
-            raise BookValidationError('price должен быть числом')
-        if not isinstance(self.in_stock, bool):
-            raise BookValidationError('in_stock должен быть булевым значением')
-        if not isinstance(self.cover_url, str):
-            raise BookValidationError('cover_url должен быть строкой')
-        if not isinstance(self.rating, int):
-            raise BookValidationError('rating должен быть числом')
-        if not 0 <= self.rating <= 5:
-            raise BookValidationError('rating должен быть от 0 до 5')
-    
 
-book = Book('Гарри Поттер и Поездка на Бали', 1000.0, False, 'https://www.google.com', 10)
+class Worker:
+    def __init__(self, config: WorkerConfig):
+        self.config = config
 
-if book:
-    print(f'{book.title} в наличии')
-else:
-    print(f'{book.title} нет в наличии')
+    def say_hello(self):
+        print(self.config.message)
+
+    def say_goodbye(self):
+        print("Goodbye")
+
+
+class WorkFacade:
+    def __init__(self, config: WorkerConfig):
+        self.worker = Worker(config)
+
+    def work(self):
+        method = getattr(self.worker, self.worker.config.method, None)
+        if method:
+            method()
+        else:
+            print("Unknown method")
+
+
+config = WorkerConfig("Hello", "say_hello")
+config2 = WorkerConfig("Goodbye", "say_goodbye")
+facade = WorkFacade(config2)
+facade.work()
