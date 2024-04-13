@@ -54,6 +54,21 @@ class Book:
 
     def __eq__(self, other: 'Book'):
         return self.title == other.title and self.author == other.author and self.pages == other.pages
+    
+    def __lt__(self, other: 'Book'):
+        return self.pages < other.pages
+    
+    def __gt__(self, other: 'Book'):
+        return self.pages > other.pages
+    
+    def __le__(self, other: 'Book'):
+        return self.pages <= other.pages
+    
+    def __ge__(self, other: 'Book'):
+        return self.pages >= other.pages
+    
+    
+
 
 b1 = Book('Python', 'Guido', 600)
 b2 = Book('HTML', 'Bill', 400)
@@ -63,3 +78,4 @@ b4 = Book('Python', 'Guido', 600)
 # Сравнение происходит по адресу в памяти (is)
 print(b1==b2)
 print(b1==b4)
+print(b1 > b3)
