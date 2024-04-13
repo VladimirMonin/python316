@@ -171,33 +171,83 @@ class Magazine(PrintedEdition):
     def __bool__(self):
         return self._bool_validate()
     
+    
+    def __eq__(self, other: 'PrintedEdition'):
+        """
+        Допишем логику сравнения журнала и журнала. Сравниваться будет по номеру выпуска
+        Если это журнал и НЕ журнал - по логике родительского класса
+        """
+        if isinstance(other, Magazine):
+            return self.issue == other.issue and super().__eq__(other)
+        return super().__eq__(other)
+    
+    def __lt__(self, other: 'PrintedEdition'):
+        """
+        Допишем логику сравнения журнала и журнала. Сравниваться будет по номеру выпуска
+        Если это журнал и НЕ журнал - по логике родительского класса
+        """
+        if isinstance(other, Magazine):
+            return self.issue < other.issue
+        return super().__lt__(other)
+    
+    def __gt__(self, other: 'PrintedEdition'):
+        """
+        Допишем логику сравнения журнала и журнала. Сравниваться будет по номеру выпуска
+        Если это журнал и НЕ журнал - по логике родительского класса
+        """
+        if isinstance(other, Magazine):
+            return self.issue > other.issue
+        return super().__gt__(other)
+    
+    def __le__(self, other: 'PrintedEdition'):
+        """
+        Допишем логику сравнения журнала и журнала. Сравниваться будет по номеру выпуска
+        Если это журнал и НЕ журнал - по логике родительского класса
+        """
+        if isinstance(other, Magazine):
+            return self.issue <= other.issue
+        return super().__le__(other)
+    
+    def __ge__(self, other: 'PrintedEdition'):
+        """
+        Допишем логику сравнения журнала и журнала. Сравниваться будет по номеру выпуска
+        Если это журнал и НЕ журнал - по логике родительского класса
+        """
+        if isinstance(other, Magazine):
+            return self.issue >= other.issue
+        return super().__ge__(other)
+    
+    
+    
 
-book1 = Book('978-5-6040728-6-4', 'Война и мир', 'Лев Толстой', 1225)
-book2 = Book('978', 'Война и мир', ' ', -1225)
+class Catalog(PrintedEdition):
+    """
+    Класс каталога
+    """
+    def __init__(self, title: str, author: str, pages: int, items: list):
+        super().__init__(title, author, pages)
+        self.items = items
 
-if book1:
-    print('Книга валидна')
-else:
-    print('Библиотекоря на мыло!')
+    def __str__(self):
+        return f'Каталог: {self.title}'
+    
+    def _validate_items(self):
+        """
+        Проверяет список печатных изданий
+        """
+        return isinstance(self.items, list) and all(isinstance(item, PrintedEdition) for item in self.items)
+    
+    def _bool_validate(self):
+        """
+        Проверяет список печатных изданий
+        """
+        return self._validate_items() and super()._bool_validate()
+    
+    def __bool__(self):
+        return self._bool_validate()
+    
 
+m1 = Magazine('Журнал 1', 'Автор 1', 100, 1)
+m2 = Magazine('Журнал 1', 'Автор 1', 100, 2)
 
-magazine1 = Magazine('National Geographic', 'National Geographic Society', 150, 2345)
-magazine2 = Magazine('Playboy', 'Playboy Enterprises', -98, 1234)
-magazine3 = Magazine('Игромания', 'Игромания', 123, 1223)
-
-# Список журналов
-magazines = [magazine1, magazine2, magazine3]
-
-# Сортировка по количеству страниц
-magazines.sort()
-print(magazines)
-
-# Сортировка по номеру выпуска
-magazines.sort(reverse=True, key=lambda x: x.issue)
-
-# Создать список печатных изданий
-printed_editions = [book1, book2, magazine1, magazine2, magazine3]
-
-# Фильтруем те, что хорошо заполнены
-valid_printed_editions = [printed_edition for printed_edition in printed_editions if printed_edition]
-[print(printed_edition) for printed_edition in valid_printed_editions]
+print(m1 < m2)
