@@ -23,6 +23,24 @@ __ge__ - больше или равно (сокращение от greater or eq
 Для него достаточно описать только __eq__ и __lt__ 
 или __eq__ и __gt__ методы
 
+
+
+Декоратор @dataclass в Python, встроенный в модуль dataclasses, упрощает создание классов, 
+автоматически генерируя специальные методы, такие как __init__, __repr__, __eq__ и другие. 
+
+По умолчанию @dataclass генерирует следующие методы:
+
+__init__ — метод инициализации, который автоматически принимает аргументы со значениями по умолчанию, 
+соответствующими аннотациям типов полей класса.
+__repr__ — метод представления, который возвращает строку, представляющую экземпляр класса.
+__eq__ — метод сравнения на равенство, который позволяет сравнивать экземпляры на основе их полей.
+Кроме того, вы можете настроить @dataclass для автоматической генерации дополнительных методов сравнения:
+
+__lt__, __le__, __gt__, __ge__ — методы для операций меньше, меньше или равно, больше и больше или равно 
+соответственно. Для их включения нужно установить параметр order=True при декларации @dataclass.
+
+
+
 Математические операции
 __add__ - сложение (сокращение от addition)
 __sub__ - вычитание (сокращение от subtraction)
@@ -44,76 +62,20 @@ __imod__ - остаток от деления с присваиванием (с�
 __ipow__ - возведение в степень с присваиванием (сокращение от in-place power)
 
 """
-
-from functools import total_ordering
-
-
-@total_ordering
-class Book:
-    def __init__(self, title: str, price: float):
-        self.title = title
-        self.price = price
-
-    def __eq__(self, other):
-        return self.price == other.price and self.title == other.title
-
-    def __lt__(self, other):
-        return self.price < other.price
+from dataclasses import dataclass, field
 
 
-book1 = Book('Book1', 100)
-book2 = Book('Book2', 200)
-book3 = Book('Book1', 100)
-book4 = Book('Book1', 50)
-
-print(f'{book1 == book2=}')
-print(f'{book1 == book3=}')
-print(f'{book1 == book4=}')
-print(f'{book1 != book2=}')
-print(f'{book1 != book3=}')
-print(f'{book1 != book4=}')
-print(f'{book1 < book2=}')
-print(f'{book1 < book3=}')
-print(f'{book1 < book4=}')
-print(f'{book1 <= book2=}')
-print(f'{book1 <= book3=}')
-print(f'{book1 <= book4=}')
-"""
-
-    def __eq__(self, other):
-        return self.price == other.price
-
-    def __lt__(self, other):
-        return self.price < other.price
+@dataclass(order=True)
+class Singer:
+    cots: int
+    name: str = field(compare=False, default='Городый обладатель шуб')
+    
 
 
-book1 == book2=False
-book1 == book3=True
-book1 == book4=False
-book1 True
-book1 False
-book1 True
-book1 < book2=True
-book1 < book3=False
-book1 < book4=False
-book1 <= book2=True
-book1 <= book3=True
-book1 <= book4=False
+actor1 = Singer(100)
+actor2 = Singer(95, 'Басков')
+actor3 = Singer(10, 'Моргенштерн')
 
-
-return self.price == other.price and self.title == other.title
-
-(.venv) C:\PY\ПРИМЕРЫ КОДА\python316>"c:/PY/ПРИМЕРЫ КОДА/python316/.venv/Scripts/python.exe" "c:/PY/ПРИМЕРЫ КОДА/python316/PYTHON/lesson_26.py"
-book1 == book2=False
-book1 == book3=True
-book1 == book4=False
-book1 True
-book1 False
-book1 True
-book1 < book2=True
-book1 < book3=False
-book1 < book4=False
-book1 <= book2=True
-book1 <= book3=True
-book1 <= book4=False
-"""
+print(f'{actor1 > actor2=}')
+print(f'{actor1 > actor3=}')
+print(f'{actor1 < actor3=}')
