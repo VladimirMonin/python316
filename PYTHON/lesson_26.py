@@ -79,8 +79,42 @@ class PrintedEdition(ABC):
     
     def __ge__(self, other: 'PrintedEdition'):
         self._validate_other(other)
-        return self.pages >= other.pages 
+        return self.pages >= other.pages
     
+    @abstractmethod
+    def _bool_validate(self):
+        """
+        Серия проверок для __bool__
+        Проверяет типы данных атрибутов класса
+        """
+        return self._validate_pages() and self._validate_author() and self._validate_title()
+
+    def _validate_pages(self):
+        """
+        Проверяет количество страниц
+        """
+        return isinstance(self.pages, int) and self.pages > 0
+    
+
+    def _validate_author(self):
+        """
+        Проверяет автора
+        """
+        return isinstance(self.author, str) and len(self.author) > 0
+    
+    def _validate_title(self):
+        """
+        Проверяет название
+        """
+        return isinstance(self.title, str) and len(self.title) > 0
+
+    
+    @abstractmethod
+    def __bool__(self):
+        """
+        Проверяет, что все атрибуты класса соответствуют условиям
+        """
+        return self._bool_validate()
 
 class Book(PrintedEdition):
     """
@@ -92,6 +126,21 @@ class Book(PrintedEdition):
 
     def __str__(self):
         return f'Книга: {self.title}'
+    
+    def _validate_isbn(self):
+        """
+        Проверяет ISBN
+        """
+        return isinstance(self.isbn, str) and len(self.isbn) > 5
+    
+    def _bool_validate(self):
+        """
+        Проверяет ISBN
+        """
+        return self._validate_isbn() and super()._bool_validate()
+    
+    def __bool__(self):
+        return self._bool_validate()
 
 
 
@@ -106,24 +155,27 @@ class Magazine(PrintedEdition):
     def __str__(self):
         return f'Журнал: {self.title}'
     
+    def _validate_issue(self):
+        """
+        Проверяет номер выпуска
+        """
+        return isinstance(self.issue, int) and self.issue > 0
+    
 
-book1 = Book('978-5-6040728-6-7', 'Война и мир', 'Лев Толстой', 1225)
-book2 = Book('978-5-389-07428-7', 'Преступление и наказание', 'Федор Достоевский', 671)
+    def _bool_validate(self):
+        """
+        Проверяет номер выпуска
+        """
+        return self._validate_issue() and super()._bool_validate()
+    
+    def __bool__(self):
+        return self._bool_validate()
+    
 
-magazine1 = Magazine('National Geographic', 'National Geographic Society', 150, 4)
-magazine2 = Magazine('Forbes', 'Forbes Media', 100, 5)
+book1 = Book('978-5-6040728-6-4', 'Война и мир', 'Лев Толстой', 1225)
+book2 = Book('978', 'Война и мир', ' ', -1225)
 
-# Журнал 'Преступление и наказание', 'Федор Достоевский', 671
-magazine3 = Magazine('Преступление и наказание', 'Федор Достоевский', 671, 1)
-
-print(book1 == book2)
-print(book1 < book2)
-
-print(magazine1 > magazine2)
-print(magazine1 <= magazine2)
-
-print(book1 == magazine1)
-
-print(book2 == magazine3)
-
-list_magazines = [magazine1, magazine2, magazine3]
+if book1:
+    print('Книга валидна')
+else:
+    print('Библиотекоря на мыло!')
