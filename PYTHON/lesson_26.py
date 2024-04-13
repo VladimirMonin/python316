@@ -182,7 +182,7 @@ else:
 
 
 magazine1 = Magazine('National Geographic', 'National Geographic Society', 150, 2345)
-magazine2 = Magazine('Playboy', 'Playboy Enterprises', 98, 1234)
+magazine2 = Magazine('Playboy', 'Playboy Enterprises', -98, 1234)
 magazine3 = Magazine('Игромания', 'Игромания', 123, 1223)
 
 # Список журналов
@@ -194,3 +194,10 @@ print(magazines)
 
 # Сортировка по номеру выпуска
 magazines.sort(reverse=True, key=lambda x: x.issue)
+
+# Создать список печатных изданий
+printed_editions = [book1, book2, magazine1, magazine2, magazine3]
+
+# Фильтруем те, что хорошо заполнены
+valid_printed_editions = [printed_edition for printed_edition in printed_editions if printed_edition]
+[print(printed_edition) for printed_edition in valid_printed_editions]
