@@ -52,21 +52,39 @@ class Book:
         self.author = author
         self.pages = pages
 
+    def __validate_other(self, other):
+        if not isinstance(other, Book):
+            raise ValueError('Сравниваемый объект не является книгой')
+    
     def __eq__(self, other: 'Book'):
+        self.__validate_other(other)
         return self.title == other.title and self.author == other.author and self.pages == other.pages
     
     def __lt__(self, other: 'Book'):
+        self.__validate_other(other)
         return self.pages < other.pages
     
     def __gt__(self, other: 'Book'):
+        self.__validate_other(other)
         return self.pages > other.pages
     
     def __le__(self, other: 'Book'):
+        self.__validate_other(other)
         return self.pages <= other.pages
     
     def __ge__(self, other: 'Book'):
+        self.__validate_other(other)
         return self.pages >= other.pages
     
+
+class Magazine:
+    """
+    Класс журнала
+    """
+    def __init__(self, title: str, author: str, pages: int):
+        self.title = title
+        self.author = author
+        self.pages = pages
     
 
 
@@ -78,4 +96,7 @@ b4 = Book('Python', 'Guido', 600)
 # Сравнение происходит по адресу в памяти (is)
 print(b1==b2)
 print(b1==b4)
-print(b1 > b3)
+# print(b1 > b3)
+
+m1 = Magazine('Python', 'Guido', 100)
+print(b1 == m1)
