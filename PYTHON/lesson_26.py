@@ -41,62 +41,89 @@ __imod__ - остаток от деления с присваиванием (с�
 __ipow__ - возведение в степень с присваиванием (сокращение от in-place power)
 
 """
+from abc import ABC, abstractmethod
 
 
-class Book:
+class PrintedEdition(ABC):
+    """
+    Абстрактный класс печатного издания
+    Родительский класс для книги и журнала
+    """
+    def __init__(self, title: str, author: str, pages: int):
+        self.title = title
+        self.author = author
+        self.pages = pages
+
+    def _validate_other(self, other: 'PrintedEdition'):
+        """
+        Проверяет, является ли сравниваемый объект экземпляром класса PrintedEdition
+        """
+        if not isinstance(other, PrintedEdition):
+            raise ValueError('Сравниваемый объект не является печатным изданием')
+
+    def __eq__(self, other: 'PrintedEdition'):
+        self._validate_other(other)
+        return self.title == other.title and self.author == other.author and self.pages == other.pages
+    
+    def __lt__(self, other: 'PrintedEdition'):
+        self._validate_other(other)
+        return self.pages < other.pages
+    
+    def __gt__(self, other: 'PrintedEdition'):
+        self._validate_other(other)
+        return self.pages > other.pages
+    
+    def __le__(self, other: 'PrintedEdition'):
+        self._validate_other(other)
+        return self.pages <= other.pages
+    
+    def __ge__(self, other: 'PrintedEdition'):
+        self._validate_other(other)
+        return self.pages >= other.pages 
+    
+
+class Book(PrintedEdition):
     """
     Класс книги
     """
-    def __init__(self, title: str, author: str, pages: int):
-        self.title = title
-        self.author = author
-        self.pages = pages
+    def __init__(self, isbn: str, title: str, author: str, pages: int):
+        super().__init__(title, author, pages)
+        self.isbn = isbn
 
-    def __validate_other(self, other):
-        if not isinstance(other, Book):
-            raise ValueError('Сравниваемый объект не является книгой')
-    
-    def __eq__(self, other: 'Book'):
-        self.__validate_other(other)
-        return self.title == other.title and self.author == other.author and self.pages == other.pages
-    
-    def __lt__(self, other: 'Book'):
-        self.__validate_other(other)
-        return self.pages < other.pages
-    
-    def __gt__(self, other: 'Book'):
-        self.__validate_other(other)
-        return self.pages > other.pages
-    
-    def __le__(self, other: 'Book'):
-        self.__validate_other(other)
-        return self.pages <= other.pages
-    
-    def __ge__(self, other: 'Book'):
-        self.__validate_other(other)
-        return self.pages >= other.pages
-    
+    def __str__(self):
+        return f'Книга: {self.title}'
 
-class Magazine:
+
+
+class Magazine(PrintedEdition):
     """
     Класс журнала
     """
-    def __init__(self, title: str, author: str, pages: int):
-        self.title = title
-        self.author = author
-        self.pages = pages
+    def __init__(self, title: str, author: str, pages: int, issue: int):
+        super().__init__(title, author, pages)
+        self.issue = issue
+
+    def __str__(self):
+        return f'Журнал: {self.title}'
     
 
+book1 = Book('978-5-6040728-6-7', 'Война и мир', 'Лев Толстой', 1225)
+book2 = Book('978-5-389-07428-7', 'Преступление и наказание', 'Федор Достоевский', 671)
 
-b1 = Book('Python', 'Guido', 600)
-b2 = Book('HTML', 'Bill', 400)
-b3 = Book('CSS', 'Bill', 200)
-b4 = Book('Python', 'Guido', 600)
+magazine1 = Magazine('National Geographic', 'National Geographic Society', 150, 4)
+magazine2 = Magazine('Forbes', 'Forbes Media', 100, 5)
 
-# Сравнение происходит по адресу в памяти (is)
-print(b1==b2)
-print(b1==b4)
-# print(b1 > b3)
+# Журнал 'Преступление и наказание', 'Федор Достоевский', 671
+magazine3 = Magazine('Преступление и наказание', 'Федор Достоевский', 671, 1)
 
-m1 = Magazine('Python', 'Guido', 100)
-print(b1 == m1)
+print(book1 == book2)
+print(book1 < book2)
+
+print(magazine1 > magazine2)
+print(magazine1 <= magazine2)
+
+print(book1 == magazine1)
+
+print(book2 == magazine3)
+
+list_magazines = [magazine1, magazine2, magazine3]
