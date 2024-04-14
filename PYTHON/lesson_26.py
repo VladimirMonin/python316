@@ -40,42 +40,53 @@ __lt__, __le__, __gt__, __ge__ — методы для операций мень
 соответственно. Для их включения нужно установить параметр order=True при декларации @dataclass.
 
 
-
-Математические операции
-__add__ - сложение (сокращение от addition)
-__sub__ - вычитание (сокращение от subtraction)
-__mul__ - умножение (сокращение от multiplication)
-__truediv__ - деление (сокращение от true division)
-__floordiv__ - целочисленное деление (сокращение от floor division)
-__mod__ - остаток от деления (сокращение от modulo)
-__pow__ - возведение в степень (сокращение от power)
-__round__ - округление
-__abs__ - модуль числа
-
-Инплейс операции
-__iadd__ - сложение с присваиванием (сокращение от in-place addition)
-__isub__ - вычитание с присваиванием (сокращение от in-place subtraction)
-__imul__ - умножение с присваиванием (сокращение от in-place multiplication)
-__itruediv__ - деление с присваиванием (сокращение от in-place true division)
-__ifloordiv__ - целочисленное деление с присваиванием (сокращение от in-place floor division)
-__imod__ - остаток от деления с присваиванием (сокращение от in-place modulo)
-__ipow__ - возведение в степень с присваиванием (сокращение от in-place power)
-
 """
 from dataclasses import dataclass, field
+from re import S
 
 
-@dataclass(order=True)
+@dataclass()
 class Singer:
-    cots: int
-    name: str = field(compare=False, default='Городый обладатель шуб')
+    coats: int
+    castles: int
+    cars: int
+    name: str
+
+
+    def __eq__(self, other):
+        return self.coats == other.coats and self.castles == other.castles and self.cars == other.cars and self.name == other.name
+    
+    def __gt__(self, other):
+        return self.coats > other.coats and self.castles > other.castles and self.cars > other.cars
+    
+    def __ge__(self, other):
+        return self.coats >= other.coats and self.castles >= other.castles and self.cars >= other.cars and self.name == other.name
+    
+
+    
+
     
 
 
-actor1 = Singer(100)
-actor2 = Singer(95, 'Басков')
-actor3 = Singer(10, 'Моргенштерн')
 
-print(f'{actor1 > actor2=}')
-print(f'{actor1 > actor3=}')
-print(f'{actor1 < actor3=}')
+actor1 = Singer(1, 2, 3, 'Распутина')
+actor2 = Singer(5, 1, 2, "Агутин")
+actor3 = Singer(10, 5, 25, "Киркоров")
+actor4 = Singer(11, 4, 40, "Басков")
+actor5 = Singer(11, 4, 40, "Басков")
+actor6 = Singer(11, 4, 40, "Клон Басков")
+
+print(f'{actor4 == actor5 = }')
+print(f'{actor4 == actor6 = }')
+
+print(f'{actor4 > actor5 = }')
+print(f'{actor4 > actor6 = }')
+
+print(f'{actor4 < actor5 = }')
+print(f'{actor4 < actor6 = }')
+
+print(f'{actor4 >= actor5 = }')
+print(f'{actor4 >= actor6 = }')
+
+print(f'{actor4 <= actor5 = }')
+print(f'{actor4 <= actor6 = }')
