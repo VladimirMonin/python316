@@ -23,40 +23,73 @@ __imod__ - остаток от деления с присваиванием (с�
 __ipow__ - возведение в степень с присваиванием (сокращение от in-place power)
 """
 
-# Пример 1 - Гиря class Kettlebell
-# % - остаток от деления
+# Пример 2 - Работа с курсами валюты
 
-class SportWeight:
-    def __init__(self, weight: int | float):
-        self.weight = weight
-        self.min_weight = 5
-        self.max_weight = 50
-        self.multiplicity = 2.5
+"""
+Класс Currency:
 
-    def __validate_weight(self, weight):
-        if weight < self.min_weight:
-            raise ValueError(f"Вес груза не может быть меньше {self.min_weight}")
-        elif weight > self.max_weight:
-            raise ValueError(f"Вес груза не может быть больше {self.max_weight}")
-        elif weight % self.multiplicity != 0:
-            raise ValueError(f"Вес груза должен быть кратен {self.multiplicity}")
-        return weight
+Атрибуты:
+value - сумма в валюте.
+rate - курс конвертации в другую валюту.
+Методы:
+__init__ - инициализирует сумму и курс.
+__mul__ - умножает сумму на курс (или на число).
+__truediv__ - делит сумму на курс (или на число).
+__str__ - возвращает строковое представление объекта.
+
+"""
+
+class Currency:
+    """Класс для работы с курсами валюты.
     
+    атрибуты:
+    value - сумма в валюте.
+    rate - курс конвертации в доллары
+    name - название валюты
+
+    """
+
+    def __init__(self, value, dollar_rate, name):
+        self.value = value
+        self.dollar_rate = dollar_rate
+        self.name = name
+        self.dollar_value: None | float = None
+        self.get_dollar_value()
+
+        
     def __add__(self, other):
-        other_weight = self.__validate_weight(other.weight)
-        return SportWeight(self.weight + other_weight)
+        """
+        Если операция происходит с числом, то мы изменяем self.value
+        Если операция происходит с другим объектом Currency, то создаем новый объект Currency
+        """
+        if isinstance(other, (int, float)):
+            self.value += other
+            self.get_dollar_value()
+            return self.value
+        
+        elif isinstance(other, Currency):
+            if self.name != other.name:
+                raise ValueError('Разные валюты')
+            
+            self.get_dollar_value()
+            return Currency(self.value + other.value, self.dollar_rate, self.name)
+        else:
+            raise ValueError('Неверный тип данных')
 
-    def __sub__(self, other):
-        other_weight = self.__validate_weight(other.weight)
-        if self.weight - other_weight < 0:
-            raise ValueError(f"Вес груза не может быть 0 и меньше")
+        
+    def get_dollar_value(self):
+        self.dollar_value = round(self.value / self.dollar_rate, 2)
+    
+    def __str__(self):
+        return f'Валюта: {self.name}, Сумма: {self.value}, Курс: {self.dollar_rate}, Сумма в долларах: {self.dollar_value}'
+    
 
+# Создаем объекты Currency
+rub = Currency(1000, 93.33, 'RUB')
+rub2 = Currency(1000, 93.33, 'RUB')
+bat = Currency(100, 36.38, 'BAT')
+kzt = Currency(10000, 448.36, 'KZT')
 
-# Тестирование
-weight1 = SportWeight(10)
-weight2 = SportWeight(15)
-weight3 = SportWeight(12.5)
-
-weight4 = weight1 + weight2
-weight5 = weight1 + weight3
-weight6 = weight1 - weight2
+# Тестируем математические операции
+print(f'{rub + 20000 = }')
+print(rub)
