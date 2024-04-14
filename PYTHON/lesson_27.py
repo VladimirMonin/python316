@@ -23,31 +23,40 @@ __imod__ - остаток от деления с присваиванием (с�
 __ipow__ - возведение в степень с присваиванием (сокращение от in-place power)
 """
 
-# Прощупаем разницу между + и +=
+# Пример 1 - Гиря class Kettlebell
+# % - остаток от деления
 
-a = [1, 2, 3]
-print('ID до операции:', id(a))
-a += [4, 5]
-print('a после += операции:', a)
-print('ID после операции:', id(a))
+class SportWeight:
+    def __init__(self, weight: int | float):
+        self.weight = weight
+        self.min_weight = 5
+        self.max_weight = 50
+        self.multiplicity = 2.5
 
-# Теперь попробуем сделать тоже самое, но с помощью +, а не +=
+    def __validate_weight(self, weight):
+        if weight < self.min_weight:
+            raise ValueError(f"Вес груза не может быть меньше {self.min_weight}")
+        elif weight > self.max_weight:
+            raise ValueError(f"Вес груза не может быть больше {self.max_weight}")
+        elif weight % self.multiplicity != 0:
+            raise ValueError(f"Вес груза должен быть кратен {self.multiplicity}")
+        return weight
+    
+    def __add__(self, other):
+        other_weight = self.__validate_weight(other.weight)
+        return SportWeight(self.weight + other_weight)
 
-b = [1, 2, 3]
-print('ID до операции:', id(b))
-c = a + [4, 5]
-print('c после + операции:', c)
-print('ID после операции:', id(c))
+    def __sub__(self, other):
+        other_weight = self.__validate_weight(other.weight)
+        if self.weight - other_weight < 0:
+            raise ValueError(f"Вес груза не может быть 0 и меньше")
 
-b += [44444, 5]
-c += [4, 55555]
 
-print('b после += операции:', b)
-print('c после + операции:', c)
+# Тестирование
+weight1 = SportWeight(10)
+weight2 = SportWeight(15)
+weight3 = SportWeight(12.5)
 
-"""
-При использовании += список меняется внутри, 
-а при использовании + создается новый экземпляр списка (похоже на копирование списка)
-
-При этом, они будут иметь разные ID, и жить своей жизнью
-"""
+weight4 = weight1 + weight2
+weight5 = weight1 + weight3
+weight6 = weight1 - weight2
