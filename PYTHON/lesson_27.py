@@ -38,58 +38,89 @@ __truediv__ - делит сумму на курс (или на число).
 __str__ - возвращает строковое представление объекта.
 
 """
+import random
 
-class Currency:
-    """Класс для работы с курсами валюты.
+# Решение практики 
+
+class Number(int):
     
-    атрибуты:
-    value - сумма в валюте.
-    rate - курс конвертации в доллары
-    name - название валюты
+    def __new__(cls, value):
+        return super(Number, cls).__new__(cls, value)
 
-    """
-
-    def __init__(self, value, dollar_rate, name):
-        self.value = value
-        self.dollar_rate = dollar_rate
-        self.name = name
-        self.dollar_value: None | float = None
-        self.get_dollar_value()
-
-        
     def __add__(self, other):
-        """
-        Если операция происходит с числом, то мы изменяем self.value
-        Если операция происходит с другим объектом Currency, то создаем новый объект Currency
-        """
-        if isinstance(other, (int, float)):
-            self.value += other
-            self.get_dollar_value()
-            return self.value
-        
-        elif isinstance(other, Currency):
-            if self.name != other.name:
-                raise ValueError('Разные валюты')
-            
-            self.get_dollar_value()
-            return Currency(self.value + other.value, self.dollar_rate, self.name)
-        else:
-            raise ValueError('Неверный тип данных')
+        result = super().__add__(other)
+        return Number(random.randint(result, result + 5))
 
-        
-    def get_dollar_value(self):
-        self.dollar_value = round(self.value / self.dollar_rate, 2)
+    def __sub__(self, other):
+        result = super().__sub__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __mul__(self, other):
+        result = super().__mul__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __truediv__(self, other):
+        result = int(super().__truediv__(other))
+        return Number(random.randint(result, result + 5))
+
+    def __floordiv__(self, other):
+        result = super().__floordiv__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __mod__(self, other):
+        result = super().__mod__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __pow__(self, other):
+        result = super().__pow__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __neg__(self):
+        result = super().__neg__()
+        return Number(random.randint(result, result + 5))
+
+    def __pos__(self):
+        result = super().__pos__()
+        return Number(random.randint(result, result + 5))
+
+    def __iadd__(self, other):
+        result = super().__add__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __isub__(self, other):
+        result = super().__sub__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __imul__(self, other):
+        result = super().__mul__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __itruediv__(self, other):
+        result = int(super().__truediv__(other))
+        return Number(random.randint(result, result + 5))
+
+    def __ifloordiv__(self, other):
+        result = super().__floordiv__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __imod__(self, other):
+        result = super().__mod__(other)
+        return Number(random.randint(result, result + 5))
+
+    def __ipow__(self, other):
+        result = super().__pow__(other)
+        return Number(random.randint(result, result + 5))
+
+# Тесты
     
-    def __str__(self):
-        return f'Валюта: {self.name}, Сумма: {self.value}, Курс: {self.dollar_rate}, Сумма в долларах: {self.dollar_value}'
-    
+n1 = Number(5)
+n2 = Number(3)
+print(f"Сложение: {n1 + n2}")  # __add__
+print(f"Вычитание: {n1 - n2}")  # __sub__
+print(f"Умножение: {n1 * n2}")  # __mul__
+print(f"Деление: {n1 / n2}")  # __truediv__
+print(f"Целочисленное деление: {n1 // n2}")  # __floordiv__ 
+print(f"Остаток от деления: {n1 % n2}")  # __mod__ 
+print(f"Возведение в степень: {n1 ** n2}")  # __pow__
+print(f"Отрицательное число: {-n1}")  # __neg__ 
 
-# Создаем объекты Currency
-rub = Currency(1000, 93.33, 'RUB')
-rub2 = Currency(1000, 93.33, 'RUB')
-bat = Currency(100, 36.38, 'BAT')
-kzt = Currency(10000, 448.36, 'KZT')
-
-# Тестируем математические операции
-print(f'{rub + 20000 = }')
-print(rub)
